@@ -1,15 +1,7 @@
 package pkgMain;
 
 public class GardenState {
-	String gardenName;
-	String lastSaved;
-	int lepsSupported;
-	boolean isFull;
-	GardenPentagon shape;
-	
-	
-	
-	
+
 	void updateLeps() {
 		
 	}
