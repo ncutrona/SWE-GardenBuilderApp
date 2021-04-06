@@ -2,31 +2,31 @@ package pkgMain;
 
 public class GardenState {
 
-	void updateLeps() {
+	public void updateLeps() {
 		
 	}
 	
-	void updateGarden() {
+	public void updateGarden() {
 		
 	}
 	
-	void updateBudget() {
+	public void updateBudget() {
 		
 	}
 	
-	void checkBoundary() {
+	public void checkBoundary() {
 		
 	}
 	
-	void placePlant() {
+	public void placePlant() {
 		
 	}
 	
-	void hoverPLant() {
+	public void hoverPlant() {
 		
 	}
 	
-	void deletePlant() {
+	public void deletePlant() {
 		
 	}
 }
