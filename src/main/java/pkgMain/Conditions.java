@@ -3,16 +3,16 @@ package pkgMain;
 public class Conditions {
 	
 	public enum sunCondition {
-		LESS, NORMAL, MORE;
+		SHADE, PARTIAL, FULL;
 	}
 	
 	public enum moistureCondition {
-		LESS, NORMAL, MORE;
+		DRY, MOIST, WET;
 	}
 	
 	public enum soilCondition {
 		// not sure?
-		WORSE, NORMAL, BETTER;
+		CLAY, LOAM, SAND;
 	}
 	
 	
