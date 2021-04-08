@@ -111,6 +111,23 @@ public class CodeBreakDown {
 		
 	}
 	
+	public static void updateGarden(CodeBreakDown garden, Plant plant) {
+		
+		updateBudget(garden, plant);
+		updateLeps(garden, plant);
+		//will add more methods later (post alpha).
+		
+	}
+	
+	public static void placePlant(CodeBreakDown garden, Plant plant) {
+		
+		updateGarden(garden, plant);
+	}
+	
+	//METHODS TO ADD POST ALPHA:
+	//hoverPlant(){}
+	//deletePlant(){}
+	
 	
 
 }
