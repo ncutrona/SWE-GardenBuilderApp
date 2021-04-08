@@ -21,6 +21,8 @@ public class Plant {
 	public int height;
 	public int width;
 	public int bloomTime;
+	public int xCor;
+	public int yCor;
 
 	// Remove and add this to Garden class
 	static Conditions.sunCondition sunCond = sunCondition.FULL;
@@ -32,7 +34,7 @@ public class Plant {
 		return scientificName;
 	}
 	
-	public Plant(int price, int lepsSupported, String scientificName, String soil, String sun, String moisture, int height, int width, int bloomTime) {
+	public Plant(int price, int lepsSupported, String scientificName, String soil, String sun, String moisture, int height, int width, int bloomTime, int xCor, int yCor) {
 		this.price = price;
 		this.lepsSupported = lepsSupported;
 		this.scientificName = scientificName;
@@ -42,6 +44,8 @@ public class Plant {
 		this.height = height;
 		this.width = width;
 		this.bloomTime = bloomTime;
+		this.xCor = xCor;
+		this.yCor = yCor;
 
 	}
 
@@ -116,6 +120,25 @@ public class Plant {
 	public void setBloomTime(int bloomTime) {
 		this.bloomTime = bloomTime;
 	}
+	
+	public int getxCor() {
+		return xCor;
+	}
+
+	public void setxCor(int xCor) {
+		this.xCor = xCor;
+	}
+	
+	public int getyCor() {
+		return yCor;
+	}
+
+	public void setyCor(int yCor) {
+		this.yCor = yCor;
+	}
+	
+	
+	
 
 	public static Collection sortPlants(ArrayList<Plant> plantCollection) {
 
