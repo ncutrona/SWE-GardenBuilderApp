@@ -45,5 +45,65 @@ public class GardenStateTest {
 		tester.deletePlant();
 		fail("Not yet imp");
 	}
+	
+	@Test
+	public void testgetGardenName() {
+		tester.getGardenName();
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testsetGardenName() {
+		tester.setGardenName("Test");
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testgetLastSaved() {
+		tester.getLastSaved();
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testsetLastSaved() {
+		tester.setLastSaved("Test");
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testgetTotalLepsSupported() {
+		tester.getTotalLepsSupported();
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testsetTotalLepsSupported() {
+		tester.setTotalLepsSupported(2);
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testisFull() {
+		tester.isFull();
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void testsetFull() {
+		tester.setFull(true);
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void getGardenBudget() {
+		tester.getGardenBudget();
+		fail("Not yet imp");
+	}
+	
+	@Test
+	public void setGardenBudget() {
+		tester.setGardenBudget(5);
+		fail("Not yet imp");
+	}
 }
 
