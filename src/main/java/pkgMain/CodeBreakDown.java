@@ -115,20 +115,14 @@ class PlantCompare implements Comparator<CodeBreakDown>{
 	
 	public int compare(CodeBreakDown a1, CodeBreakDown a2){
 		
-		boolean name = false;
-		
 		int value = a1.lepsSupported - a2.lepsSupported;
 		if(value==0){
-			name = true;
 			value = a1.scientificName.compareToIgnoreCase(a2.scientificName);
-		}
-		
-		if(name) {
 			return value;
 		}
 		
-		else {
-			return value *= -1;
+		return value *= -1;
+		
 		}
 	}
-}
+
