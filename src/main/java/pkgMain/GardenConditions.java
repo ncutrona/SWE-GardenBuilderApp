@@ -6,7 +6,7 @@ import pkgMain.Conditions.sunCondition;
 
 public class GardenConditions extends Model {
 	
-	int userBudget;
+	public int userBudget;
 	
 	static Conditions.sunCondition sunCond = sunCondition.FULL;
 	static Conditions.soilCondition soilCond = soilCondition.CLAY;
@@ -14,6 +14,10 @@ public class GardenConditions extends Model {
 	
 	public void setBudget(int userBudget) {	
 		this.userBudget = userBudget;
+	}
+	
+	public int getBudget() {
+		return userBudget;
 	}
 	
 	public void setConditions(String sun, String moisture, String soil) {

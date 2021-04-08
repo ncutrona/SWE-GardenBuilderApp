@@ -12,117 +12,106 @@ import pkgMain.Conditions.sunCondition;
 //THIS FILE IS NOT MVC - WE ARE GETTING EACH FUNCTION OF OUR PROJECT WORKING TOGETHER BEFORE IMPLEMENTING MVC
 
 public class CodeBreakDown {
-
-	//Model Functionality - Sorting plants based on leps supported and 
-
+	
 	public static void main(String args[]) {
-
-
-
-		//Building the Plant collection
-		CodeBreakDown demoPlantOne = new CodeBreakDown(6, 1, "Acer negudo", "clay", "full", "dry", 100, 100, 1);
-		CodeBreakDown demoPlantTwo = new CodeBreakDown(6, 4, "Betula lenta", "clay", "full", "dry", 100, 100, 1);
-		CodeBreakDown demoPlantThree = new CodeBreakDown(6, 2, "Carya glabra", "loam", "full", "dry", 100, 100, 1);
-		CodeBreakDown demoPlantFour = new CodeBreakDown(6, 4, "TEST negudo", "clay", "full", "dry", 100, 100, 1);
-
-		ArrayList<CodeBreakDown> masterPlantCollection = new ArrayList<CodeBreakDown>();
-		masterPlantCollection.add(demoPlantOne);
-		masterPlantCollection.add(demoPlantTwo);
-		masterPlantCollection.add(demoPlantThree);
-		masterPlantCollection.add(demoPlantFour);
-
-		System.out.println("Plant Sorting Testing - Results");
-
-		ArrayList<CodeBreakDown> conditionedPlantCheck = conditionCheckedPlants(masterPlantCollection);
-
-
-		sortPlants(conditionedPlantCheck);
-
+		GardenConditions conditions = new GardenConditions(500, "full", "dry", "clay");
+		CodeBreakDown garden = new CodeBreakDown("Test Garden", "4/8/21", 0, false, conditions.getBudget());
+		Plant demoPlantTwo = new Plant(6, 4, "Betula lenta", "clay", "full", "dry", 100, 100, 1,0,0);
+		
+		
+		System.out.println("Testing Updating Lep Count");
+		
+		updateLeps(garden, demoPlantTwo);
+		updateBudget(garden, demoPlantTwo);
+		
+		
+		
+		
+	}
+	
+	public int gardenBudget;
+	public String GardenName;
+	public String lastSaved;
+	public int totalLepsSupported;
+	public boolean isFull = false;
+	//PentagonShape gardenShape;
+	
+	public CodeBreakDown(String GardenName, String lastSaved, int totalLepsSupported, boolean isFull, int gardenBudget /*PentagonShape gardenShape*/) {
+		this.GardenName = GardenName;
+		this.lastSaved = lastSaved;
+		this.totalLepsSupported = totalLepsSupported;
+		this.isFull = isFull;
+		this.gardenBudget = gardenBudget;
+		//this.gardenShape = gardenShape;
 	}
 
-
-	public String toString() {
-		return scientificName;
+	public String getGardenName() {
+		return GardenName;
 	}
 
-	//plant class
-	public int price;
-	public int lepsSupported;
-	public String scientificName;
-	public String soil;
-	public String sun;
-	public String moisture;
-	public int height;
-	public int width;
-	public int bloomTime;
-
-	static Conditions.sunCondition sunCond = sunCondition.FULL;
-	static Conditions.soilCondition soilCond = soilCondition.CLAY;
-	static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
-
-
-
-
-	public CodeBreakDown(int price, int lepsSupported, String scientificName, String soil, String sun, String moisture, int height, int width, int bloomTime) {
-		this.price = price;
-		this.lepsSupported = lepsSupported;
-		this.scientificName = scientificName;
-		this.soil = soil;
-		this.sun = sun;
-		this.moisture = moisture;
-		this.height = height;
-		this.width = width;
-		this.bloomTime = bloomTime;
-
+	public void setGardenName(String gardenName) {
+		GardenName = gardenName;
 	}
 
-	public static Collection sortPlants(ArrayList<CodeBreakDown> plantCollection) {
-
-		Collections.sort(plantCollection, new PlantComp());
-
-
-		System.out.println(plantCollection);
-		return plantCollection;
-
+	public String getLastSaved() {
+		return lastSaved;
 	}
 
-
-
-	public static ArrayList<CodeBreakDown> conditionCheckedPlants(ArrayList<CodeBreakDown> masterList) {
-
-
-		ArrayList<CodeBreakDown> conditionedPlants = new ArrayList<CodeBreakDown>();
-
-
-		for(CodeBreakDown plant : masterList) {
-
-			if(plant.soil == soilCond.getName() && plant.sun == sunCond.getName() && plant.moisture == moistureCond.getName()) {
-				conditionedPlants.add(plant);
-			}
-		}
-
-		//checking enum conditions....
-
-		return conditionedPlants;
+	public void setLastSaved(String lastSaved) {
+		this.lastSaved = lastSaved;
 	}
 
-}
-
-
-
-
-class PlantComp implements Comparator<CodeBreakDown>{
-
-	public int compare(CodeBreakDown a1, CodeBreakDown a2){
-
-		int value = a1.lepsSupported - a2.lepsSupported;
-		if(value==0){
-			value = a1.scientificName.compareToIgnoreCase(a2.scientificName);
-			return value;
-		}
-
-		return value *= -1;
-
+	public int getTotalLepsSupported() {
+		return totalLepsSupported;
 	}
+
+	public void setTotalLepsSupported(int totalLepsSupported) {
+		this.totalLepsSupported = totalLepsSupported;
+	}
+
+	public boolean isFull() {
+		return isFull;
+	}
+
+	public void setFull(boolean isFull) {
+		this.isFull = isFull;
+	}
+	
+	public int getGardenBudget() {
+		return gardenBudget;
+	}
+
+	public void setGardenBudget(int gardenBudget) {
+		this.gardenBudget = gardenBudget;
+	}
+
+	/*public PentagonShape getGardenShape() {
+		return gardenShape;
+	}
+
+	public void setGardenShape(PentagonShape gardenShape) {
+		this.gardenShape = gardenShape;
+	}*/
+	
+	public static int updateLeps(CodeBreakDown garden, Plant plant) {
+		
+		garden.totalLepsSupported += plant.lepsSupported;
+		
+		System.out.println("Total Leps Supported: " + garden.totalLepsSupported);
+		return garden.totalLepsSupported;
+	}
+	
+	
+	public static int updateBudget(CodeBreakDown garden, Plant plant) {
+		
+		garden.gardenBudget -= plant.price;
+		
+		System.out.println("Remaining Budget: " + garden.gardenBudget);
+		return garden.gardenBudget;
+		
+	}
+	
+	
+
 }
 
