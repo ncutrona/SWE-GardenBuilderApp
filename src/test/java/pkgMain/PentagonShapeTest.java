@@ -1,14 +1,15 @@
-package pkgMainTest;
+package pkgMain;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 import pkgMain.PentagonShape;
 public class PentagonShapeTest {
-	PentagonShape tester = new PentagonShape();
-	@Test
-	public void testPentagon() {
-		fail("Not yet implemented");
+	
+	PentagonShape tester = new PentagonShape(200, 200);
+	
+	public static void main (String args[]) {
+		
 	}
 	
 	@Test

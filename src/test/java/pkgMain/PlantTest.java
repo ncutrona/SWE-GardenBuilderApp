@@ -1,4 +1,4 @@
-package pkgMainTest;
+package pkgMain;
 
 import static org.junit.Assert.*;
 

@@ -4,6 +4,6 @@ public class Model {
 
 	
 	public void updateModel(){
-		
+		return;
 	}
 }

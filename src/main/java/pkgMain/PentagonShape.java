@@ -32,4 +32,24 @@ public class PentagonShape {
 		return this.rightdown;
 	}
 
+	public void setTop(Coordinates top) {
+		this.top = top;
+	}
+
+	public void setLeft(Coordinates left) {
+		this.left = left;
+	}
+
+	public void setLeftdown(Coordinates leftdown) {
+		this.leftdown = leftdown;
+	}
+
+	public void setRight(Coordinates right) {
+		this.right = right;
+	}
+
+	public void setRightdown(Coordinates rightdown) {
+		this.rightdown = rightdown;
+	}
+
 }

@@ -1,15 +1,19 @@
-package pkgMainTest;
+package pkgMain;
 
 import static org.junit.Assert.*;
-
 import org.junit.Test;
-import pkgMain.GardenConditions;
-public class GardenConditionsTest {
 
-	GardenConditions tester = new GardenConditions();
+public class GardenConditionsTest {
+	
+	GardenConditions tester = new GardenConditions(500, "full", "dry", "loam");
+	
+	public static void main(String args[]) {
+		
+	}
+	
 	@Test
 	public void testSetBudget() {
-		tester.setBudget();
+		tester.setBudget(500);
 		fail("Not yet implemented");
 	}
 	
@@ -21,7 +25,9 @@ public class GardenConditionsTest {
 	
 	@Test
 	public void testSetConditions() {
-		tester.setConditions();
+		tester.setConditions("full", "dry", "loam");
+		tester.setConditions("partial", "wet", "clay");
+		tester.setConditions("shade", "moist", "sand");
 		fail("Not yet imp");
 	}
 	
