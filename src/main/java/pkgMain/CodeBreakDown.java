@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
+import pkgMain.Conditions.moistureCondition;
+import pkgMain.Conditions.soilCondition;
+import pkgMain.Conditions.sunCondition;
+
 //THIS FILE IS NOT MVC - WE ARE GETTING EACH FUNCTION OF OUR PROJECT WORKING TOGETHER BEFORE IMPLEMENTING MVC
 
 public class CodeBreakDown {
@@ -18,17 +22,27 @@ public class CodeBreakDown {
 		//Building the Plant collection
 		CodeBreakDown demoPlantOne = new CodeBreakDown(6, 1, "Acer negudo", "clay", "full", "dry", 100, 100, 1);
 		CodeBreakDown demoPlantTwo = new CodeBreakDown(6, 4, "Betula lenta", "clay", "full", "dry", 100, 100, 1);
-		CodeBreakDown demoPlantThree = new CodeBreakDown(6, 2, "Carya glabra", "clay", "full", "dry", 100, 100, 1);
+		CodeBreakDown demoPlantThree = new CodeBreakDown(6, 2, "Carya glabra", "loam", "full", "dry", 100, 100, 1);
+		CodeBreakDown demoPlantFour = new CodeBreakDown(6, 4, "TEST negudo", "clay", "full", "dry", 100, 100, 1);
 		
-		ArrayList plantCollection = new ArrayList<CodeBreakDown>();
-		plantCollection.add(demoPlantOne);
-		plantCollection.add(demoPlantTwo);
-		plantCollection.add(demoPlantThree);
+		ArrayList<CodeBreakDown> masterPlantCollection = new ArrayList<CodeBreakDown>();
+		masterPlantCollection.add(demoPlantOne);
+		masterPlantCollection.add(demoPlantTwo);
+		masterPlantCollection.add(demoPlantThree);
+		masterPlantCollection.add(demoPlantFour);
 		
 		System.out.println("Plant Sorting Testing - Results");
 		
-		sortPlants(plantCollection);
+		ArrayList<CodeBreakDown> conditionedPlantCheck = conditionCheckedPlants(masterPlantCollection);
+		
+		
+		sortPlants(conditionedPlantCheck);
 	
+	}
+	
+	
+	public String toString() {
+		return scientificName;
 	}
 	
 	//plant class
@@ -41,6 +55,12 @@ public class CodeBreakDown {
 	public int height;
 	public int width;
 	public int bloomTime;
+	
+	static Conditions.sunCondition sunCond = sunCondition.FULL;
+	static Conditions.soilCondition soilCond = soilCondition.CLAY;
+	static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
+	
+	
 	
 	
 	public CodeBreakDown(int price, int lepsSupported, String scientificName, String soil, String sun, String moisture, int height, int width, int bloomTime) {
@@ -56,24 +76,35 @@ public class CodeBreakDown {
 		
 	}
 		
-		public static Collection sortPlants(ArrayList plantCollection) {
+	public static Collection sortPlants(ArrayList<CodeBreakDown> plantCollection) {
 			
-			Collections.sort(plantCollection, new PlantCompare());
+		Collections.sort(plantCollection, new PlantCompare());
 			
 			
-			System.out.println(plantCollection);
-			return plantCollection;
+		System.out.println(plantCollection);
+		return plantCollection;
 			
-		}
+	}
 		
-		public static Collection conditionCheckedPlants(ArrayList masterPlantList) {
+	
+	
+	public static ArrayList<CodeBreakDown> conditionCheckedPlants(ArrayList<CodeBreakDown> masterList) {
 			
 			
-			ArrayList conditionedPlants = new ArrayList<CodeBreakDown>();
+		ArrayList<CodeBreakDown> conditionedPlants = new ArrayList<CodeBreakDown>();
+			
+			
+		for(CodeBreakDown plant : masterList) {
+				
+			if(plant.soil == soilCond.getName() && plant.sun == sunCond.getName() && plant.moisture == moistureCond.getName()) {
+				conditionedPlants.add(plant);
+			}
+		}
+			
 			//checking enum conditions....
 			
-			return conditionedPlants;
-		}
+		return conditionedPlants;
+	}
 					
 }
 
@@ -84,10 +115,20 @@ class PlantCompare implements Comparator<CodeBreakDown>{
 	
 	public int compare(CodeBreakDown a1, CodeBreakDown a2){
 		
+		boolean name = false;
+		
 		int value = a1.lepsSupported - a2.lepsSupported;
 		if(value==0){
+			name = true;
 			value = a1.scientificName.compareToIgnoreCase(a2.scientificName);
 		}
-		return value;
+		
+		if(name) {
+			return value;
+		}
+		
+		else {
+			return value *= -1;
+		}
 	}
 }
