@@ -1,5 +1,7 @@
 package pkgMain;
 
+import java.util.ArrayList;
+
 public class GardenState {
 
 	public int gardenBudget;
@@ -84,17 +86,24 @@ public class GardenState {
 		
 	}
 	
-	public static void updateGarden(GardenState garden, Plant plant) {
+	public static ArrayList<Integer> updateGarden(GardenState garden, Plant plant) {
 		
-		updateBudget(garden, plant);
-		updateLeps(garden, plant);
+		int newBudget = updateBudget(garden, plant);
+		int newLeps = updateLeps(garden, plant);
 		//will add more methods later (post alpha).
+		
+		ArrayList<Integer> gardenVals = new ArrayList<Integer>();
+	
+		gardenVals.add(newLeps);
+		gardenVals.add(newBudget);
+		
+		return gardenVals;
 		
 	}
 	
-	public static void placePlant(GardenState garden, Plant plant) {
+	public static ArrayList<Integer> placePlant(GardenState garden, Plant plant) {
 		
-		updateGarden(garden, plant);
+		return updateGarden(garden, plant);
 	}
 	
 	//METHODS TO ADD POST ALPHA:
