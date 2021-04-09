@@ -24,6 +24,7 @@ public class Controller extends Application{
 		 */
 		view = new View(theStage,this);
 		model = new Model();
+		
 	}
 	
 	void saveGardenHandler() {
