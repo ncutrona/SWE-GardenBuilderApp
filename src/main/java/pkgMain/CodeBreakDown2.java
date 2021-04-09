@@ -21,7 +21,7 @@ public class CodeBreakDown2 extends Application{
 	
 	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
 	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
-	Plant demoPlantOne = new Plant(6, 1, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	int gardenBudget = garden.getBudget();
 	TilePane tile = new TilePane();
 	TilePane tileTwo = new TilePane();
@@ -52,11 +52,9 @@ public class CodeBreakDown2 extends Application{
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
 		tileTwo.setStyle("-fx-background-color: White;");
 		
-		//Text leps = new Text();
 		leps.setText("Leps: " + state.totalLepsSupported);
 		tileTwo.getChildren().add(leps);
-		
-		//Text budget = new Text();
+	
 		budget.setText("Budget: $" + state.gardenBudget);
 		tileTwo.getChildren().add(budget);
 		
