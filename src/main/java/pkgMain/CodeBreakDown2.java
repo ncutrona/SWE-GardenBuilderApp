@@ -3,12 +3,19 @@ package pkgMain;
 import java.util.ArrayList;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -21,7 +28,7 @@ public class CodeBreakDown2 extends Application{
 	
 	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
 	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
-	Plant demoPlantOne = new Plant(6, 1, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	int gardenBudget = garden.getBudget();
 	TilePane tile = new TilePane();
 	TilePane tileTwo = new TilePane();
@@ -29,17 +36,75 @@ public class CodeBreakDown2 extends Application{
 	BorderPane border = new BorderPane();
 	Text leps = new Text();
 	Text budget = new Text();
+	ImageView iv1;
+	Canvas canvas; 
+	Group root;
+	
+	public ImageView newPlant() {
+		Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		
+		iv1 = new ImageView();
+		iv1.setImage(milkweed);
+		iv1.setPreserveRatio(true);
+		iv1.setFitHeight(100);
+		iv1.setId("Milkweed");
+		
+		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
+			
+			public void handle(MouseEvent event) {				
+				Dragboard db = iv1.startDragAndDrop(TransferMode.COPY);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(iv1.getId());
+				db.setContent(content);
+				event.consume();	
+			}
+		});
+    	
+		
+		return iv1;
+					
+	}
 	
     @Override
     public void start(Stage stage) {
     	
     	//Setting up the Images
-    	Image im1 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
-    	ImageView iv1 = new ImageView(im1);
-    	iv1.setPreserveRatio(true);
-    	iv1.setFitHeight(100);
-		iv1.setOnMouseDragged(event -> drag(event));
+    	newPlant();
     	
+    	//DRAG AND DROP FEATURE *****************************************************
+    	
+    	flow.setOnDragDropped(new EventHandler <DragEvent>(){
+			public void handle(DragEvent event) {
+				Dragboard db = event.getDragboard();
+				if(db.hasString()) {
+					String nodeId = db.getString();
+					ImageView plant = (ImageView) tile.lookup("#" + nodeId);
+					
+					if(plant != null) {
+						flow.getChildren().add(newPlant());
+						updateGardenDisplay();
+					}
+				}
+				
+				event.setDropCompleted(true);
+				event.consume();
+			}
+		});
+    	
+    	flow.setOnDragOver(new EventHandler <DragEvent>() {
+			public void handle(DragEvent event) {
+				
+				if (event.getGestureSource() != flow && event.getDragboard().hasString()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY);
+                }
+				
+				event.consume();
+			}
+		});
+    	
+    	
+    	//***************************************************************************
     	//Creating the Layout of Main Garden Screen
 		border.setStyle("-fx-background-color: white;");
 		flow.setPadding(new Insets(10, 10, 10, 10));
@@ -51,6 +116,13 @@ public class CodeBreakDown2 extends Application{
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
 		tileTwo.setStyle("-fx-background-color: White;");
+		
+		//TRYING TO LET IT FREE DROP	
+		canvas = new Canvas(flow.getHeight(), flow.getWidth());
+		root = new Group();
+		root.getChildren().add(canvas);
+		flow.getChildren().add(root);
+		
 		
 		//Text leps = new Text();
 		leps.setText("Leps: " + state.totalLepsSupported);
