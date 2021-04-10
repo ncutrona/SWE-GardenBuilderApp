@@ -67,13 +67,13 @@ public class CodeBreakDown extends Application{
 	
 	//getSortedPlants();
 	
-	/*public void addSortedTile(TilePane tile, Collection<Plant> plants) {
+	public void addSortedTile(TilePane tile, Collection<Plant> plants) {
 		
 		for(Plant p : plants) {
-			tile.getChildren().add(p);
+			tile.getChildren().add(newPlant(p.getScientificName()));
 		}
 		
-	}*/
+	}
 	
 	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
 	public HashMap<String, Plant> createPlantData() {
@@ -197,9 +197,11 @@ public class CodeBreakDown extends Application{
 		sortedPlants.setText("Sorted Plants");
 	
 		tile.getChildren().add(sortedPlants);
-		tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
-		tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
-		tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		addSortedTile(tile, plantCollection);
+		
 		
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
