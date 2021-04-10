@@ -1,6 +1,7 @@
 package pkgMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -25,10 +26,13 @@ import javafx.stage.Stage;
 
 public class CodeBreakDown2 extends Application{
 	
+	String NodeId = "NULL";
 	
 	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
 	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
-	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantThree = new Plant(3, 7, "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	int gardenBudget = garden.getBudget();
 	TilePane tile = new TilePane();
 	TilePane tileTwo = new TilePane();
@@ -36,18 +40,44 @@ public class CodeBreakDown2 extends Application{
 	BorderPane border = new BorderPane();
 	Text leps = new Text();
 	Text budget = new Text();
-	ImageView iv1;
 	Canvas canvas; 
 	Group root;
+	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
 	
-	public ImageView newPlant() {
-		Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+	
+	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
+	public HashMap<String, Plant> createPlantData() {
+		HashMap<String, Plant> plantData = new HashMap<String, Plant>();
+    	plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
+    	plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
+    	plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
+    	
+    	return plantData;
+	}
+	
+	public HashMap<String, Image> createPlantImages() {
+		HashMap<String, Image> plantData = new HashMap<String, Image>();
+    	plantData.put(demoPlantOne.getScientificName(), milkweed);
+    	plantData.put(demoPlantTwo.getScientificName(), milkweed);
+    	plantData.put(demoPlantThree.getScientificName(), milkweed);
+    	
+    	return plantData;
+	}
+	
+	
+	
+	
+	public ImageView newPlant(String NodeID) {
+		ImageView iv1;
+		HashMap<String, Image> plantImages = createPlantImages();
+		Image plantView = plantImages.get(NodeID);
+		
 		
 		iv1 = new ImageView();
-		iv1.setImage(milkweed);
+		iv1.setImage(plantView);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
-		iv1.setId("Milkweed");
+		iv1.setId(NodeID);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
 			
@@ -56,7 +86,8 @@ public class CodeBreakDown2 extends Application{
 				ClipboardContent content = new ClipboardContent();
 				content.putString(iv1.getId());
 				db.setContent(content);
-				event.consume();	
+				event.consume();
+				System.out.println(iv1.getId());
 			}
 		});
     	
@@ -68,21 +99,31 @@ public class CodeBreakDown2 extends Application{
     @Override
     public void start(Stage stage) {
     	
+    	
     	//Setting up the Images
-    	newPlant();
+    	//newPlant("Milkweed");
+    
     	
     	//DRAG AND DROP FEATURE *****************************************************
     	
     	flow.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
+				HashMap<String, Image> images = createPlantImages();
 				Dragboard db = event.getDragboard();
 				if(db.hasString()) {
 					String nodeId = db.getString();
-					ImageView plant = (ImageView) tile.lookup("#" + nodeId);
+					ImageView plant = new ImageView();
+					plant.setImage(images.get(nodeId));
+					plant.setPreserveRatio(true);
+					plant.setFitHeight(100);
+					plant.setId(nodeId);
+					System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
+					
 					
 					if(plant != null) {
-						flow.getChildren().add(newPlant());
-						updateGardenDisplay();
+						System.out.println("WE REACH HERE!");
+						flow.getChildren().add(newPlant(nodeId));
+						updateGardenDisplay(nodeId);
 					}
 				}
 				
@@ -112,7 +153,12 @@ public class CodeBreakDown2 extends Application{
 		border.setCenter(flow); 
 		tile.setPadding(new Insets(10, 10, 10, 10));
 		tile.setStyle("-fx-background-color: Pink;");
-		tile.getChildren().add(iv1);
+		
+		
+		tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
+		tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
+		tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
 		tileTwo.setStyle("-fx-background-color: White;");
@@ -125,7 +171,7 @@ public class CodeBreakDown2 extends Application{
 		
 		
 		//Text leps = new Text();
-		leps.setText("Leps: " + state.totalLepsSupported);
+		leps.setText("Leps Supported: " + state.totalLepsSupported);
 		tileTwo.getChildren().add(leps);
 		
 		//Text budget = new Text();
@@ -140,14 +186,19 @@ public class CodeBreakDown2 extends Application{
         stage.show();
     }
     
-    public void updateGardenDisplay() {
+    public void updateGardenDisplay(String NodeId) {
     	
-    	ArrayList<Integer> updates = GardenState.placePlant(state, demoPlantOne);
+    	HashMap<String, Plant> plantData = createPlantData();
+    	
+    	Plant plant = plantData.get(NodeId);
+    	
+    	ArrayList<Integer> updates = GardenState.placePlant(state, plant);
+    	System.out.println(updates);
     	
     	int newLeps = updates.get(0);
     	int newBudget = updates.get(1);
     	
-		leps.setText("Leps: " + newLeps);
+		leps.setText("Leps Supported: " + newLeps);
 		//tileTwo.getChildren().add(leps);
     	
 		
@@ -160,14 +211,12 @@ public class CodeBreakDown2 extends Application{
     public static void main(String[] args) {
         launch();
     }
-	public void drag(MouseEvent event) {
+	/*public void drag(MouseEvent event) {
 		System.out.println("ic mouse");
 		Node n = (Node)event.getSource();
 		n.setTranslateX(n.getTranslateX() + event.getX());
 		n.setTranslateY(n.getTranslateY() + event.getY());
 		//call place plant
 		updateGardenDisplay();
-	}
+	}*/
 }
-
-

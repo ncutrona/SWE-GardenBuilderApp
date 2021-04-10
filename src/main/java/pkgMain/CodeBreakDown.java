@@ -40,28 +40,41 @@ public class CodeBreakDown extends Application{
 	BorderPane border = new BorderPane();
 	Text leps = new Text();
 	Text budget = new Text();
-	ImageView iv1;
 	Canvas canvas; 
 	Group root;
+	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
 	
 	
 	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
 	public HashMap<String, Plant> createPlantData() {
 		HashMap<String, Plant> plantData = new HashMap<String, Plant>();
-    	plantData.put("Milkweed", demoPlantOne);
+    	plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
     	plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
     	plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
     	
     	return plantData;
 	}
 	
+	public HashMap<String, Image> createPlantImages() {
+		HashMap<String, Image> plantData = new HashMap<String, Image>();
+    	plantData.put(demoPlantOne.getScientificName(), milkweed);
+    	plantData.put(demoPlantTwo.getScientificName(), milkweed);
+    	plantData.put(demoPlantThree.getScientificName(), milkweed);
+    	
+    	return plantData;
+	}
+	
+	
+	
 	
 	public ImageView newPlant(String NodeID) {
-		Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		ImageView iv1;
+		HashMap<String, Image> plantImages = createPlantImages();
+		Image plantView = plantImages.get(NodeID);
 		
 		
 		iv1 = new ImageView();
-		iv1.setImage(milkweed);
+		iv1.setImage(plantView);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setId(NodeID);
@@ -73,7 +86,8 @@ public class CodeBreakDown extends Application{
 				ClipboardContent content = new ClipboardContent();
 				content.putString(iv1.getId());
 				db.setContent(content);
-				event.consume();	
+				event.consume();
+				System.out.println(iv1.getId());
 			}
 		});
     	
@@ -87,41 +101,28 @@ public class CodeBreakDown extends Application{
     	
     	
     	//Setting up the Images
-    	newPlant("Milkweed");
-    	
-    	ImageView plantTwo = new ImageView();
-    	Image milkweed2 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
-    	plantTwo.setImage(milkweed2);
-		plantTwo.setPreserveRatio(true);
-		plantTwo.setFitHeight(100);
-		plantTwo.setId("Milkweed2");
-		plantTwo.setOnDragDetected(new EventHandler<MouseEvent>(){
-			
-			public void handle(MouseEvent event) {				
-				Dragboard db = iv1.startDragAndDrop(TransferMode.COPY);
-				ClipboardContent content = new ClipboardContent();
-				content.putString(iv1.getId());
-				db.setContent(content);
-				event.consume();	
-			}
-		});
-    	
-    	tile.getChildren().add(plantTwo);
-    	
+    	//newPlant("Milkweed");
+    
     	
     	//DRAG AND DROP FEATURE *****************************************************
     	
     	flow.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
+				HashMap<String, Image> images = createPlantImages();
 				Dragboard db = event.getDragboard();
 				if(db.hasString()) {
 					String nodeId = db.getString();
-					ImageView plant = (ImageView) tile.lookup("#" + nodeId);
-					//System.out.println(nodeId);
+					ImageView plant = new ImageView();
+					plant.setImage(images.get(nodeId));
+					plant.setPreserveRatio(true);
+					plant.setFitHeight(100);
+					plant.setId(nodeId);
+					System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
+					
 					
 					if(plant != null) {
-						flow.getChildren().add(newPlant(NodeId));
-						System.out.println(nodeId);
+						System.out.println("WE REACH HERE!");
+						flow.getChildren().add(newPlant(nodeId));
 						updateGardenDisplay(nodeId);
 					}
 				}
@@ -152,7 +153,12 @@ public class CodeBreakDown extends Application{
 		border.setCenter(flow); 
 		tile.setPadding(new Insets(10, 10, 10, 10));
 		tile.setStyle("-fx-background-color: Pink;");
-		tile.getChildren().add(iv1);
+		
+		
+		tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
+		tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
+		tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
 		tileTwo.setStyle("-fx-background-color: White;");
