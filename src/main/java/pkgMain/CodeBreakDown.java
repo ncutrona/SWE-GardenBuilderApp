@@ -1,6 +1,7 @@
 package pkgMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -25,10 +26,13 @@ import javafx.stage.Stage;
 
 public class CodeBreakDown extends Application{
 	
+	String NodeId = "NULL";
 	
 	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
 	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
-	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantThree = new Plant(3, 7, "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	int gardenBudget = garden.getBudget();
 	TilePane tile = new TilePane();
 	TilePane tileTwo = new TilePane();
@@ -40,14 +44,27 @@ public class CodeBreakDown extends Application{
 	Canvas canvas; 
 	Group root;
 	
-	public ImageView newPlant() {
+	
+	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
+	public HashMap<String, Plant> createPlantData() {
+		HashMap<String, Plant> plantData = new HashMap<String, Plant>();
+    	plantData.put("Milkweed", demoPlantOne);
+    	plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
+    	plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
+    	
+    	return plantData;
+	}
+	
+	
+	public ImageView newPlant(String NodeID) {
 		Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+		
 		
 		iv1 = new ImageView();
 		iv1.setImage(milkweed);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
-		iv1.setId("Milkweed");
+		iv1.setId(NodeID);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
 			
@@ -68,8 +85,29 @@ public class CodeBreakDown extends Application{
     @Override
     public void start(Stage stage) {
     	
+    	
     	//Setting up the Images
-    	newPlant();
+    	newPlant("Milkweed");
+    	
+    	ImageView plantTwo = new ImageView();
+    	Image milkweed2 = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+    	plantTwo.setImage(milkweed2);
+		plantTwo.setPreserveRatio(true);
+		plantTwo.setFitHeight(100);
+		plantTwo.setId("Milkweed2");
+		plantTwo.setOnDragDetected(new EventHandler<MouseEvent>(){
+			
+			public void handle(MouseEvent event) {				
+				Dragboard db = iv1.startDragAndDrop(TransferMode.COPY);
+				ClipboardContent content = new ClipboardContent();
+				content.putString(iv1.getId());
+				db.setContent(content);
+				event.consume();	
+			}
+		});
+    	
+    	tile.getChildren().add(plantTwo);
+    	
     	
     	//DRAG AND DROP FEATURE *****************************************************
     	
@@ -79,10 +117,12 @@ public class CodeBreakDown extends Application{
 				if(db.hasString()) {
 					String nodeId = db.getString();
 					ImageView plant = (ImageView) tile.lookup("#" + nodeId);
+					//System.out.println(nodeId);
 					
 					if(plant != null) {
-						flow.getChildren().add(newPlant());
-						updateGardenDisplay();
+						flow.getChildren().add(newPlant(NodeId));
+						System.out.println(nodeId);
+						updateGardenDisplay(nodeId);
 					}
 				}
 				
@@ -125,7 +165,7 @@ public class CodeBreakDown extends Application{
 		
 		
 		//Text leps = new Text();
-		leps.setText("Leps: " + state.totalLepsSupported);
+		leps.setText("Leps Supported: " + state.totalLepsSupported);
 		tileTwo.getChildren().add(leps);
 		
 		//Text budget = new Text();
@@ -140,14 +180,19 @@ public class CodeBreakDown extends Application{
         stage.show();
     }
     
-    public void updateGardenDisplay() {
+    public void updateGardenDisplay(String NodeId) {
     	
-    	ArrayList<Integer> updates = GardenState.placePlant(state, demoPlantOne);
+    	HashMap<String, Plant> plantData = createPlantData();
+    	
+    	Plant plant = plantData.get(NodeId);
+    	
+    	ArrayList<Integer> updates = GardenState.placePlant(state, plant);
+    	System.out.println(updates);
     	
     	int newLeps = updates.get(0);
     	int newBudget = updates.get(1);
     	
-		leps.setText("Leps: " + newLeps);
+		leps.setText("Leps Supported: " + newLeps);
 		//tileTwo.getChildren().add(leps);
     	
 		
@@ -160,14 +205,14 @@ public class CodeBreakDown extends Application{
     public static void main(String[] args) {
         launch();
     }
-	public void drag(MouseEvent event) {
+	/*public void drag(MouseEvent event) {
 		System.out.println("ic mouse");
 		Node n = (Node)event.getSource();
 		n.setTranslateX(n.getTranslateX() + event.getX());
 		n.setTranslateY(n.getTranslateY() + event.getY());
 		//call place plant
 		updateGardenDisplay();
-	}
+	}*/
 }
 
 
