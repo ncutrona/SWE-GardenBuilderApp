@@ -40,6 +40,10 @@ public class CodeBreakDown2 extends Application{
 	BorderPane border = new BorderPane();
 	Text leps = new Text();
 	Text budget = new Text();
+	Text sortedPlants = new Text();
+	
+	
+	
 	Canvas canvas; 
 	Group root;
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
@@ -99,7 +103,7 @@ public class CodeBreakDown2 extends Application{
     @Override
     public void start(Stage stage) {
     	
-    	
+    	stage.setTitle("Garden Builder v. 0.01 (Alpha)");
     	//Setting up the Images
     	//newPlant("Milkweed");
     
@@ -154,7 +158,9 @@ public class CodeBreakDown2 extends Application{
 		tile.setPadding(new Insets(10, 10, 10, 10));
 		tile.setStyle("-fx-background-color: Pink;");
 		
-		
+		sortedPlants.setText("Sorted Plants");
+	
+		tile.getChildren().add(sortedPlants);
 		tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
 		tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
 		tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
@@ -168,7 +174,6 @@ public class CodeBreakDown2 extends Application{
 		root = new Group();
 		root.getChildren().add(canvas);
 		flow.getChildren().add(root);
-		
 		
 		//Text leps = new Text();
 		leps.setText("Leps Supported: " + state.totalLepsSupported);
@@ -220,3 +225,5 @@ public class CodeBreakDown2 extends Application{
 		updateGardenDisplay();
 	}*/
 }
+
+
