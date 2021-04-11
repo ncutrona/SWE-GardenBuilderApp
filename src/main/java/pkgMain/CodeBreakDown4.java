@@ -12,23 +12,20 @@ import javafx.stage.Stage;
 
 public class CodeBreakDown4 extends Application {
 	
-	
-	
-	
 	public void start(Stage stage) {
 		
 		stage.setTitle("Garden Builder v. 0.01 (Alpha)");
 		
-		Slider slider = new Slider();
-		slider.setMin(0);
-		slider.setMax(100);
-		slider.setValue(40);
+		Slider slider = new Slider(1, 3, 2);
+		slider.setMin(1);
+		slider.setMax(3);
+		slider.setValue(2);
+		slider.setMajorTickUnit(3);
+		slider.setMinorTickCount(2);
 		slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
-		slider.setMajorTickUnit(50);
-		slider.setMinorTickCount(5);
-		slider.setBlockIncrement(10);
-		
+		slider.setBlockIncrement(1);
+		slider.setSnapToTicks(true);
 		
 		BorderPane border = new BorderPane(slider);
 
