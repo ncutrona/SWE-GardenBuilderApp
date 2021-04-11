@@ -48,6 +48,9 @@ public class CodeBreakDown extends Application{
 	Text budget = new Text();
 	Text sortedPlants = new Text();
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
+	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
+	
 	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
@@ -88,8 +91,8 @@ public class CodeBreakDown extends Application{
 	public HashMap<String, Image> createPlantImages() {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
     	plantData.put(demoPlantOne.getScientificName(), milkweed);
-    	plantData.put(demoPlantTwo.getScientificName(), milkweed);
-    	plantData.put(demoPlantThree.getScientificName(), milkweed);
+    	plantData.put(demoPlantTwo.getScientificName(), planttwo);
+    	plantData.put(demoPlantThree.getScientificName(), plantthree);
     	
     	return plantData;
 	}

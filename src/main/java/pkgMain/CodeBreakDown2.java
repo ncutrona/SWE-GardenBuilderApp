@@ -1,6 +1,7 @@
 package pkgMain;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import javafx.application.Application;
@@ -17,6 +18,11 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
@@ -41,13 +47,33 @@ public class CodeBreakDown2 extends Application{
 	Text leps = new Text();
 	Text budget = new Text();
 	Text sortedPlants = new Text();
-	
-	
-	
-	Canvas canvas; 
-	Group root;
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	BackgroundImage backgroundimage = new BackgroundImage(background, 
+            BackgroundRepeat.NO_REPEAT, 
+            BackgroundRepeat.NO_REPEAT, 
+            BackgroundPosition.DEFAULT, 
+               BackgroundSize.DEFAULT);
 	
+	ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
+	
+	public void getPlants() {
+		plantsMaster.add(demoPlantOne);
+		plantsMaster.add(demoPlantTwo);
+		plantsMaster.add(demoPlantThree);
+		
+		
+	}
+	
+	//getSortedPlants();
+	
+	public void addSortedTile(TilePane tile, Collection<Plant> plants) {
+		
+		for(Plant p : plants) {
+			tile.getChildren().add(newPlant(p.getScientificName()));
+		}
+		
+	}
 	
 	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
 	public HashMap<String, Plant> createPlantData() {
@@ -103,6 +129,12 @@ public class CodeBreakDown2 extends Application{
     @Override
     public void start(Stage stage) {
     	
+    	getPlants();
+    	Collection<Plant> plantCollection = Plant.sortPlants(plantsMaster);
+    	
+    	
+    	
+    	
     	stage.setTitle("Garden Builder v. 0.01 (Alpha)");
     	//Setting up the Images
     	//newPlant("Milkweed");
@@ -121,11 +153,11 @@ public class CodeBreakDown2 extends Application{
 					plant.setPreserveRatio(true);
 					plant.setFitHeight(100);
 					plant.setId(nodeId);
-					System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
+					//System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
 					
 					
 					if(plant != null) {
-						System.out.println("WE REACH HERE!");
+						//System.out.println("WE REACH HERE!");
 						flow.getChildren().add(newPlant(nodeId));
 						updateGardenDisplay(nodeId);
 					}
@@ -153,7 +185,11 @@ public class CodeBreakDown2 extends Application{
     	//Creating the Layout of Main Garden Screen
 		border.setStyle("-fx-background-color: white;");
 		flow.setPadding(new Insets(10, 10, 10, 10));
-		flow.setStyle("-fx-background-color: Brown;");
+		//flow.setStyle("-fx-background-color: Brown;");
+		flow.setBackground(new Background(backgroundimage));
+		
+		
+	
 		border.setCenter(flow); 
 		tile.setPadding(new Insets(10, 10, 10, 10));
 		tile.setStyle("-fx-background-color: Pink;");
@@ -161,19 +197,16 @@ public class CodeBreakDown2 extends Application{
 		sortedPlants.setText("Sorted Plants");
 	
 		tile.getChildren().add(sortedPlants);
-		tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
-		tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
-		tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
+		//tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+		addSortedTile(tile, plantCollection);
+		
 		
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
-		tileTwo.setStyle("-fx-background-color: White;");
-		
-		//TRYING TO LET IT FREE DROP	
-		canvas = new Canvas(flow.getHeight(), flow.getWidth());
-		root = new Group();
-		root.getChildren().add(canvas);
-		flow.getChildren().add(root);
+		tileTwo.setStyle("-fx-background-color: orange;");	
+
 		
 		//Text leps = new Text();
 		leps.setText("Leps Supported: " + state.totalLepsSupported);
@@ -198,7 +231,7 @@ public class CodeBreakDown2 extends Application{
     	Plant plant = plantData.get(NodeId);
     	
     	ArrayList<Integer> updates = GardenState.placePlant(state, plant);
-    	System.out.println(updates);
+    	//System.out.println(updates);
     	
     	int newLeps = updates.get(0);
     	int newBudget = updates.get(1);
