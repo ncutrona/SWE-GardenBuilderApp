@@ -11,6 +11,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
@@ -47,8 +49,14 @@ public class CodeBreakDown2 extends Application{
 	Text leps = new Text();
 	Text budget = new Text();
 	Text sortedPlants = new Text();
+	Text ConditionsDisplay = new Text();
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
+	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
 	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	
+	public String Conditions = "Soil : " + garden.getSoil() + ",  Sun : " + garden.getSun() + ",  Moisture : " + garden.getMoisture();
+	
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
@@ -88,8 +96,8 @@ public class CodeBreakDown2 extends Application{
 	public HashMap<String, Image> createPlantImages() {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
     	plantData.put(demoPlantOne.getScientificName(), milkweed);
-    	plantData.put(demoPlantTwo.getScientificName(), milkweed);
-    	plantData.put(demoPlantThree.getScientificName(), milkweed);
+    	plantData.put(demoPlantTwo.getScientificName(), planttwo);
+    	plantData.put(demoPlantThree.getScientificName(), plantthree);
     	
     	return plantData;
 	}
@@ -102,12 +110,17 @@ public class CodeBreakDown2 extends Application{
 		HashMap<String, Image> plantImages = createPlantImages();
 		Image plantView = plantImages.get(NodeID);
 		
+		HashMap<String, Plant> plants =  createPlantData();
+		Plant plant = plants.get(NodeID);
 		
+	
 		iv1 = new ImageView();
 		iv1.setImage(plantView);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setId(NodeID);
+		Tooltip t =  new Tooltip("Scientific Name: " + plant.getScientificName() + "\nPrice: $" + plant.getPrice() + "\nLeps: " + plant.getLepsSupported());
+		Tooltip.install(iv1, t);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
 			
@@ -215,6 +228,18 @@ public class CodeBreakDown2 extends Application{
 		//Text budget = new Text();
 		budget.setText("Budget: $" + state.gardenBudget);
 		tileTwo.getChildren().add(budget);
+		
+		//Adding Conditions Text
+		ConditionsDisplay.setText(Conditions);
+		tileTwo.getChildren().add(ConditionsDisplay);
+		
+		
+		
+		//Adding the options button to the top tile pane
+		Button optionsButton = new Button("Options");
+		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
+		tileTwo.getChildren().add(optionsButton);
+		
 		
 		border.setTop(tileTwo);
 	
