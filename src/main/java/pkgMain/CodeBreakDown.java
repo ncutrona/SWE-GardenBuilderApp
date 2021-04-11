@@ -205,7 +205,7 @@ public class CodeBreakDown extends Application{
 	
 		border.setCenter(flow); 
 		tile.setPadding(new Insets(10, 10, 10, 10));
-		tile.setStyle("-fx-background-color: Pink;");
+		tile.setStyle("-fx-background-color: yellow");
 		
 		sortedPlants.setText("Sorted Plants");
 	
@@ -218,7 +218,7 @@ public class CodeBreakDown extends Application{
 		
 		border.setLeft(tile);
 		tileTwo.setPadding(new Insets(10, 10, 10, 10));
-		tileTwo.setStyle("-fx-background-color: orange;");	
+		tileTwo.setStyle("-fx-background-color: pink;");	
 
 		
 		//Text leps = new Text();
@@ -274,14 +274,7 @@ public class CodeBreakDown extends Application{
     public static void main(String[] args) {
         launch();
     }
-	/*public void drag(MouseEvent event) {
-		System.out.println("ic mouse");
-		Node n = (Node)event.getSource();
-		n.setTranslateX(n.getTranslateX() + event.getX());
-		n.setTranslateY(n.getTranslateY() + event.getY());
-		//call place plant
-		updateGardenDisplay();
-	}*/
+
 }
 
 
