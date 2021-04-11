@@ -12,12 +12,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
-<<<<<<< HEAD
+
 import javafx.scene.layout.TilePane;
-=======
+
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
->>>>>>> 065007b3315339dd16b72d086a96f95bb6df445e
+
 import javafx.stage.Stage;
 
 // CODE BREAKDOWN FOR THE CONDITIONS PAGE
@@ -50,7 +50,7 @@ public class CodeBreakDown4 extends Application {
 		slider.setBlockIncrement(1);
 		slider.setSnapToTicks(true);
 		
-<<<<<<< HEAD
+
 		Slider slider2 = new Slider(1, 3, 2);
 		slider2.setMin(1);
 		slider2.setMax(3);
@@ -64,7 +64,7 @@ public class CodeBreakDown4 extends Application {
 		
 		TilePane tile = new TilePane(slider);
 		tile.getChildren().add(slider2);
-=======
+
 		BorderPane border = new BorderPane(slider);
 		border.setTop(box);
 		
@@ -85,7 +85,7 @@ public class CodeBreakDown4 extends Application {
 			        }
 			     }
 			 });
->>>>>>> 065007b3315339dd16b72d086a96f95bb6df445e
+
 
     	Scene scene = new Scene(tile, 800, 600);
         stage.setScene(scene);
