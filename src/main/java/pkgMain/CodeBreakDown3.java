@@ -36,8 +36,8 @@ public class CodeBreakDown3 extends Application{
 	BorderPane border;
 	StackPane stack;
 	FlowPane flow;
-	Button loadBotton;
-	Button startBotton;
+	Button loadButton;
+	Button startButton;
 	
 	Image background = new Image(getClass().getResourceAsStream("/img/Intro_Background.jpg"));
 	
@@ -57,9 +57,9 @@ public class CodeBreakDown3 extends Application{
 		loadGardenButton();
 		
 		border = new BorderPane();
-		border.setTop(startBotton);
-		border.setAlignment(startBotton, Pos.TOP_CENTER);
-		border.setCenter(loadBotton);
+		border.setTop(startButton);
+		border.setAlignment(startButton, Pos.TOP_CENTER);
+		border.setCenter(loadButton);
 		border.setBackground(new Background(backgroundimage));
 		
 		stage.setTitle("Garden Builder v0.01 Alpha");
@@ -69,8 +69,8 @@ public class CodeBreakDown3 extends Application{
 		
 	}
 	public void startGardenButton() {
-		startBotton = new Button("Start Garden");
-		startBotton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		startButton = new Button("Start Garden");
+		startButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {
@@ -81,8 +81,8 @@ public class CodeBreakDown3 extends Application{
 	}
 	
 	public void loadGardenButton() {
-		loadBotton = new Button("Load Garden");
-		loadBotton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		loadButton = new Button("Load Garden");
+		loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
 			public void handle(MouseEvent event) {

@@ -276,10 +276,11 @@ public class CodeBreakDown4 extends Application {
 		slider3.setMinWidth(380);
 		
 		Button setMoisture = new Button("Set Moisture");
+		Button Continue = new Button("Continue");
 		HBox slider3Box = new HBox(5);
 		slider3Box.setPadding(new Insets(5, 5, 5, 5));
 		slider3Box.setStyle("-fx-background-color: transparent;");
-		slider3Box.getChildren().addAll(slider3, setMoisture);
+		slider3Box.getChildren().addAll(slider3, setMoisture, Continue);
 		
 		
 		
@@ -321,6 +322,13 @@ public class CodeBreakDown4 extends Application {
 			    public void handle(ActionEvent e) {
 					setSliderSoil(slider2);
 					System.out.println(conditions.getSoil());
+			     }
+			 });
+		
+		Continue.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			    public void handle(ActionEvent e) {
+					//CHANGE SCREENS
 			     }
 			 });
 
