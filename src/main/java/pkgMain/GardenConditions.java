@@ -1,5 +1,4 @@
 package pkgMain;
-
 import pkgMain.Conditions.moistureCondition;
 import pkgMain.Conditions.soilCondition;
 import pkgMain.Conditions.sunCondition;

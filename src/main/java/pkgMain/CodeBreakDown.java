@@ -1,5 +1,4 @@
 package pkgMain;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,6 +37,7 @@ public class CodeBreakDown extends Application{
 	
 	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
 	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
+	
 	Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	Plant demoPlantThree = new Plant(3, 7, "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
@@ -276,5 +276,3 @@ public class CodeBreakDown extends Application{
     }
 
 }
-
-
