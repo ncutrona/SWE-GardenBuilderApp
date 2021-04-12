@@ -19,7 +19,7 @@ public class Controller extends Application{
 	GardenScreen GardenScreenView = new GardenScreen();
 
 	Stage window;
-	//Scene gardenScene, LoadScreenScene, ConditionsScene;
+	Scene gardenScene, LoadScreenScene, ConditionsScene;
 
 	
 	
@@ -29,6 +29,10 @@ public class Controller extends Application{
 	}
 	@Override
 	public void start(Stage primaryStage){
+		
+		
+		
+		
 		
 	}
 	
