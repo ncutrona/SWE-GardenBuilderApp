@@ -3,7 +3,7 @@ import pkgMain.Conditions.moistureCondition;
 import pkgMain.Conditions.soilCondition;
 import pkgMain.Conditions.sunCondition;
 
-public class GardenConditions extends Model {
+public class GardenConditions {
 	
 	public int userBudget;
 	
