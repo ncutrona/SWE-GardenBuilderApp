@@ -12,6 +12,14 @@ public class GardenConditions extends Model {
 	static Conditions.soilCondition soilCond = soilCondition.CLAY;
 	static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
 	
+	
+	public GardenConditions(int userBudget, String sun, String moisture, String soil) {
+		setBudget(userBudget);
+		setSunConditions(sun);
+		setMoistureConditions(moisture);
+		setSoilConditions(soil);
+	}
+	
 	public void setBudget(int userBudget) {	
 		this.userBudget = userBudget;
 	}
@@ -20,7 +28,7 @@ public class GardenConditions extends Model {
 		return userBudget;
 	}
 	
-	public void setConditions(String sun, String moisture, String soil) {
+	public void setSunConditions(String sun) {
 		if (sun.equals("full")) {
 			sunCond = sunCondition.FULL;
 		}
@@ -30,7 +38,11 @@ public class GardenConditions extends Model {
 		else {
 			sunCond = sunCondition.PARTIAL;
 		}
+	}
 		
+		
+		
+	public void setSoilConditions(String soil) {	
 		if (soil.equals("clay")) {
 			soilCond = soilCondition.CLAY;
 		}
@@ -40,6 +52,10 @@ public class GardenConditions extends Model {
 		else {
 			soilCond = soilCondition.SAND;
 		}
+		
+	}
+	
+	public void setMoistureConditions(String moisture) {
 		
 		if (moisture.equals("wet")) {
 			moistureCond = moistureCondition.WET;
@@ -64,8 +80,4 @@ public class GardenConditions extends Model {
 		return moistureCond.getName();
 	}
 	
-	public GardenConditions(int userBudget, String sun, String moisture, String soil) {
-		this.userBudget = userBudget;
-		setConditions(sun, moisture, soil);
-	}
 }
