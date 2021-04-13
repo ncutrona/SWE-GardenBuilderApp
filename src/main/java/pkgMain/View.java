@@ -3,6 +3,16 @@ package pkgMain;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * View class from MVC design pattern
+ *
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class View {
 	/*Stage theStage;
 	Scene currentScene;
@@ -16,10 +26,18 @@ public class View {
 	final static int windowHeight = 720;;
 	final static int windowWidth = 1280;
 	final static String windowLabel = "Garden Builder 0.0.1";
+	*/
 	
-	
-	
-	View(Stage passedStage,Controller controller){
+	/**
+	 * Constructor for View object.
+	 * Setup stage and controller from passed in objects.
+	 * Sets window options, scene.
+	 * Shows stage window.
+	 * 
+	 * @param passedStage stage to be shown
+	 * @param controller controller object passed to loadScreen
+	 */
+	/*View(Stage passedStage,Controller controller){
 		// Get stage from controller and the controller itself to communicate
 		this.theStage = passedStage;
 		this.controller = controller;
@@ -40,9 +58,13 @@ public class View {
 		// Tell window to show
 		theStage.show();
 	}
+	*/
 	
 	
-	public void setSceneToLoading() {
+	/**
+	 * Helper method that sets currentScene from loadScreen, then passes this to Stage setScene
+	 */
+	/*public void setSceneToLoading() {
 		// In each set scene method update stuff like
 		// window height/width if needed, can handle
 		// stuff like window resizing later

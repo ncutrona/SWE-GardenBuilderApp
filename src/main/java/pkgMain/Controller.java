@@ -16,17 +16,38 @@ import javafx.scene.input.TransferMode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Controller class from MVC design pattern
+ *
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class Controller extends Application{
 	Model model;
 	
 	Stage window;
 	Scene gardenScene, LoadScreenScene, ConditionsScene, SavedScene, InventoryScene;
 	
-	
+	/**
+	 * main method, launches application.
+	 * Launch hands off execution to javafx to do various backend tasks
+	 * such as setting up graphics and system specifics.
+	 * 
+	 * @param args console arguments
+	 */
 	public static void main(String[] args) {
 		launch();
 	}
 	
+
+	/**
+	 * Overrides the start method from Application.
+	 * #todo update this
+	 * @param primaryStage primary Stage object
+	 */
 	@Override
 	public void start(Stage primaryStage){
 		window = primaryStage;
