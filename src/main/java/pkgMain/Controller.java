@@ -19,7 +19,7 @@ public class Controller extends Application{
 	Model model;
 	
 	Stage window;
-	Scene gardenScene, LoadScreenScene, ConditionsScene, SavedScene;
+	Scene gardenScene, LoadScreenScene, ConditionsScene, SavedScene, InventoryScene;
 	
 	
 	public static void main(String[] args) {
@@ -240,7 +240,7 @@ public class Controller extends Application{
 		//**************************************************************************
 		
 		
-		//LOAD SCREEN CODE *********************************************************
+		//SAVE SCREEN CODE *********************************************************
 		SaveScreen saveScreen = new SaveScreen();
 		
 		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
@@ -252,6 +252,20 @@ public class Controller extends Application{
 		//**************************************************************************
 		
 		loadScreen.loadButton.setOnAction(e-> window.setScene(SaveScreenScene));
+		
+		
+		//SAVE SCREEN CODE *********************************************************
+		InvScreen invScreen = new InvScreen();
+		
+		invScreen.PrevButtonInv.setOnAction(e-> window.setScene(gardenScene));
+		
+		Scene InventoryScene = new Scene(invScreen.createInvBorder(),800, 600);
+		
+		saveScreen.prevButton.setOnAction(e-> window.setScene(LoadScreenScene));
+		
+		//**************************************************************************
+		
+		GardenScreenView.inventory.setOnAction(e-> window.setScene(InventoryScene));
     	
 		window.setScene(LoadScreenScene);
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");

@@ -41,6 +41,7 @@ public class GardenScreen {
 	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
 	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
 	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	Button inventory = new Button("See Full Inventory");
 	
 	
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
@@ -144,8 +145,9 @@ public class GardenScreen {
 		
 		//Adding the options button to the top tile pane
 		Button optionsButton = new Button("Options");
-		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
+		optionsButton.setTooltip(new Tooltip("Tooltip for Button")); //going to have to be global in future!
 		gardenTileTwo.getChildren().add(optionsButton);
+		gardenTileTwo.getChildren().add(inventory);
 		
 		
 		gardenBorder.setTop(gardenTileTwo);
