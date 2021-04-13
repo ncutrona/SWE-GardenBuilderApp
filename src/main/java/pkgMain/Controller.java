@@ -19,7 +19,7 @@ public class Controller extends Application{
 	Model model;
 	
 	Stage window;
-	Scene gardenScene, LoadScreenScene, ConditionsScene;
+	Scene gardenScene, LoadScreenScene, ConditionsScene, SavedScene;
 	
 	
 	public static void main(String[] args) {
@@ -238,6 +238,20 @@ public class Controller extends Application{
 		condScreen.Previous.setOnAction(e-> window.setScene(LoadScreenScene));
 		
 		//**************************************************************************
+		
+		
+		//LOAD SCREEN CODE *********************************************************
+		SaveScreen saveScreen = new SaveScreen();
+		
+		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
+		
+		Scene SaveScreenScene = new Scene(saveScreen.createLoadingBorder(),800, 600);
+		
+		saveScreen.prevButton.setOnAction(e-> window.setScene(LoadScreenScene));
+		
+		//**************************************************************************
+		
+		loadScreen.loadButton.setOnAction(e-> window.setScene(SaveScreenScene));
     	
 		window.setScene(LoadScreenScene);
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");

@@ -58,7 +58,7 @@ public class ConditionsScreen2 {
 	Button setMoisture = new Button("Set Moisture");
 	Button setSun = new Button("Set Sun");
 	
-	Button Previous = new Button("Previous");
+	Button Previous = new Button("Go Back");
 	Button Continue = new Button("Continue");
 	
 	public BorderPane createBorder() {

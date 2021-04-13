@@ -48,9 +48,6 @@ public class LoadScreen {
 	}
 	
 	
-	public BorderPane getScreen() {
-		return loadBorder;
-	}
 	
 	
 	
