@@ -21,9 +21,10 @@ public class Controller2 extends Application{
 
 	@Override
 	public void start(Stage stage) {
-		// TODO Auto-generated method stub
 		view = new View2(stage);
 		model = new Model2();
+		
+		
 		
 		stage.show();
 	}

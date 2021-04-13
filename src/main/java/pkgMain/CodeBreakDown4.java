@@ -325,7 +325,6 @@ public class CodeBreakDown4 extends Application {
 			 });
 
 
-		
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			    public void handle(ActionEvent e) {

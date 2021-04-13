@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class View {
-	Stage theStage;
+	/*Stage theStage;
 	Scene currentScene;
 	
 	LoadScreen loadScreen;
@@ -50,5 +50,5 @@ public class View {
 		theStage.setScene(currentScene);
 	}
 	
-
+*/
 }
