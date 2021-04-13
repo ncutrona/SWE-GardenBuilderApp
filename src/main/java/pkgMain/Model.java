@@ -7,13 +7,13 @@ import java.util.HashMap;
 public class Model {
 
 	
-	GardenConditions gardenFinal = new GardenConditions(0, "", "", "");
+	GardenConditions gardenFinal = new GardenConditions(500, "", "", "");
 	GardenState stateFinal = new GardenState("Test Garden", "Arpil", 0, false, gardenFinal.getBudget());
 	
 	
 	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantTwo = new Plant(12, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantThree = new Plant(3, 7, "Betula nigra", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantTwo = new Plant(20, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);
+	Plant demoPlantThree = new Plant(6, 7, "Betula nigra", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	
 	public String Conditions = "Soil : " + gardenFinal.getSoil() + ",  Sun : " + gardenFinal.getSun() + ",  Moisture : " + gardenFinal.getMoisture();
 	

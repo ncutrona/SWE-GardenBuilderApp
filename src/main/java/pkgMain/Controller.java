@@ -73,7 +73,7 @@ public class Controller extends Application{
 					if(plant != null) {
 						//System.out.println("WE REACH HERE!");
 						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData()));
-						GardenScreenView.updateGardenDisplay(nodeId, model.createPlantData(), model.stateFinal, model.gardenFinal);
+						GardenScreenView.updateGardenDisplay(nodeId, model.createPlantData(), model.stateFinal);
 					}
 				}
 				
@@ -98,7 +98,7 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.Conditions, plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.gardenFinal, model.stateFinal), 800, 600);
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.Conditions, plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal), 800, 600);
  
     	
 		//****************************************************************************************************************************
@@ -182,10 +182,12 @@ public class Controller extends Application{
     					condScreen.budget.setText("Your budget was set.");
     					condScreen.gardenName.setText("Your Garden Name was set.");
 
-    					//Garden State Budget is now updated based off of the user input.
-    					//model.gardenFinal.setBudget(intBudget);
-    					model.stateFinal.setGardenBudget(intBudget);
+    					
+    					//LOOK HERE WHEN WE ADD NAME TO SAVING!!!!!
+    					model.gardenFinal.setBudget(intBudget);
+    					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
     					model.stateFinal.setGardenName(condScreen.gardenName.getText());
+    					GardenScreenView.budget.setText("Budget: $" + intBudget);
     				} catch(Exception except) {
     					condScreen.budget.setText("");
     					condScreen.budget.setPromptText("Enter a valid budget $");
@@ -217,7 +219,7 @@ public class Controller extends Application{
     	
     	condScreen.Continue.setOnAction(e-> window.setScene(gardenScene));
     	
-		Scene ConditionsScene = new Scene(condScreen.createBorder());
+		Scene ConditionsScene = new Scene(condScreen.createBorder(),800, 600);
     	
     	
     	

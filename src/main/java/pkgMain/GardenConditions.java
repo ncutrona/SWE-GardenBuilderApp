@@ -3,13 +3,13 @@ import pkgMain.Conditions.moistureCondition;
 import pkgMain.Conditions.soilCondition;
 import pkgMain.Conditions.sunCondition;
 
-public class GardenConditions{
+public class GardenConditions {
 	
-	private int userBudget;
+	public int userBudget;
 	
-	private static Conditions.sunCondition sunCond;
-	private static Conditions.soilCondition soilCond;
-	private static Conditions.moistureCondition moistureCond;
+	static Conditions.sunCondition sunCond = sunCondition.FULL;
+	static Conditions.soilCondition soilCond = soilCondition.CLAY;
+	static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
 	
 	
 	public GardenConditions(int userBudget, String sun, String moisture, String soil) {
@@ -66,8 +66,6 @@ public class GardenConditions{
 			moistureCond = moistureCondition.DRY;
 		}
 	}
-	
-	
 	
 	public String getSun() {
 		return sunCond.getName();

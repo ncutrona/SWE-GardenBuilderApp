@@ -79,19 +79,20 @@ public class GardenState {
 	}
 	
 	
-	public static int updateBudget(GardenConditions garden, Plant plant) {
+	public static int updateBudget(GardenState garden, Plant plant) {
 		
-		int bud = garden.getBudget();
-		bud -= plant.price;
 		
-		System.out.println("Remaining Budget: " + bud);
-		return bud;
+		garden.gardenBudget -= plant.price;
+		
+		
+		System.out.println("Remaining Budget: " + garden.gardenBudget);
+		return garden.gardenBudget;
 		
 	}
 	
-	public static ArrayList<Integer> updateGarden(GardenConditions gardenCon, GardenState garden, Plant plant) {
+	public static ArrayList<Integer> updateGarden(GardenState garden, Plant plant) {
 		
-		int newBudget = updateBudget(gardenCon, plant);
+		int newBudget = updateBudget(garden, plant);
 		int newLeps = updateLeps(garden, plant);
 		//will add more methods later (post alpha).
 		
@@ -104,9 +105,9 @@ public class GardenState {
 		
 	}
 	
-	public static ArrayList<Integer> placePlant(GardenConditions gardenCon, GardenState garden, Plant plant) {
+	public static ArrayList<Integer> placePlant(GardenState garden, Plant plant) {
 		
-		return updateGarden(gardenCon, garden, plant);
+		return updateGarden(garden, plant);
 	}
 	
 	//METHODS TO ADD POST ALPHA:

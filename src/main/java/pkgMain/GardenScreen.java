@@ -102,7 +102,7 @@ public class GardenScreen {
 					
 	}
 	
-	public BorderPane createBorder(String Conditions, Collection<Plant> plants, HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap, GardenConditions conds, GardenState state) {
+	public BorderPane createBorder(String Conditions, Collection<Plant> plants, HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap, GardenState state) {
 		gardenBorder.setStyle("-fx-background-color: white;");
 		gardenFlow.setPadding(new Insets(10, 10, 10, 10));
 		//flow.setStyle("-fx-background-color: Brown;");
@@ -133,7 +133,7 @@ public class GardenScreen {
 		gardenTileTwo.getChildren().add(leps);
 		
 		//Text budget = new Text();
-		budget.setText("Budget: $" + conds.getBudget());
+		budget.setText("Budget: $" + state.gardenBudget);
 		gardenTileTwo.getChildren().add(budget);
 		
 		//Adding Conditions Text
@@ -153,13 +153,13 @@ public class GardenScreen {
 		return gardenBorder;
 	}
 	
-	public void updateGardenDisplay(String NodeId, HashMap<String, Plant> plants, GardenState state, GardenConditions gardenCond) {
+	public void updateGardenDisplay(String NodeId, HashMap<String, Plant> plants, GardenState state) {
 	    	
 	    	HashMap<String, Plant> plantData = plants;
 	    	
 	    	Plant plant = plantData.get(NodeId);
 	    	
-	    	ArrayList<Integer> updates = GardenState.placePlant(gardenCond, state, plant);
+	    	ArrayList<Integer> updates = GardenState.placePlant(state, plant);
 	    	//System.out.println(updates);
 	    	
 	    	int newLeps = updates.get(0);
