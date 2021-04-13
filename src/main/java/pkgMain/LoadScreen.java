@@ -1,51 +1,66 @@
 package pkgMain;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
+/*
+ * Idea is to have the main scene, which is the object which is refrenced by view
+ * Then the scene has a main node which is a stack pane,
+ * choosing a stack pane so that we can have the selection screen stack like in the
+ * storyboard. the stackpane will have a main content pane which will be as laid out in 
+ * the storyboard.
+ */
 public class LoadScreen {
 	
-	/*
-	 * Idea is to have the main scene, which is the object which is refrenced by view
-	 * Then the scene has a main node which is a stack pane,
-	 * choosing a stack pane so that we can have the selection screen stack like in the
-	 * storyboard. the stackpane will have a main content pane which will be as laid out in 
-	 * the storyboard.
-	 */
+	BorderPane border;
+	StackPane stack;
+	FlowPane flow;
+	Button loadButton;
+	Button startButton;
 	
-	public Scene theScene;
-	StackPane rootPane;
-	BorderPane mainContentPane;
+	//The image for the background
+	Image background = new Image(getClass().getResourceAsStream("/img/Intro_Background.jpg"));
+	BackgroundImage backgroundimage = new BackgroundImage(background, 
+            BackgroundRepeat.NO_REPEAT, 
+            BackgroundRepeat.NO_REPEAT, 
+            BackgroundPosition.DEFAULT, 
+               BackgroundSize.DEFAULT);
 	
-	Controller controller;
-	
-	
-	int sceneWidth;
-	int sceneHeight;
-	
-	LoadScreen(int sceneWidth, int sceneHeight,Controller controller){
-		// Setup locals
-		this.sceneWidth = sceneWidth;
-		this.sceneHeight = sceneHeight;
-		this.controller = controller;
-		// Setup panes
-		this.rootPane = new StackPane();
-		rootPane.setPrefSize(sceneWidth, sceneHeight);
-
-		this.mainContentPane = new BorderPane();
-		mainContentPane.setPrefSize(sceneWidth, sceneHeight);
-		// Add main content as sub pane to our stack pane root
-		rootPane.getChildren().add(mainContentPane);
-		
-		// Setup scene adding our stackpane os our root display object
-		this.theScene = new Scene(rootPane,sceneWidth,sceneHeight);
-		
-		
-		
+	public BorderPane getScreen() {
+		return border;
 	}
 	
+	public LoadScreen() {
+		startButton = new Button("Start Garden");
+		loadButton = new Button("Load Garden");
+		
+		border = new BorderPane();
+		border.setTop(startButton);
+		border.setAlignment(startButton, Pos.TOP_CENTER);
+		border.setCenter(loadButton);
+		border.setBackground(new Background(backgroundimage));
+		
+	}
+	public void loadGardenButton() {
+		loadButton = new Button("Load Garden");
+	}
+	public void newFlow() {
+		flow = new FlowPane();
+		flow.setStyle("-fx-background-color: Brown;");
+		border.setCenter(flow);
+	}
 	
 	
 }

@@ -42,7 +42,29 @@ public class View2{
 		loadScreen = new LoadScreen();
 		
 		scene = new Scene(loadScreen.getScreen(), 600, 500);
-		stage.setScene(scene);
+		loadScreenHandler();
+		this.stage.setScene(scene);
+	}
+	
+	public void conditionScreenHandler() {
+		
+	}
+	public void loadScreenHandler() {
+		loadScreen.loadButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				loadScreen.newFlow();
+				loadScreen.border.setCenter(loadScreen.flow);
+			}
+			
+		});
+		loadScreen.startButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				conditionScreen = new ConditionScreen();
+				stage.setScene(new Scene(conditionScreen.getScreen(), 600, 500));
+			}
+		});
 		
 	}
 	
