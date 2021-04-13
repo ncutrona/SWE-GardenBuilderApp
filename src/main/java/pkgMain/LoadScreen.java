@@ -14,21 +14,14 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
-/*
- * Idea is to have the main scene, which is the object which is refrenced by view
- * Then the scene has a main node which is a stack pane,
- * choosing a stack pane so that we can have the selection screen stack like in the
- * storyboard. the stackpane will have a main content pane which will be as laid out in 
- * the storyboard.
- */
 public class LoadScreen {
 	
-	BorderPane border;
+	BorderPane loadBorder = new BorderPane();
 	StackPane stack;
-	FlowPane flow;
-	Button loadButton;
-	Button startButton;
+	Button loadButton = new Button("Load Garden");
+	Button startButton = new Button("Start Garden");;
 	
 	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/Intro_Background.jpg"));
@@ -38,29 +31,27 @@ public class LoadScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	public BorderPane getScreen() {
-		return border;
+	public BorderPane createLoadBorder() {
+		
+		VBox buttonBox = new VBox(10);
+		buttonBox.getChildren().addAll(startButton, loadButton);
+		
+		loadBorder.setCenter(buttonBox);
+		buttonBox.setAlignment(Pos.TOP_CENTER);
+		
+		loadBorder.setAlignment(buttonBox, Pos.TOP_CENTER);
+		//loadBorder.setCenter(loadButton);
+		loadBorder.setBackground(new Background(backgroundimage));
+		
+		return loadBorder;
+		
 	}
 	
-	public LoadScreen() {
-		startButton = new Button("Start Garden");
-		loadButton = new Button("Load Garden");
-		
-		border = new BorderPane();
-		border.setTop(startButton);
-		border.setAlignment(startButton, Pos.TOP_CENTER);
-		border.setCenter(loadButton);
-		border.setBackground(new Background(backgroundimage));
-		
+	
+	public BorderPane getScreen() {
+		return loadBorder;
 	}
-	public void loadGardenButton() {
-		loadButton = new Button("Load Garden");
-	}
-	public void newFlow() {
-		flow = new FlowPane();
-		flow.setStyle("-fx-background-color: Brown;");
-		border.setCenter(flow);
-	}
+	
 	
 	
 }

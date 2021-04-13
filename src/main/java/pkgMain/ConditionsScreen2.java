@@ -219,7 +219,7 @@ public class ConditionsScreen2 {
 		HBox slider3Box = new HBox(5);
 		slider3Box.setPadding(new Insets(5, 5, 5, 5));
 		slider3Box.setStyle("-fx-background-color: transparent;");
-		slider3Box.getChildren().addAll(slider3, setMoisture, Continue);
+		slider3Box.getChildren().addAll(slider3, setMoisture, Continue, Previous);
 		
 		
 

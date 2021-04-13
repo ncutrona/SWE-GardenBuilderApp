@@ -15,7 +15,7 @@ public class Model {
 	Plant demoPlantTwo = new Plant(20, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	Plant demoPlantThree = new Plant(6, 7, "Betula nigra", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	
-	public String Conditions = "Soil : " + gardenFinal.getSoil() + ",  Sun : " + gardenFinal.getSun() + ",  Moisture : " + gardenFinal.getMoisture();
+	
 	
 	
 	

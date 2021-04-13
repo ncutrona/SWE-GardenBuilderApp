@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 
 public class View2{
 	
-	private Stage stage;
+	/*private Stage stage;
 	private Scene scene;
 	
 	LoadScreen loadScreen;
@@ -66,6 +66,6 @@ public class View2{
 			}
 		});
 		
-	}
+	}*/
 	
 }

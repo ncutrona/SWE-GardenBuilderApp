@@ -102,7 +102,7 @@ public class GardenScreen {
 					
 	}
 	
-	public BorderPane createBorder(String Conditions, Collection<Plant> plants, HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap, GardenState state) {
+	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, Collection<Plant> plants, HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap, GardenState state) {
 		gardenBorder.setStyle("-fx-background-color: white;");
 		gardenFlow.setPadding(new Insets(10, 10, 10, 10));
 		//flow.setStyle("-fx-background-color: Brown;");
@@ -137,7 +137,7 @@ public class GardenScreen {
 		gardenTileTwo.getChildren().add(budget);
 		
 		//Adding Conditions Text
-		ConditionsDisplay.setText(Conditions);
+		ConditionsDisplay.setText(ConditionSun + " | " + ConditionSoil + " | " + ConditionMoisture);
 		gardenTileTwo.getChildren().add(ConditionsDisplay);
 		
 		

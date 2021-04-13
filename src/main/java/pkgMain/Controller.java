@@ -39,6 +39,9 @@ public class Controller extends Application{
 		Model model = new Model();
 		
 		
+		
+			
+		
 		//GARDEN SCREEN CONTROLLER CODE **********************************************************************************************
 		
 		//Creating a GardenScreen Instance
@@ -98,7 +101,7 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.Conditions, plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal), 800, 600);
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal), 800, 600);
  
     	
 		//****************************************************************************************************************************
@@ -110,6 +113,7 @@ public class Controller extends Application{
     		public void handle(ActionEvent e) {
     			if(!condScreen.slider.isValueChanging() && condScreen.slider.getValue() == 3d) {
     				model.gardenFinal.setSunConditions("full");
+    				System.out.println(model.gardenFinal.getSun());
 
     			}
 
@@ -219,12 +223,24 @@ public class Controller extends Application{
     	
     	condScreen.Continue.setOnAction(e-> window.setScene(gardenScene));
     	
+    	
 		Scene ConditionsScene = new Scene(condScreen.createBorder(),800, 600);
     	
     	
+		
+		//LOAD SCREEN CODE *********************************************************
+		LoadScreen loadScreen = new LoadScreen();
+		
+		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
+		
+		Scene LoadScreenScene = new Scene(loadScreen.createLoadBorder(),800, 600);
+		
+		condScreen.Previous.setOnAction(e-> window.setScene(LoadScreenScene));
+		
+		//**************************************************************************
     	
-		window.setScene(ConditionsScene);
-		window.setTitle("Window TITLE");
+		window.setScene(LoadScreenScene);
+		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
 		window.show();
     	
     	
