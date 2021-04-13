@@ -1,4 +1,5 @@
 package pkgMain;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -31,248 +32,213 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CodeBreakDown extends Application{
-	
-	String NodeId = "NULL";
-	
-	GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
-	GardenState state = new GardenState("Test Garden", "Arpil", 0, false, garden.getBudget());
-	
-	Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantThree = new Plant(3, 7, "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	int gardenBudget = garden.getBudget();
-	TilePane tile = new TilePane();
-	TilePane tileTwo = new TilePane();
-	FlowPane flow = new FlowPane();
-	BorderPane border = new BorderPane();
-	Text leps = new Text();
-	Text budget = new Text();
-	Text sortedPlants = new Text();
-	Text ConditionsDisplay = new Text();
-	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
-	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
-	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
-	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
-	
-	public String Conditions = "Soil : " + garden.getSoil() + ",  Sun : " + garden.getSun() + ",  Moisture : " + garden.getMoisture();
-	
-	BackgroundImage backgroundimage = new BackgroundImage(background, 
-            BackgroundRepeat.NO_REPEAT, 
-            BackgroundRepeat.NO_REPEAT, 
-            BackgroundPosition.DEFAULT, 
-               BackgroundSize.DEFAULT);
-	
-	ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
-	
-	public void getPlants() {
-		plantsMaster.add(demoPlantOne);
-		plantsMaster.add(demoPlantTwo);
-		plantsMaster.add(demoPlantThree);
-		
-		
-	}
-	
-	//getSortedPlants();
-	
-	public void addSortedTile(TilePane tile, Collection<Plant> plants) {
-		
-		for(Plant p : plants) {
-			tile.getChildren().add(newPlant(p.getScientificName()));
-		}
-		
-	}
-	
-	//Added - Creates a hashmap of our plants to be called when we update the garden in order to select the plant to update
-	public HashMap<String, Plant> createPlantData() {
-		HashMap<String, Plant> plantData = new HashMap<String, Plant>();
-    	plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
-    	plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
-    	plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
-    	
-    	return plantData;
-	}
-	
-	public HashMap<String, Image> createPlantImages() {
-		HashMap<String, Image> plantData = new HashMap<String, Image>();
-    	plantData.put(demoPlantOne.getScientificName(), milkweed);
-    	plantData.put(demoPlantTwo.getScientificName(), planttwo);
-    	plantData.put(demoPlantThree.getScientificName(), plantthree);
-    	
-    	return plantData;
-	}
-	
-	
-	
-	
-	public ImageView newPlant(String NodeID) {
-		ImageView iv1;
-		HashMap<String, Image> plantImages = createPlantImages();
-		Image plantView = plantImages.get(NodeID);
-		
-		HashMap<String, Plant> plants =  createPlantData();
-		Plant plant = plants.get(NodeID);
-		
-	
-		iv1 = new ImageView();
-		iv1.setImage(plantView);
-		iv1.setPreserveRatio(true);
-		iv1.setFitHeight(100);
-		iv1.setId(NodeID);
-		Tooltip t =  new Tooltip("Scientific Name: " + plant.getScientificName() + "\nPrice: $" + plant.getPrice() + "\nLeps: " + plant.getLepsSupported());
-		Tooltip.install(iv1, t);
-		
-		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
-			
-			public void handle(MouseEvent event) {				
-				Dragboard db = iv1.startDragAndDrop(TransferMode.COPY);
-				ClipboardContent content = new ClipboardContent();
-				content.putString(iv1.getId());
-				db.setContent(content);
-				event.consume();
-				System.out.println(iv1.getId());
-			}
-		});
-    	
-		
-		return iv1;
-					
-	}
-	
-    @Override
-    public void start(Stage stage) {
-    	
-    	getPlants();
-    	Collection<Plant> plantCollection = Plant.sortPlants(plantsMaster);
-    	
-    	
-    	
-    	
-    	stage.setTitle("Garden Builder v. 0.01 (Alpha)");
-    	//Setting up the Images
-    	//newPlant("Milkweed");
-    
-    	
-    	//DRAG AND DROP FEATURE *****************************************************
-    	
-    	flow.setOnDragDropped(new EventHandler <DragEvent>(){
-			public void handle(DragEvent event) {
-				HashMap<String, Image> images = createPlantImages();
-				Dragboard db = event.getDragboard();
-				if(db.hasString()) {
-					String nodeId = db.getString();
-					ImageView plant = new ImageView();
-					plant.setImage(images.get(nodeId));
-					plant.setPreserveRatio(true);
-					plant.setFitHeight(100);
-					plant.setId(nodeId);
-					//System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
-					
-					
-					if(plant != null) {
-						//System.out.println("WE REACH HERE!");
-						flow.getChildren().add(newPlant(nodeId));
-						updateGardenDisplay(nodeId);
-					}
-				}
-				
-				event.setDropCompleted(true);
-				event.consume();
-			}
-		});
-    	
-    	flow.setOnDragOver(new EventHandler <DragEvent>() {
-			public void handle(DragEvent event) {
-				
-				if (event.getGestureSource() != flow && event.getDragboard().hasString()) {
-                    /* allow for both copying and moving, whatever user chooses */
-                    event.acceptTransferModes(TransferMode.COPY);
-                }
-				
-				event.consume();
-			}
-		});
-    	
-    	
-    	//***************************************************************************
-    	//Creating the Layout of Main Garden Screen
-		border.setStyle("-fx-background-color: white;");
-		flow.setPadding(new Insets(10, 10, 10, 10));
-		//flow.setStyle("-fx-background-color: Brown;");
-		flow.setBackground(new Background(backgroundimage));
-		
-		
-	
-		border.setCenter(flow); 
-		tile.setPadding(new Insets(10, 10, 10, 10));
-		tile.setStyle("-fx-background-color: yellow");
-		
-		sortedPlants.setText("Sorted Plants");
-	
-		tile.getChildren().add(sortedPlants);
-		//tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
-		//tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
-		//tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
-		addSortedTile(tile, plantCollection);
-		
-		
-		border.setLeft(tile);
-		tileTwo.setPadding(new Insets(10, 10, 10, 10));
-		tileTwo.setStyle("-fx-background-color: pink;");	
+public class CodeBreakDown extends Application {
+	/*
+	 * String NodeId = "NULL";
+	 * 
+	 * GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
+	 * GardenState state = new GardenState("Test Garden", "Arpil", 0, false,
+	 * garden.getBudget());
+	 * 
+	 * Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100,
+	 * 100, 1, 0 ,0); Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay",
+	 * "full", "dry", 100, 100, 1, 0 ,0); Plant demoPlantThree = new Plant(3, 7,
+	 * "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0); int gardenBudget =
+	 * garden.getBudget(); TilePane tile = new TilePane(); TilePane tileTwo = new
+	 * TilePane(); FlowPane flow = new FlowPane(); BorderPane border = new
+	 * BorderPane(); Text leps = new Text(); Text budget = new Text(); Text
+	 * sortedPlants = new Text(); Text ConditionsDisplay = new Text(); Image
+	 * milkweed = new
+	 * Image(getClass().getResourceAsStream("/img/commonMilkweed.png")); Image
+	 * planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
+	 * Image plantthree = new
+	 * Image(getClass().getResourceAsStream("/img/plantthree.png")); Image
+	 * background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	 * 
+	 * public String Conditions = "Soil : " + garden.getSoil() + ",  Sun : " +
+	 * garden.getSun() + ",  Moisture : " + garden.getMoisture();
+	 * 
+	 * BackgroundImage backgroundimage = new BackgroundImage(background,
+	 * BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+	 * BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+	 * 
+	 * ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
+	 * 
+	 * public void getPlants() { plantsMaster.add(demoPlantOne);
+	 * plantsMaster.add(demoPlantTwo); plantsMaster.add(demoPlantThree);
+	 * 
+	 * 
+	 * }
+	 * 
+	 * //getSortedPlants();
+	 * 
+	 * public void addSortedTile(TilePane tile, Collection<Plant> plants) {
+	 * 
+	 * for(Plant p : plants) {
+	 * tile.getChildren().add(newPlant(p.getScientificName())); }
+	 * 
+	 * }
+	 * 
+	 * //Added - Creates a hashmap of our plants to be called when we update the
+	 * garden in order to select the plant to update public HashMap<String, Plant>
+	 * createPlantData() { HashMap<String, Plant> plantData = new HashMap<String,
+	 * Plant>(); plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
+	 * plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
+	 * plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
+	 * 
+	 * return plantData; }
+	 * 
+	 * public HashMap<String, Image> createPlantImages() { HashMap<String, Image>
+	 * plantData = new HashMap<String, Image>();
+	 * plantData.put(demoPlantOne.getScientificName(), milkweed);
+	 * plantData.put(demoPlantTwo.getScientificName(), planttwo);
+	 * plantData.put(demoPlantThree.getScientificName(), plantthree);
+	 * 
+	 * return plantData; }
+	 * 
+	 * 
+	 * 
+	 * 
+	 * public ImageView newPlant(String NodeID) { ImageView iv1; HashMap<String,
+	 * Image> plantImages = createPlantImages(); Image plantView =
+	 * plantImages.get(NodeID);
+	 * 
+	 * HashMap<String, Plant> plants = createPlantData(); Plant plant =
+	 * plants.get(NodeID);
+	 * 
+	 * 
+	 * iv1 = new ImageView(); iv1.setImage(plantView); iv1.setPreserveRatio(true);
+	 * iv1.setFitHeight(100); iv1.setId(NodeID); Tooltip t = new
+	 * Tooltip("Scientific Name: " + plant.getScientificName() + "\nPrice: $" +
+	 * plant.getPrice() + "\nLeps: " + plant.getLepsSupported());
+	 * Tooltip.install(iv1, t);
+	 * 
+	 * iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
+	 * 
+	 * public void handle(MouseEvent event) { Dragboard db =
+	 * iv1.startDragAndDrop(TransferMode.COPY); ClipboardContent content = new
+	 * ClipboardContent(); content.putString(iv1.getId()); db.setContent(content);
+	 * event.consume(); System.out.println(iv1.getId()); } });
+	 * 
+	 * 
+	 * return iv1;
+	 * 
+	 * }
+	 * 
+	 * @Override public void start(Stage stage) {
+	 * 
+	 * getPlants(); Collection<Plant> plantCollection =
+	 * Plant.sortPlants(plantsMaster);
+	 * 
+	 * 
+	 * 
+	 * 
+	 * stage.setTitle("Garden Builder v. 0.01 (Alpha)"); //Setting up the Images
+	 * //newPlant("Milkweed");
+	 * 
+	 * 
+	 * //DRAG AND DROP FEATURE *****************************************************
+	 * 
+	 * flow.setOnDragDropped(new EventHandler <DragEvent>(){ public void
+	 * handle(DragEvent event) { HashMap<String, Image> images =
+	 * createPlantImages(); Dragboard db = event.getDragboard(); if(db.hasString())
+	 * { String nodeId = db.getString(); ImageView plant = new ImageView();
+	 * plant.setImage(images.get(nodeId)); plant.setPreserveRatio(true);
+	 * plant.setFitHeight(100); plant.setId(nodeId);
+	 * //System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING
+	 * ISSUES. OTHERWISE CODE IS GOOD
+	 * 
+	 * 
+	 * if(plant != null) { //System.out.println("WE REACH HERE!");
+	 * flow.getChildren().add(newPlant(nodeId)); updateGardenDisplay(nodeId); } }
+	 * 
+	 * event.setDropCompleted(true); event.consume(); } });
+	 * 
+	 * flow.setOnDragOver(new EventHandler <DragEvent>() { public void
+	 * handle(DragEvent event) {
+	 * 
+	 * if (event.getGestureSource() != flow && event.getDragboard().hasString()) {
+	 * allow for both copying and moving, whatever user chooses
+	 * event.acceptTransferModes(TransferMode.COPY); }
+	 * 
+	 * event.consume(); } });
+	 * 
+	 * 
+	 * //***************************************************************************
+	 * //Creating the Layout of Main Garden Screen
+	 * border.setStyle("-fx-background-color: white;"); flow.setPadding(new
+	 * Insets(10, 10, 10, 10)); //flow.setStyle("-fx-background-color: Brown;");
+	 * flow.setBackground(new Background(backgroundimage));
+	 * 
+	 * 
+	 * 
+	 * border.setCenter(flow); tile.setPadding(new Insets(10, 10, 10, 10));
+	 * tile.setStyle("-fx-background-color: yellow");
+	 * 
+	 * sortedPlants.setText("Sorted Plants");
+	 * 
+	 * tile.getChildren().add(sortedPlants);
+	 * //tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
+	 * //tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
+	 * //tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
+	 * addSortedTile(tile, plantCollection);
+	 * 
+	 * 
+	 * border.setLeft(tile); tileTwo.setPadding(new Insets(10, 10, 10, 10));
+	 * tileTwo.setStyle("-fx-background-color: pink;");
+	 * 
+	 * 
+	 * //Text leps = new Text(); leps.setText("Leps Supported: " +
+	 * state.totalLepsSupported); tileTwo.getChildren().add(leps);
+	 * 
+	 * //Text budget = new Text(); budget.setText("Budget: $" + state.gardenBudget);
+	 * tileTwo.getChildren().add(budget);
+	 * 
+	 * //Adding Conditions Text ConditionsDisplay.setText(Conditions);
+	 * tileTwo.getChildren().add(ConditionsDisplay);
+	 * 
+	 * 
+	 * 
+	 * //Adding the options button to the top tile pane Button optionsButton = new
+	 * Button("Options"); optionsButton.setTooltip(new
+	 * Tooltip("Tooltip for Button")); tileTwo.getChildren().add(optionsButton);
+	 * 
+	 * 
+	 * border.setTop(tileTwo);
+	 * 
+	 * 
+	 * Scene scene = new Scene(border, 800, 600); stage.setScene(scene);
+	 * stage.show(); }
+	 * 
+	 * public void updateGardenDisplay(String NodeId) {
+	 * 
+	 * HashMap<String, Plant> plantData = createPlantData();
+	 * 
+	 * Plant plant = plantData.get(NodeId);
+	 * 
+	 * ArrayList<Integer> updates = GardenState.placePlant(state, plant);
+	 * //System.out.println(updates);
+	 * 
+	 * int newLeps = updates.get(0); int newBudget = updates.get(1);
+	 * 
+	 * leps.setText("Leps Supported: " + newLeps);
+	 * //tileTwo.getChildren().add(leps);
+	 * 
+	 * 
+	 * budget.setText("Budget: $" + newBudget); //tileTwo.getChildren().add(budget);
+	 * 
+	 * 
+	 * }
+	 */
 
-		
-		//Text leps = new Text();
-		leps.setText("Leps Supported: " + state.totalLepsSupported);
-		tileTwo.getChildren().add(leps);
-		
-		//Text budget = new Text();
-		budget.setText("Budget: $" + state.gardenBudget);
-		tileTwo.getChildren().add(budget);
-		
-		//Adding Conditions Text
-		ConditionsDisplay.setText(Conditions);
-		tileTwo.getChildren().add(ConditionsDisplay);
-		
-		
-		
-		//Adding the options button to the top tile pane
-		Button optionsButton = new Button("Options");
-		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
-		tileTwo.getChildren().add(optionsButton);
-		
-		
-		border.setTop(tileTwo);
-	
-		
-    	Scene scene = new Scene(border, 800, 600);
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    public void updateGardenDisplay(String NodeId) {
-    	
-    	HashMap<String, Plant> plantData = createPlantData();
-    	
-    	Plant plant = plantData.get(NodeId);
-    	
-    	ArrayList<Integer> updates = GardenState.placePlant(state, plant);
-    	//System.out.println(updates);
-    	
-    	int newLeps = updates.get(0);
-    	int newBudget = updates.get(1);
-    	
-		leps.setText("Leps Supported: " + newLeps);
-		//tileTwo.getChildren().add(leps);
-    	
-		
-		budget.setText("Budget: $" + newBudget);
-		//tileTwo.getChildren().add(budget);
-    	
-    	
-    }
+	public static void main(String[] args) {
+		launch();
+	}
 
-    public static void main(String[] args) {
-        launch();
-    }
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

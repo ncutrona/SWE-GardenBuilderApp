@@ -7,8 +7,9 @@ import java.util.HashMap;
 public class Model {
 
 	
-	GardenConditions gardenFinal = new GardenConditions(500, "full", "dry", "clay");
+	GardenConditions gardenFinal = new GardenConditions(0, "", "", "");
 	GardenState stateFinal = new GardenState("Test Garden", "Arpil", 0, false, gardenFinal.getBudget());
+	
 	
 	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	Plant demoPlantTwo = new Plant(12, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);

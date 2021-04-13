@@ -16,7 +16,9 @@ public class GardenState {
 		this.lastSaved = lastSaved;
 		this.totalLepsSupported = totalLepsSupported;
 		this.isFull = isFull;
-		this.gardenBudget = gardenBudget;
+		//this.gardenBudget = gardenBudget;
+		setGardenBudget(gardenBudget);
+
 		//this.gardenShape = gardenShape;
 	}
 
@@ -77,18 +79,19 @@ public class GardenState {
 	}
 	
 	
-	public static int updateBudget(GardenState garden, Plant plant) {
+	public static int updateBudget(GardenConditions garden, Plant plant) {
 		
-		garden.gardenBudget -= plant.price;
+		int bud = garden.getBudget();
+		bud -= plant.price;
 		
-		System.out.println("Remaining Budget: " + garden.gardenBudget);
-		return garden.gardenBudget;
+		System.out.println("Remaining Budget: " + bud);
+		return bud;
 		
 	}
 	
-	public static ArrayList<Integer> updateGarden(GardenState garden, Plant plant) {
+	public static ArrayList<Integer> updateGarden(GardenConditions gardenCon, GardenState garden, Plant plant) {
 		
-		int newBudget = updateBudget(garden, plant);
+		int newBudget = updateBudget(gardenCon, plant);
 		int newLeps = updateLeps(garden, plant);
 		//will add more methods later (post alpha).
 		
@@ -101,9 +104,9 @@ public class GardenState {
 		
 	}
 	
-	public static ArrayList<Integer> placePlant(GardenState garden, Plant plant) {
+	public static ArrayList<Integer> placePlant(GardenConditions gardenCon, GardenState garden, Plant plant) {
 		
-		return updateGarden(garden, plant);
+		return updateGarden(gardenCon, garden, plant);
 	}
 	
 	//METHODS TO ADD POST ALPHA:

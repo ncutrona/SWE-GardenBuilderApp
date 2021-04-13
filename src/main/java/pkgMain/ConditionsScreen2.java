@@ -1,7 +1,5 @@
 package pkgMain;
-
 import java.util.ArrayList;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -31,12 +29,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
-// CODE BREAKDOWN FOR THE CONDITIONS PAGE
-
-public class CodeBreakDown4 extends Application {
-	
-	GardenState garden = new GardenState("garden",  "today", 0, false, 0 /*PentagonShape gardenShape*/);
-	GardenConditions conditions = new GardenConditions(0, "", "", "");
+public class ConditionsScreen2 {
 	
 	Image background = new Image(getClass().getResourceAsStream("/img/gcs.png"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
@@ -49,76 +42,29 @@ public class CodeBreakDown4 extends Application {
 	Slider slider2 = new Slider(0, 3, 0);
 	Slider slider3 = new Slider(0, 3, 0);
 	
-	/*public void setSliderSun(Slider slider) {
-		
-		if(!slider.isValueChanging() && slider.getValue() == 3d) {
-			conditions.setSunConditions("full");
-			
-		}
-		
-		else if(!slider.isValueChanging() && slider.getValue() == 2d) {
-			conditions.setSunConditions("partial");
-			
-		}
-		
-		
-		else{
-			conditions.setSunConditions("shade");
-		}
-		
-	}
-		
-		public void setSliderMoisture(Slider slider) {
-			
-			if(!slider.isValueChanging() && slider.getValue() == 3d) {
-				conditions.setMoistureConditions("wet");
-				
-			}
-			
-			else if(!slider.isValueChanging() && slider.getValue() == 2d) {
-				conditions.setMoistureConditions("moist");
-				
-			}
-			
-			
-			else{
-				conditions.setMoistureConditions("dry");
-			}
-		
-	}
-		
-		public void setSliderSoil(Slider slider) {
-			
-			if(!slider.isValueChanging() && slider.getValue() == 3d) {
-				conditions.setSoilConditions("clay");
-				
-			}
-			
-			else if(!slider.isValueChanging() && slider.getValue() == 2d) {
-				conditions.setSoilConditions("loam");
-				
-			}
-			
-			else{
-				conditions.setSoilConditions("sand");
-			}
-		}*/
-			
+	TextField budget = new TextField();
+	Label budgetLabel = new Label("Budget $: ");
+	TextField gardenName = new TextField();
+	Label gardenLabel = new Label("Garden Name: ");
 	
-	public void start(Stage stage) {
+	Button submit = new Button("Submit");
+	Button clear = new Button("Clear");
+	
+	Text sun = new Text("Set Garden Sun Conditions");
+	Text moisture = new Text("Set Garden Moisture Conditions");
+	Text soil = new Text("Set Garden Soil Conditions");
+	
+	Button setSoil = new Button("Set Soil");
+	Button setMoisture = new Button("Set Moisture");
+	Button setSun = new Button("Set Sun");
+	
+	Button Previous = new Button("Previous");
+	Button Continue = new Button("Continue");
+	
+	public BorderPane createBorder() {
 		
-		stage.setTitle("Garden Builder v. 0.01 (Alpha)");
-		
-		TextField budget = new TextField();
 		budget.setPromptText("Enter your Budget $");
-		Label budgetLabel = new Label("Budget $: ");
-		TextField gardenName = new TextField();
 		gardenName.setPromptText("Enter Your Garden Name: ");
-		Label gardenLabel = new Label("Garden Name: ");
-		
-		
-		Button submit = new Button("Submit");
-		Button clear = new Button("Clear");
 		
 		HBox box = new HBox(5);
 		box.setPadding(new Insets(5, 5, 5, 5));
@@ -127,9 +73,6 @@ public class CodeBreakDown4 extends Application {
 		
 		
 		//SLider Labels
-		Text sun = new Text("Set Garden Sun Conditions");
-		Text moisture = new Text("Set Garden Moisture Conditions");
-		Text soil = new Text("Set Garden Soil Conditions");
 		
 		
 		//SLIDERS
@@ -175,7 +118,7 @@ public class CodeBreakDown4 extends Application {
 
 		slider.setMinWidth(380);
 		
-		Button setSun = new Button("Set Sun");
+		//Button setSun = new Button("Set Sun");
 		HBox slider1Box = new HBox(5);
 		slider1Box.setPadding(new Insets(5, 5, 5, 5));
 		slider1Box.setStyle("-fx-background-color: transparent;");
@@ -224,7 +167,7 @@ public class CodeBreakDown4 extends Application {
 
 		slider2.setMinWidth(380);
 		
-		Button setSoil = new Button("Set Soil");
+		//Button setSoil = new Button("Set Soil");
 		HBox slider2Box = new HBox(5);
 		slider2Box.setPadding(new Insets(5, 5, 5, 5));
 		slider2Box.setStyle("-fx-background-color: transparent;");
@@ -272,12 +215,11 @@ public class CodeBreakDown4 extends Application {
 		
 		slider3.setMinWidth(380);
 		
-		Button setMoisture = new Button("Set Moisture");
+		//Button setMoisture = new Button("Set Moisture");
 		HBox slider3Box = new HBox(5);
 		slider3Box.setPadding(new Insets(5, 5, 5, 5));
 		slider3Box.setStyle("-fx-background-color: transparent;");
-		slider3Box.getChildren().addAll(slider3, setMoisture);
-		
+		slider3Box.getChildren().addAll(slider3, setMoisture, Continue);
 		
 		
 
@@ -297,116 +239,8 @@ public class CodeBreakDown4 extends Application {
 		conditionsFlow.setAlignment(Pos.CENTER);
 		conditionsFlow.setVgap(20);
 		
-		setSun.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			    public void handle(ActionEvent e) {
-				if(!slider.isValueChanging() && slider.getValue() == 3d) {
-					conditions.setSunConditions("full");
-					
-				}
-				
-				else if(!slider.isValueChanging() && slider.getValue() == 2d) {
-					conditions.setSunConditions("partial");
-					
-				}
-				
-				
-				else{
-					conditions.setSunConditions("shade");
-				}
-					System.out.println(conditions.getSun());
-			     }
-			 });
+		return conditionsBorder;
 		
-		setMoisture.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			    public void handle(ActionEvent e) {
-					if(!slider3.isValueChanging() && slider3.getValue() == 3d) {
-						conditions.setMoistureConditions("wet");
-						
-					}
-					
-					else if(!slider3.isValueChanging() && slider3.getValue() == 2d) {
-						conditions.setMoistureConditions("moist");
-						
-					}
-					
-					
-					else{
-						conditions.setMoistureConditions("dry");
-					}
-			     }
-			 });
-		
-		setSoil.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			    public void handle(ActionEvent e) {
-					if(!slider2.isValueChanging() && slider2.getValue() == 3d) {
-						conditions.setSoilConditions("clay");
-						
-					}
-					
-					else if(!slider2.isValueChanging() && slider2.getValue() == 2d) {
-						conditions.setSoilConditions("loam");
-						System.out.println(conditions.getSoil());
-						
-					}
-					
-					else{
-						conditions.setSoilConditions("sand");
-						
-					}
-			     }
-			 });
-
-
-		
-		submit.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			    public void handle(ActionEvent e) {
-			        if ((budget.getText() != null && !budget.getText().isEmpty() && gardenName.getText() != null && !gardenName.getText().isEmpty())) {
-			        	try {
-			        		int intBudget = Integer.parseInt(budget.getText());
-			        		budget.setText("Your budget was set.");
-			        		gardenName.setText("Your Garden Name was set.");
-			        		
-			        		//Garden State Budget is now updated based off of the user input.
-			        		garden.setGardenBudget(intBudget);
-			        		garden.setGardenName(gardenName.getText());
-			        	} catch(Exception except) {
-			        		budget.setText("");
-			        		budget.setPromptText("Enter a valid budget $");
-			        		gardenName.setText("");
-			        		gardenName.setPromptText("Enter Your Garden Name: ");
-			        	}
-			            
-			        } else {
-			            budget.setPromptText("Enter a budget $");
-			            gardenName.setPromptText("Enter a Garden Name: ");
-			        }
-			        
-			        System.out.println(conditions.getBudget());
-			     }
-			 });
-		
-		//Setting an action for the Clear button
-		clear.setOnAction(new EventHandler<ActionEvent>() {
-
-		@Override
-		    public void handle(ActionEvent e) {
-				budget.clear();
-				budgetLabel.setText(null);
-				gardenName.clear();
-				gardenLabel.setText(null);
-		    }
-		});
-
-
-		
-    	Scene scene = new Scene(conditionsBorder, 800, 600);
-        stage.setScene(scene);
-        stage.show();
-   	
 	}
 	
 }
