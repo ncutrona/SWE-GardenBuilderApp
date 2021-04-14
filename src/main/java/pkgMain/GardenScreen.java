@@ -52,13 +52,13 @@ public class GardenScreen {
                BackgroundSize.DEFAULT);
 	
 
-	public HashMap<String, Image> createPlantImages(Plant one, Plant two, Plant three) {
+	public HashMap<String, Image> createPlantImages(String one, String two, String three) {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
     	
 		
-		plantData.put(one.getScientificName(), milkweed);
-    	plantData.put(two.getScientificName(), planttwo);
-    	plantData.put(three.getScientificName(), plantthree);
+		plantData.put(one, milkweed);
+    	plantData.put(two, planttwo);
+    	plantData.put(three, plantthree);
     	
     	return plantData;
 	}

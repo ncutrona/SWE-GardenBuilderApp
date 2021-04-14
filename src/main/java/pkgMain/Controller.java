@@ -54,13 +54,12 @@ public class Controller extends Application{
     	Collection<Plant> plantCollection = Plant.sortPlants(plantsMaster);
     	
     	//Creaeting our PlantImageData with the demoplants
-    	HashMap<String, Image> plantImageData = new HashMap<String, Image>();
-    	plantImageData = GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree);
+    	final HashMap<String, Image> plantImageData = GardenScreenView.createPlantImages(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
     	
     
     	GardenScreenView.gardenFlow.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				HashMap<String, Image> images = GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree);
+				HashMap<String, Image> images = plantImageData;
 				Dragboard db = event.getDragboard();
 				if(db.hasString()) {
 					String nodeId = db.getString();
@@ -76,7 +75,7 @@ public class Controller extends Application{
 						//System.out.println("WE REACH HERE!");
 						HashMap<String, Plant> plants = model.createPlantData();
 						Plant plantNeeded = plants.get(nodeId);
-						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported()));
+						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, plantImageData, plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported()));
 		
 						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
 						model.stateFinal.gardenBudget -= plantNeeded.price;
@@ -106,10 +105,10 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 1200, 600);
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantImageData, model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 1200, 600);
 
 		for(Plant p : plantCollection) {
-			GardenScreenView.gardenTile.getChildren().add(GardenScreenView.newPlant(p.getScientificName(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
+			GardenScreenView.gardenTile.getChildren().add(GardenScreenView.newPlant(p.getScientificName(), plantImageData, p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
 		}
     	
 		//****************************************************************************************************************************
