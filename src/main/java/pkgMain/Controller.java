@@ -17,7 +17,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * Controller class from MVC design pattern
+ * Controller class from MVC design pattern.
+ * Extends from Application.
  *
  * @author Aidan Chao
  * @author Nicholas Cutrona

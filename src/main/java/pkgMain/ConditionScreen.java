@@ -19,6 +19,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.util.StringConverter;
 
+
+/**
+ * ConditionScreen class.
+ * Handles formatting of conditions screen.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class ConditionScreen {
 
 	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
@@ -48,6 +59,11 @@ public class ConditionScreen {
 		flow.setVgap(20);
 	}*/
 	
+	
+	/**
+	 * Constructor for ConditionScreen object.
+	 * Sets up sliders, text, input and screen.
+	 */
 	public ConditionScreen() {
 		setSunSlider();
 		setMoistSlider();
@@ -58,16 +74,31 @@ public class ConditionScreen {
 		
 	}
 	
+	
+	/**
+	 * Returns the screen as a BorderPane
+	 * 
+	 * @return BorderPane The BorderPane for ConditionScreen
+	 */
 	public BorderPane getScreen() {
 		return this.border;
 	}
 	
+	
+	/**
+	 * Sets the text for the condition sliders.
+	 */
 	public void setText() {
 		sun = new Text("Set Garden Sun Conditions");
 		moisture = new Text("Set Garden Moisture Conditions");
 		soil = new Text("Set Garden Soil Conditions");
 	}
 	
+	
+	/**
+	 * Sets up Screen.
+	 * Sets up and align new border and flow panes.
+	 */
 	public void setScreen() {
 		border = new BorderPane();
 		flow = new FlowPane(Orientation.VERTICAL);
@@ -88,6 +119,11 @@ public class ConditionScreen {
 		flow.setVgap(20);
 	}
 	
+	
+	/**
+	 * Setup for the sun slider.
+	 * Uses string converter to set condition based on slider
+	 */
 	public void setSunSlider() {
 		sunSlider = setSlider();
 		sunSlider.setLabelFormatter(new StringConverter<Double>() {
@@ -116,6 +152,11 @@ public class ConditionScreen {
 		sunBox = setSliderHbox(sunSlider);
 	}
 	
+	
+	/**
+	 * Setup for the soil slider.
+	 * Uses string converter to set condition based on slider
+	 */
 	public void setSoilSlider() {
 		soilSlider = setSlider();
 		soilSlider.setLabelFormatter(new StringConverter<Double>() {
@@ -144,6 +185,11 @@ public class ConditionScreen {
 		soilBox = setSliderHbox(soilSlider);
 	}
 	
+	
+	/**
+	 * Setup for the moisture slider.
+	 * Uses string converter to set condition based on slider
+	 */
 	public void setMoistSlider() {
 		moistSlider = setSlider();
 		moistSlider.setLabelFormatter(new StringConverter<Double>() {
@@ -177,6 +223,11 @@ public class ConditionScreen {
 		moistBox = setSliderHbox(moistSlider);
 	}
 	
+	
+	/**
+	 * Sets up the input box.
+	 * Takes input for budget and garden name.
+	 */
 	public void setInputHBox() {
 		budgetLabel = new Label("Budget $: ");
 		gardenLabel = new Label("Garden Name: ");
@@ -196,6 +247,14 @@ public class ConditionScreen {
 		
 	}
 	
+	
+	/**
+	 * Sets up new sliders horizontally.
+	 * Adds passed in slider to new HBox.
+	 * 
+	 * @param slide slider to add
+	 * @return HBox that contains the slider
+	 */
 	public HBox setSliderHbox(Slider slide) {
 		HBox box = new HBox(5);
 		box.setPadding(new Insets(5, 5, 5, 5));
@@ -205,6 +264,13 @@ public class ConditionScreen {
 		return box;
 	}
 	
+	
+	/**
+	 * sets up a generic slider for conditions.
+	 * Goes 1-3, same for each conditions slider.
+	 * 
+	 * @return new slider with formatting to be a conditions slider
+	 */
 	public Slider setSlider() {
 		Slider slider = new Slider(0,3,0);
 		slider.setMin(1);

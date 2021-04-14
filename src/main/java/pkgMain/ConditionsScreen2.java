@@ -29,6 +29,16 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
+/**
+ * ConditionScreen2 class.
+ * Handles formatting of conditions screen.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class ConditionsScreen2 {
 	
 	Image background = new Image(getClass().getResourceAsStream("/img/gcs.png"));
@@ -61,6 +71,14 @@ public class ConditionsScreen2 {
 	Button Previous = new Button("Go Back");
 	Button Continue = new Button("Continue");
 	
+	
+	/**
+	 * Creates and sets up the BorderPane for ConditionsScreen.
+	 * This also sets up all the sliders for conditions and the input for budget.
+	 * Formats how it is displayed.
+	 * 
+	 * @return the setup BorderPane
+	 */
 	public BorderPane createBorder() {
 		
 		budget.setPromptText("Enter your Budget $");
