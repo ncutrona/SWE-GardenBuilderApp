@@ -71,12 +71,6 @@ public class ConditionsScreen2 {
 		box.setStyle("-fx-background-color: pink;");
 		box.getChildren().addAll(budgetLabel, budget, gardenLabel, gardenName, submit, clear);
 		
-		
-		//SLider Labels
-		
-		
-		//SLIDERS
-		//Slider slider = new Slider(0, 3, 0);
 		slider.setMin(1);
 		slider.setMax(3);
 		slider.setValue(1);
@@ -117,8 +111,7 @@ public class ConditionsScreen2 {
 		
 
 		slider.setMinWidth(380);
-		
-		//Button setSun = new Button("Set Sun");
+
 		HBox slider1Box = new HBox(5);
 		slider1Box.setPadding(new Insets(5, 5, 5, 5));
 		slider1Box.setStyle("-fx-background-color: transparent;");
@@ -126,7 +119,6 @@ public class ConditionsScreen2 {
 		
 		
 		
-		//Slider slider2 = new Slider(0, 3, 0);
 		slider2.setMin(1);
 		slider2.setMax(3);
 		slider2.setValue(1);
@@ -167,14 +159,14 @@ public class ConditionsScreen2 {
 
 		slider2.setMinWidth(380);
 		
-		//Button setSoil = new Button("Set Soil");
+
 		HBox slider2Box = new HBox(5);
 		slider2Box.setPadding(new Insets(5, 5, 5, 5));
 		slider2Box.setStyle("-fx-background-color: transparent;");
 		slider2Box.getChildren().addAll(slider2, setSoil);
 		
 		
-		//Slider slider3 = new Slider(0, 3, 0);
+
 		slider3.setMin(1);
 		slider3.setMax(3);
 		slider3.setValue(1);
@@ -215,14 +207,12 @@ public class ConditionsScreen2 {
 		
 		slider3.setMinWidth(380);
 		
-		//Button setMoisture = new Button("Set Moisture");
+
 		HBox slider3Box = new HBox(5);
 		slider3Box.setPadding(new Insets(5, 5, 5, 5));
 		slider3Box.setStyle("-fx-background-color: transparent;");
 		slider3Box.getChildren().addAll(slider3, setMoisture, Continue, Previous);
 		
-		
-
 		BorderPane conditionsBorder = new BorderPane();
 		FlowPane conditionsFlow = new FlowPane(Orientation.VERTICAL);
 		conditionsFlow.setBackground(new Background(backgroundimage));

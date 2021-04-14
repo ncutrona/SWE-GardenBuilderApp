@@ -70,11 +70,6 @@ public class GardenState {
 		this.gardenShape = gardenShape;
 	}*/
 	
-
-	
-	//METHODS TO ADD POST ALPHA:
-	//hoverPlant(){}
-	//deletePlant(){}
 	
 	public void hoverPlant() {
 		

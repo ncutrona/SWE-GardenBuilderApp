@@ -24,39 +24,27 @@ public class Controller extends Application{
 	
 	
 	public static void main(String[] args) {
-		/*
-		 * Launch hands off execution to javafx to do various backend tasks
-		 * such as setting up graphics and system specifics
-		 */
 		launch();
 	}
 	
 	@Override
 	public void start(Stage primaryStage){
-		
-		//Creating the Window
 		window = primaryStage;
-		//Creating a Model instance
 		Model model = new Model();
 		
 		
-		
-			
-		
-		//GARDEN SCREEN CONTROLLER CODE **********************************************************************************************
+		//GARDEN SCREEN CODE **********************************************************************************************
 		
 		//Creating a GardenScreen Instance
 		GardenScreen GardenScreenView = new GardenScreen();
 		
-	
-		//Creating our Sorted Collection of Plants
+
     	ArrayList<Plant> plantsMaster = model.getPlants();
     	Collection<Plant> plantCollection = Plant.sortPlants(plantsMaster);
     	
-    	//Creaeting our PlantImageData with the demoplants
+    	
     	final HashMap<String, Image> plantImageData = GardenScreenView.createPlantImages(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
     	
-    
     	GardenScreenView.gardenFlow.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
 				HashMap<String, Image> images = plantImageData;
@@ -68,11 +56,8 @@ public class Controller extends Application{
 					plant.setPreserveRatio(true);
 					plant.setFitHeight(100);
 					plant.setId(nodeId);
-					//System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING ISSUES. OTHERWISE CODE IS GOOD
-					
 					
 					if(plant != null) {
-						//System.out.println("WE REACH HERE!");
 						HashMap<String, Plant> plants = model.createPlantData();
 						Plant plantNeeded = plants.get(nodeId);
 						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, plantImageData, plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported()));
@@ -80,7 +65,7 @@ public class Controller extends Application{
 						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
 						model.stateFinal.gardenBudget -= plantNeeded.price;
 						GardenScreenView.updateGardenDisplay(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
-						//NOT WORKING
+						
 					}
 				}
 				
@@ -94,7 +79,6 @@ public class Controller extends Application{
 			public void handle(DragEvent event) {
 				
 				if (event.getGestureSource() != GardenScreenView.gardenFlow && event.getDragboard().hasString()) {
-                    /* allow for both copying and moving, whatever user chooses */
                     event.acceptTransferModes(TransferMode.COPY);
                 }
 				
@@ -106,7 +90,6 @@ public class Controller extends Application{
 		
     	//Setting the GardenScene
     	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantImageData, model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 1200, 600);
-
 		for(Plant p : plantCollection) {
 			GardenScreenView.gardenTile.getChildren().add(GardenScreenView.newPlant(p.getScientificName(), plantImageData, p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
 		}
@@ -183,7 +166,6 @@ public class Controller extends Application{
     	});
 
 
-
     	condScreen.submit.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
@@ -192,9 +174,6 @@ public class Controller extends Application{
     					int intBudget = Integer.parseInt(condScreen.budget.getText());
     					condScreen.budget.setText("Your budget was set.");
     					condScreen.gardenName.setText("Your Garden Name was set.");
-
-    					
-    					//LOOK HERE WHEN WE ADD NAME TO SAVING!!!!!
     					model.gardenFinal.setBudget(intBudget);
     					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
     					model.stateFinal.setGardenName(condScreen.gardenName.getText());
@@ -229,45 +208,30 @@ public class Controller extends Application{
     	
     	
     	condScreen.Continue.setOnAction(e-> window.setScene(gardenScene));
-    	
-    	
 		Scene ConditionsScene = new Scene(condScreen.createBorder(),800, 600);
     	
     	
 		
 		//LOAD SCREEN CODE *********************************************************
 		LoadScreen loadScreen = new LoadScreen();
-		
 		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
-		
 		Scene LoadScreenScene = new Scene(loadScreen.createLoadBorder(),1000, 600);
-		
 		condScreen.Previous.setOnAction(e-> window.setScene(LoadScreenScene));
-		
 		//**************************************************************************
 		
 		
 		//SAVE SCREEN CODE *********************************************************
 		SaveScreen saveScreen = new SaveScreen();
-		
 		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
-		
 		Scene SaveScreenScene = new Scene(saveScreen.createLoadingBorder(),800, 600);
-		
 		saveScreen.prevButton.setOnAction(e-> window.setScene(LoadScreenScene));
-		
+		loadScreen.loadButton.setOnAction(e-> window.setScene(SaveScreenScene));
 		//**************************************************************************
 		
-		loadScreen.loadButton.setOnAction(e-> window.setScene(SaveScreenScene));
-		
-		
-		//SAVE SCREEN CODE *********************************************************
+		//Inventory SCREEN CODE *********************************************************
 		InvScreen invScreen = new InvScreen();
-		
 		invScreen.PrevButtonInv.setOnAction(e-> window.setScene(gardenScene));
-		
 		Scene InventoryScene = new Scene(invScreen.createInvBorder(),800, 600);
-		
 		saveScreen.prevButton.setOnAction(e-> window.setScene(LoadScreenScene));
 		
 		//**************************************************************************
@@ -277,7 +241,6 @@ public class Controller extends Application{
 
 		// Setting an action for the options button
     	GardenScreenView.optionsButton.setOnAction(new EventHandler<ActionEvent>() {
-
     		@Override
     		public void handle(ActionEvent e) {
     			Stage popupStage = new Stage();
@@ -291,8 +254,6 @@ public class Controller extends Application{
     	    	});
     			popupStage.initModality(Modality.APPLICATION_MODAL);
     			popup.save.setOnAction(k -> popupStage.close());
-//    			popup.restart.setOnAction(g -> window.setScene(LoadScreenScene));
-//    			popup.restart.setOnAction(k -> popupStage.close());
     			popup.resume.setOnAction(k -> popupStage.close());
     			popupStage.setTitle("Options");
     			popupStage.setMinWidth(250);
@@ -303,10 +264,7 @@ public class Controller extends Application{
     			
     		}
     	});
-    	
-
-		//**************************************************************************
-		
+    			
 		GardenScreenView.inventory.setOnAction(e-> window.setScene(InventoryScene));
     	
 		window.setScene(LoadScreenScene);
@@ -314,8 +272,5 @@ public class Controller extends Application{
 		window.show();
     	
     	
-	}
-	
-
-	
+	}	
 }

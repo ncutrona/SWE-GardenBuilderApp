@@ -41,14 +41,12 @@ public class SaveScreen {
 		saved1.setFill(Color.RED);   
 		saved1.setStrokeWidth(1); 
 		saved1.setStroke(Color.BLUE);
-		
 		saved2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
 		saved2.setFill(Color.RED);   
 		saved2.setStrokeWidth(1); 
 		saved2.setStroke(Color.BLUE);
 		
 		VBox fillBox = new VBox(15);
-		
 		HBox buttonbox2 = new HBox(10);
 		buttonbox2.getChildren().addAll(saved2, LoadingButton2);
 		HBox buttonBox = new HBox(10);
