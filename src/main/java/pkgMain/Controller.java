@@ -46,7 +46,10 @@ public class Controller extends Application{
 
 	/**
 	 * Overrides the start method from Application.
-	 * #todo update this
+	 * Sets up GardenScreen, ConditionScreen, Load Screen,
+	 * Save Screen, Inventory Screen, and Popup Scene.
+	 * Sets actions for events and buttons.
+	 * 
 	 * @param primaryStage primary Stage object
 	 */
 	@Override
@@ -166,6 +169,7 @@ public class Controller extends Application{
     		}
     	});
 
+    	
     	condScreen.setSoil.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {

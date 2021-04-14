@@ -25,6 +25,17 @@ import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * GardenScreen class.
+ * Handles formatting of Garden Screen.
+ * Sources image file paths.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class GardenScreen {
 
 	String NodeId = "NULL";
@@ -51,7 +62,15 @@ public class GardenScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-
+	
+	/**
+	 * Creates a hashmap of three plant images
+	 * 
+	 * @param one first plant
+	 * @param two second plant
+	 * @param three third plant
+	 * @return HashMap<String, Image> of created images
+	 */
 	public HashMap<String, Image> createPlantImages(String one, String two, String three) {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
     	
@@ -64,6 +83,16 @@ public class GardenScreen {
 	}
 	
 	
+	/**
+	 * Returns an ImageView of a new plant from plantImages
+	 * 
+	 * @param NodeID String NodeID of plantImages for the plant image
+	 * @param plantImages ArrayList of plant images accessed by NodeID
+	 * @param name the name of the plant
+	 * @param price the price of the plant
+	 * @param lepsSupported the number of leps supported
+	 * @return ImageView of new plant
+	 */
 	public ImageView newPlant(String NodeID, HashMap<String, Image> plantImages, String name, int price, int lepsSupported) {
 		ImageView iv1;
 		Image plantView = plantImages.get(NodeID);
@@ -95,6 +124,18 @@ public class GardenScreen {
 					
 	}
 	
+	
+	/**
+	 * Creates the BorderPane for GardenScreen
+	 * 
+	 * @param ConditionSun String current sun condition
+	 * @param ConditionSoil String current soil condition
+	 * @param ConditionMoisture String current moisture condition
+	 * @param plantImages hashmap of plantImages
+	 * @param lepsNeeded int number of leps needed
+	 * @param budgetNeeded int budget needed
+	 * @return
+	 */
 	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, HashMap<String, Image> plantImages, int lepsNeeded, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");
 		gardenFlow.setPadding(new Insets(10, 10, 10, 10));
@@ -146,6 +187,13 @@ public class GardenScreen {
 		return gardenBorder;
 	}
 	
+	
+	/**
+	 * Updates what is displayed by GardenScreen
+	 * 
+	 * @param newLeps int increments number of leps
+	 * @param newBudget int increments budget
+	 */
 	public void updateGardenDisplay(int newLeps, int newBudget) {
 	    	
 

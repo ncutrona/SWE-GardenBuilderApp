@@ -18,6 +18,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+
+/**
+ * SaveScreen class.
+ * Formats the Save Screen.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class SaveScreen {
 
 	BorderPane loadingBorder = new BorderPane();
@@ -35,6 +46,11 @@ public class SaveScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
+	/**
+	 * Creates and sets up the BorderPant for SaveScreen
+	 * 
+	 * @return BorderPane for SaveScreen
+	 */
 	public BorderPane createLoadingBorder() {
 		
 		saved1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 

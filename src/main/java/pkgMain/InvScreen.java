@@ -17,6 +17,17 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * Inventory Screen class.
+ * Handles formatting of Inventory Screen.
+ * Adds three demo plants
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class InvScreen {
 
 	
@@ -41,6 +52,11 @@ public class InvScreen {
 			BackgroundPosition.DEFAULT, 
 			BackgroundSize.DEFAULT);
 
+	/**
+	 * Sets up and returns the BorderPane for Inventory Screen
+	 *  
+	 * @return BorderPane for Inventory Screen
+	 */
 	public BorderPane createInvBorder() {
 
 		plantOne.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 

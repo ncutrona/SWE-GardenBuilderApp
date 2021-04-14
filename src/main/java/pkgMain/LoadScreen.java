@@ -19,6 +19,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+
+/**
+ * LoadScreen class.
+ * Handles formatting of Load Screen.
+ * Sets background and buttons.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class LoadScreen {
 	
 	BorderPane loadBorder = new BorderPane();
@@ -37,6 +49,11 @@ public class LoadScreen {
                BackgroundSize.DEFAULT);
 	
 	
+	/**
+	 * Sets up and returns the BorderPane for LoadScreen
+	 * 
+	 * @return BorderPane for LoadScreen
+	 */
 	public BorderPane createLoadBorder() {
 		
 		VBox buttonBox = new VBox(10);
