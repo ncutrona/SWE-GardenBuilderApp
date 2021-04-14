@@ -74,6 +74,7 @@ public class GardenState {
 		
 		garden.totalLepsSupported += plant.lepsSupported;
 		
+		
 		System.out.println("Total Leps Supported: " + garden.totalLepsSupported);
 		return garden.totalLepsSupported;
 	}
@@ -109,6 +110,7 @@ public class GardenState {
 		
 		return updateGarden(garden, plant);
 	}
+	
 	
 	//METHODS TO ADD POST ALPHA:
 	//hoverPlant(){}
