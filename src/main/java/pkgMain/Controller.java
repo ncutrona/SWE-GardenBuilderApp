@@ -121,18 +121,18 @@ public class Controller extends Application{
     	
 		//****************************************************************************************************************************
 		
-    	ConditionsScreen2 condScreen = new ConditionsScreen2();
+    	ConditionScreen condScreen = new ConditionScreen();
 
     	condScreen.setSun.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
-    			if(!condScreen.slider.isValueChanging() && condScreen.slider.getValue() == 3d) {
+    			if(!condScreen.sunSlider.isValueChanging() && condScreen.sunSlider.getValue() == 3d) {
     				model.gardenFinal.setSunConditions("full");
     				System.out.println(model.gardenFinal.getSun());
 
     			}
 
-    			else if(!condScreen.slider.isValueChanging() && condScreen.slider.getValue() == 2d) {
+    			else if(!condScreen.sunSlider.isValueChanging() && condScreen.sunSlider.getValue() == 2d) {
     				model.gardenFinal.setSunConditions("partial");
 
     			}
@@ -151,12 +151,12 @@ public class Controller extends Application{
     		public void handle(ActionEvent e) {
     			
 
-    			if(!condScreen.slider3.isValueChanging() && condScreen.slider3.getValue() == 3d) {
+    			if(!condScreen.moistSlider.isValueChanging() && condScreen.moistSlider.getValue() == 3d) {
     				model.gardenFinal.setMoistureConditions("wet");
 
     			}
 
-    			else if(!condScreen.slider3.isValueChanging() && condScreen.slider3.getValue() == 2d) {
+    			else if(!condScreen.moistSlider.isValueChanging() && condScreen.moistSlider.getValue() == 2d) {
     				model.gardenFinal.setMoistureConditions("moist");
     				
     			}
@@ -173,12 +173,12 @@ public class Controller extends Application{
     	condScreen.setSoil.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
-    			if(!condScreen.slider2.isValueChanging() && condScreen.slider2.getValue() == 3d) {
+    			if(!condScreen.soilSlider.isValueChanging() && condScreen.soilSlider.getValue() == 3d) {
     				model.gardenFinal.setSoilConditions("clay");
 
     			}
 
-    			else if(!condScreen.slider2.isValueChanging() && condScreen.slider2.getValue() == 2d) {
+    			else if(!condScreen.soilSlider.isValueChanging() && condScreen.soilSlider.getValue() == 2d) {
     				model.gardenFinal.setSoilConditions("loam");
     				
 
@@ -233,8 +233,8 @@ public class Controller extends Application{
     	});
     	
     	
-    	condScreen.Continue.setOnAction(e-> window.setScene(gardenScene));
-		Scene ConditionsScene = new Scene(condScreen.createBorder(),800, 600);
+    	condScreen.next.setOnAction(e-> window.setScene(gardenScene));
+		Scene ConditionsScene = new Scene(condScreen.getScreen(),800, 600);
     	
     	
 		
@@ -242,7 +242,7 @@ public class Controller extends Application{
 		LoadScreen loadScreen = new LoadScreen();
 		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
 		Scene LoadScreenScene = new Scene(loadScreen.createLoadBorder(),1000, 600);
-		condScreen.Previous.setOnAction(e-> window.setScene(LoadScreenScene));
+		condScreen.previous.setOnAction(e-> window.setScene(LoadScreenScene));
 		//**************************************************************************
 		
 		

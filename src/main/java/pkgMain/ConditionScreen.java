@@ -32,32 +32,22 @@ import javafx.util.StringConverter;
  */
 public class ConditionScreen {
 
-	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	private Image background = new Image(getClass().getResourceAsStream("/img/gcs.png"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	private Label budgetLabel, gardenLabel;
-	private TextField budget, gardenName;
-	private Button clear, submit;
+	Label budgetLabel, gardenLabel;
+	TextField budget, gardenName;
+	Button clear, submit, setSun, setMoisture, setSoil, previous, next;
 	private Text sun, moisture, soil;
-	private Slider sunSlider, moistSlider, soilSlider;
+	Slider sunSlider, moistSlider, soilSlider;
 	private HBox input, sunBox, moistBox, soilBox;
 	
 	private BorderPane border;
 	private FlowPane flow;
-	
-	/*public ConditionScreen() {
-		border = new BorderPane();
-		flow = new FlowPane(Orientation.VERTICAL);
-		flow.setBackground(new Background(backgroundimage));
-		border.setCenter(flow);
-		border.setAlignment(flow, Pos.CENTER);
-		flow.setAlignment(Pos.CENTER);
-		flow.setVgap(20);
-	}*/
 	
 	
 	/**
@@ -65,6 +55,8 @@ public class ConditionScreen {
 	 * Sets up sliders, text, input and screen.
 	 */
 	public ConditionScreen() {
+		setText();
+		setButtons();
 		setSunSlider();
 		setMoistSlider();
 		setSoilSlider();
@@ -119,7 +111,13 @@ public class ConditionScreen {
 		flow.setVgap(20);
 	}
 	
-	
+	public void setButtons() {
+		setSoil = new Button("Set Soil");
+		setMoisture = new Button("Set Moisture");
+		setSun = new Button("Set Sun");
+		previous = new Button("Go Back");
+		next = new Button("Continue");
+	}
 	/**
 	 * Setup for the sun slider.
 	 * Uses string converter to set condition based on slider
@@ -183,6 +181,7 @@ public class ConditionScreen {
 			}
 		});
 		soilBox = setSliderHbox(soilSlider);
+		soilBox.getChildren().addAll(next, previous);
 	}
 	
 	
@@ -246,8 +245,7 @@ public class ConditionScreen {
 		input.getChildren().addAll(budgetLabel, budget, gardenLabel, gardenName, submit, clear);
 		
 	}
-	
-	
+		
 	/**
 	 * Sets up new sliders horizontally.
 	 * Adds passed in slider to new HBox.
