@@ -11,6 +11,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class InvScreen {
@@ -22,9 +26,9 @@ public class InvScreen {
 
 	BorderPane invBorder = new BorderPane();
 	Button PrevButtonInv = new Button("Go BACK");
-	Text plantOne = new Text("Scientific Name: Acer negudo; Price: $6.00; Leps Supported: 3; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
-	Text plantTwo = new Text("Scientific Name: Cornus florida; Price: $20.00; Leps Supported: 5; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
-	Text plantThree = new Text("Scientific Name: Betula nigra; Price: $6.00; Leps Supported: 7; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
+	Text plantOne = new Text("Acer negudo; $6.00; Leps Supported: 3; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
+	Text plantTwo = new Text("Cornus florida; $20.00; Leps Supported: 5; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
+	Text plantThree = new Text("Betula nigra; $6.00; Leps Supported: 7; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
 	
 	
 	//This will have to change - simply hard coding for alpha!!
@@ -39,6 +43,19 @@ public class InvScreen {
 
 	public BorderPane createInvBorder() {
 
+		plantOne.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 
+		plantOne.setFill(Color.WHITE);   
+		plantOne.setStrokeWidth(1); 
+		
+		plantTwo.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 
+		plantTwo.setFill(Color.WHITE);   
+		plantTwo.setStrokeWidth(1); 
+		
+		plantThree.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 
+		plantThree.setFill(Color.WHITE);   
+		plantThree.setStrokeWidth(1); 
+
+		
 		VBox buttonBox = new VBox(10);
 		buttonBox.getChildren().addAll(PrevButtonInv, plantOne, plantTwo, plantThree);
 

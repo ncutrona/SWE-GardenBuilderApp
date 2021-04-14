@@ -12,6 +12,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class SaveScreen {
@@ -32,6 +36,16 @@ public class SaveScreen {
                BackgroundSize.DEFAULT);
 	
 	public BorderPane createLoadingBorder() {
+		
+		saved1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
+		saved1.setFill(Color.RED);   
+		saved1.setStrokeWidth(1); 
+		saved1.setStroke(Color.BLUE);
+		
+		saved2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
+		saved2.setFill(Color.RED);   
+		saved2.setStrokeWidth(1); 
+		saved2.setStroke(Color.BLUE);
 		
 		VBox fillBox = new VBox(15);
 		
