@@ -70,47 +70,7 @@ public class GardenState {
 		this.gardenShape = gardenShape;
 	}*/
 	
-	public static int updateLeps(GardenState garden, Plant plant) {
-		
-		garden.totalLepsSupported += plant.lepsSupported;
-		
-		
-		System.out.println("Total Leps Supported: " + garden.totalLepsSupported);
-		return garden.totalLepsSupported;
-	}
-	
-	
-	public static int updateBudget(GardenState garden, Plant plant) {
-		
-		
-		garden.gardenBudget -= plant.price;
-		
-		
-		System.out.println("Remaining Budget: " + garden.gardenBudget);
-		return garden.gardenBudget;
-		
-	}
-	
-	public static ArrayList<Integer> updateGarden(GardenState garden, Plant plant) {
-		
-		int newBudget = updateBudget(garden, plant);
-		int newLeps = updateLeps(garden, plant);
-		//will add more methods later (post alpha).
-		
-		ArrayList<Integer> gardenVals = new ArrayList<Integer>();
-	
-		gardenVals.add(newLeps);
-		gardenVals.add(newBudget);
-		
-		return gardenVals;
-		
-	}
-	
-	public static ArrayList<Integer> placePlant(GardenState garden, Plant plant) {
-		
-		return updateGarden(garden, plant);
-	}
-	
+
 	
 	//METHODS TO ADD POST ALPHA:
 	//hoverPlant(){}

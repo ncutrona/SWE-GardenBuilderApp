@@ -76,8 +76,13 @@ public class Controller extends Application{
 					
 					if(plant != null) {
 						//System.out.println("WE REACH HERE!");
+						HashMap<String, Plant> plants = model.createPlantData();
 						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData()));
-						GardenScreenView.updateGardenDisplay(nodeId, model.createPlantData(), model.stateFinal);
+						Plant plantNeeded = plants.get(nodeId);
+						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
+						model.stateFinal.gardenBudget -= plantNeeded.price;
+						GardenScreenView.updateGardenDisplay(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+						//NOT WORKING
 					}
 				}
 				
@@ -102,7 +107,7 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal), 800, 600);
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 800, 600);
  
     	
 		//****************************************************************************************************************************
