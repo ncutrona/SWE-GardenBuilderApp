@@ -69,7 +69,7 @@ public class GardenScreen {
 	 * @param one first plant
 	 * @param two second plant
 	 * @param three third plant
-	 * @return HashMap<String, Image> of created images
+	 * @return HashMap String, Image of created images
 	 */
 	public HashMap<String, Image> createPlantImages(String one, String two, String three) {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
@@ -134,7 +134,7 @@ public class GardenScreen {
 	 * @param plantImages hashmap of plantImages
 	 * @param lepsNeeded int number of leps needed
 	 * @param budgetNeeded int budget needed
-	 * @return
+	 * @return BorderPane for GardenScreen
 	 */
 	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, HashMap<String, Image> plantImages, int lepsNeeded, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");

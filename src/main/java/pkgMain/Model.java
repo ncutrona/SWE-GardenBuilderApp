@@ -30,7 +30,7 @@ public class Model {
 	/**
 	 * Returns new arrayList with 3 demo plants
 	 * 
-	 * @return ArrayList<Plant> with 3 demo plants
+	 * @return ArrayList of Plants with 3 demo plants
 	 */
 	public ArrayList<Plant> getPlants() {
 		ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
@@ -46,7 +46,7 @@ public class Model {
 	 * Creates and returns a Hashmap with plant data for 3 demo plants.
 	 * Stored by scientific name.
 	 * 
-	 * @return HashMap<String, Plant> with 3 demo plants
+	 * @return HashMap String, Plant  with 3 demo plants
 	 */
 	public HashMap<String, Plant> createPlantData() {
 		HashMap<String, Plant> plantData = new HashMap<String, Plant>();

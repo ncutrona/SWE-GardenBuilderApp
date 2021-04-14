@@ -108,7 +108,7 @@ public class PentagonShape {
 	/**
 	 * Sets the coordinates of the left-down point
 	 * 
-	 * @param left-down Coordinates of left-down point
+	 * @param leftdown Coordinates of left-down point
 	 */
 	public void setLeftdown(Coordinates leftdown) {
 		this.leftdown = leftdown;
@@ -128,7 +128,7 @@ public class PentagonShape {
 	/**
 	 * Sets the coordinates of the right-down point
 	 * 
-	 * @param right-down Coordinates of right-down point
+	 * @param rightdown Coordinates of right-down point
 	 */
 	public void setRightdown(Coordinates rightdown) {
 		this.rightdown = rightdown;
