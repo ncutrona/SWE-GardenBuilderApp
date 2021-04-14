@@ -25,13 +25,11 @@ public class LoadScreen {
 	StackPane stack;
 	Button loadButton = new Button("Load Garden");
 	Button startButton = new Button("Start Garden");
-	Text Marker = new Text("__________________________________________________");
-	Text title = new Text("GARDEN BUILDER v 0.01 ~ ALPHA");
-	Text Marker2 = new Text("__________________________________________________");
+
 	
 	
 	//The image for the background
-	Image background = new Image(getClass().getResourceAsStream("/img/Intro_Background.jpg"));
+	Image background = new Image(getClass().getResourceAsStream("/img/intro.jpg"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
@@ -41,15 +39,13 @@ public class LoadScreen {
 	
 	public BorderPane createLoadBorder() {
 		
-		title.setFont(Font.font ("Verdana", 20));
-		title.setFill(Color.BLUE);
 		VBox buttonBox = new VBox(10);
-		buttonBox.getChildren().addAll(Marker, title, Marker2, startButton, loadButton);
+		buttonBox.getChildren().addAll(startButton, loadButton);
 		
 		loadBorder.setCenter(buttonBox);
-		buttonBox.setAlignment(Pos.TOP_CENTER);
+		buttonBox.setAlignment(Pos.CENTER);
 		
-		loadBorder.setAlignment(buttonBox, Pos.TOP_CENTER);
+		loadBorder.setAlignment(buttonBox, Pos.CENTER);
 		//loadBorder.setCenter(loadButton);
 		loadBorder.setBackground(new Background(backgroundimage));
 		

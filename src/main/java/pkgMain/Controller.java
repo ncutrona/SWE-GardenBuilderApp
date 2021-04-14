@@ -106,7 +106,7 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 800, 600);
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 1200, 600);
 
 		for(Plant p : plantCollection) {
 			GardenScreenView.gardenTile.getChildren().add(GardenScreenView.newPlant(p.getScientificName(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
@@ -241,7 +241,7 @@ public class Controller extends Application{
 		
 		loadScreen.startButton.setOnAction(e-> window.setScene(ConditionsScene));
 		
-		Scene LoadScreenScene = new Scene(loadScreen.createLoadBorder(),800, 600);
+		Scene LoadScreenScene = new Scene(loadScreen.createLoadBorder(),1000, 600);
 		
 		condScreen.Previous.setOnAction(e-> window.setScene(LoadScreenScene));
 		

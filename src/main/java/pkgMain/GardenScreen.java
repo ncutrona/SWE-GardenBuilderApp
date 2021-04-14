@@ -51,16 +51,7 @@ public class GardenScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	
-	/*public void addSortedTile(TilePane tile, Collection<Plant> plants,HashMap<String, Image> plantImages, String name, int price, int lepsSupported) {
-		
-		for(Plant p : plants) {
-			tile.getChildren().add(newPlant(p.getScientificName(), plantImages, name,  price,  lepsSupported));
-		}
-		
-	}*/
-	
-	
+
 	public HashMap<String, Image> createPlantImages(Plant one, Plant two, Plant three) {
 		HashMap<String, Image> plantData = new HashMap<String, Image>();
     	
