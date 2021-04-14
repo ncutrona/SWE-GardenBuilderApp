@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Controller extends Application{
@@ -263,6 +264,48 @@ public class Controller extends Application{
 		
 		saveScreen.prevButton.setOnAction(e-> window.setScene(LoadScreenScene));
 		
+		//**************************************************************************
+		
+		//POPUP SCREEN CODE *********************************************************
+		PopUpWindow popup = new PopUpWindow();	
+		// Scene popupScene = new Scene(popup.display(), 250, 500);
+
+//		popup.save.setOnAction(e-> window.setScene(gardenScene));
+//		popup.restart.setOnAction(e-> window.setScene(LoadScreenScene));
+//		popup.resume.setOnAction(e-> window.setScene(gardenScene));
+		
+		
+		
+		// Setting an action for the options button
+    	GardenScreenView.optionsButton.setOnAction(new EventHandler<ActionEvent>() {
+
+    		@Override
+    		public void handle(ActionEvent e) {
+    			Stage popupStage = new Stage();
+    	    	popup.restart.setOnAction(new EventHandler<ActionEvent>() {
+
+    	    		@Override
+    	    		public void handle(ActionEvent e) {
+    	    			popupStage.close();
+    	    			window.setScene(LoadScreenScene);
+    	    		}
+    	    	});
+    			popupStage.initModality(Modality.APPLICATION_MODAL);
+    			popup.save.setOnAction(k -> popupStage.close());
+//    			popup.restart.setOnAction(g -> window.setScene(LoadScreenScene));
+//    			popup.restart.setOnAction(k -> popupStage.close());
+    			popup.resume.setOnAction(k -> popupStage.close());
+    			popupStage.setTitle("Options");
+    			popupStage.setMinWidth(250);
+    			popupStage.setMinHeight(500);
+    			Scene scene = new Scene(popup.display());
+    			popupStage.setScene(scene);
+    			popupStage.showAndWait();   			
+    			
+    		}
+    	});
+    	
+
 		//**************************************************************************
 		
 		GardenScreenView.inventory.setOnAction(e-> window.setScene(InventoryScene));
