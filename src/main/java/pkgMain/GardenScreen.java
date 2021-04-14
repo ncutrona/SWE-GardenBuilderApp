@@ -52,13 +52,13 @@ public class GardenScreen {
                BackgroundSize.DEFAULT);
 	
 	
-	public void addSortedTile(TilePane tile, Collection<Plant> plants,HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap) {
+	/*public void addSortedTile(TilePane tile, Collection<Plant> plants,HashMap<String, Image> plantImages, String name, int price, int lepsSupported) {
 		
 		for(Plant p : plants) {
-			tile.getChildren().add(newPlant(p.getScientificName(), plantImages, plantsMap));
+			tile.getChildren().add(newPlant(p.getScientificName(), plantImages, name,  price,  lepsSupported));
 		}
 		
-	}
+	}*/
 	
 	
 	public HashMap<String, Image> createPlantImages(Plant one, Plant two, Plant three) {
@@ -73,10 +73,10 @@ public class GardenScreen {
 	}
 	
 	
-	public ImageView newPlant(String NodeID, HashMap<String, Image> plantImages, HashMap<String, Plant> plants) {
+	public ImageView newPlant(String NodeID, HashMap<String, Image> plantImages, String name, int price, int lepsSupported) {
 		ImageView iv1;
 		Image plantView = plantImages.get(NodeID);
-		Plant plant = plants.get(NodeID);
+		
 		
 	
 		iv1 = new ImageView();
@@ -84,7 +84,7 @@ public class GardenScreen {
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setId(NodeID);
-		Tooltip t =  new Tooltip("Scientific Name: " + plant.getScientificName() + "\nPrice: $" + plant.getPrice() + "\nLeps: " + plant.getLepsSupported());
+		Tooltip t =  new Tooltip("Scientific Name: " + name + "\nPrice: $" + price + "\nLeps: " + lepsSupported/*"Scientific Name: " + plant.getScientificName() + "\nPrice: $" + plant.getPrice() + "\nLeps: " + plant.getLepsSupported()*/);
 		Tooltip.install(iv1, t);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
@@ -104,7 +104,7 @@ public class GardenScreen {
 					
 	}
 	
-	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, Collection<Plant> plants, HashMap<String, Image> plantImages, HashMap<String, Plant> plantsMap, int lepsNeeded, int budgetNeeded) {
+	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, HashMap<String, Image> plantImages, int lepsNeeded, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");
 		gardenFlow.setPadding(new Insets(10, 10, 10, 10));
 		//flow.setStyle("-fx-background-color: Brown;");
@@ -122,7 +122,7 @@ public class GardenScreen {
 		//tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
 		//tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
 		//tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
-		addSortedTile(gardenTile, plants, plantImages, plantsMap);
+		//addSortedTile(gardenTile, plants, plantImages, plantsMap);
 		
 		
 		gardenBorder.setLeft(gardenTile);

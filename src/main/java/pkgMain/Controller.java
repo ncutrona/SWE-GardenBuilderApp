@@ -48,6 +48,7 @@ public class Controller extends Application{
 		//Creating a GardenScreen Instance
 		GardenScreen GardenScreenView = new GardenScreen();
 		
+	
 		//Creating our Sorted Collection of Plants
     	ArrayList<Plant> plantsMaster = model.getPlants();
     	Collection<Plant> plantCollection = Plant.sortPlants(plantsMaster);
@@ -56,10 +57,7 @@ public class Controller extends Application{
     	HashMap<String, Image> plantImageData = new HashMap<String, Image>();
     	plantImageData = GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree);
     	
-    	
-    	
-    	
-    	
+    
     	GardenScreenView.gardenFlow.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
 				HashMap<String, Image> images = GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree);
@@ -77,8 +75,9 @@ public class Controller extends Application{
 					if(plant != null) {
 						//System.out.println("WE REACH HERE!");
 						HashMap<String, Plant> plants = model.createPlantData();
-						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData()));
 						Plant plantNeeded = plants.get(nodeId);
+						GardenScreenView.gardenFlow.getChildren().add(GardenScreenView.newPlant(nodeId, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported()));
+		
 						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
 						model.stateFinal.gardenBudget -= plantNeeded.price;
 						GardenScreenView.updateGardenDisplay(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
@@ -107,8 +106,11 @@ public class Controller extends Application{
     	
 		
     	//Setting the GardenScene
-    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), plantCollection, GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.createPlantData(), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 800, 600);
- 
+    	Scene gardenScene = new Scene(GardenScreenView.createBorder(model.gardenFinal.getSun(), model.gardenFinal.getSoil(), model.gardenFinal.getMoisture(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget), 800, 600);
+
+		for(Plant p : plantCollection) {
+			GardenScreenView.gardenTile.getChildren().add(GardenScreenView.newPlant(p.getScientificName(), GardenScreenView.createPlantImages(model.demoPlantOne, model.demoPlantTwo, model.demoPlantThree), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
+		}
     	
 		//****************************************************************************************************************************
 		
@@ -273,14 +275,7 @@ public class Controller extends Application{
 		
 		//POPUP SCREEN CODE *********************************************************
 		PopUpWindow popup = new PopUpWindow();	
-		// Scene popupScene = new Scene(popup.display(), 250, 500);
 
-//		popup.save.setOnAction(e-> window.setScene(gardenScene));
-//		popup.restart.setOnAction(e-> window.setScene(LoadScreenScene));
-//		popup.resume.setOnAction(e-> window.setScene(gardenScene));
-		
-		
-		
 		// Setting an action for the options button
     	GardenScreenView.optionsButton.setOnAction(new EventHandler<ActionEvent>() {
 
