@@ -13,7 +13,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
-
+/*
 public class Controller2 extends Application{
 	
 	private Model2 model;
@@ -34,4 +34,4 @@ public class Controller2 extends Application{
 	}
 	
 	
-}
+}*/

@@ -37,32 +37,68 @@ import javafx.stage.Stage;
  * @author Tommy Cheung
  */
 public class GardenScreen {
-
-	String NodeId = "NULL";
 	
-	TilePane gardenTile = new TilePane();
-	TilePane gardenTileTwo = new TilePane();
-	FlowPane gardenFlow = new FlowPane();
-	BorderPane gardenBorder = new BorderPane();
-	Text leps = new Text();
-	Text budget = new Text();
-	Text sortedPlants = new Text();
-	Text ConditionsDisplay = new Text();
-	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
-	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
-	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
 	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
-	Button inventory = new Button("See Full Inventory");
-	Button optionsButton = new Button("Options");
-	
-	
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
+	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
+	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
+	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
+
+	String NodeId = "NULL";
 	
+	TilePane gardenTile, gardenTileTwo;
+	FlowPane gardenFlow;
+	BorderPane gardenBorder;
+	Text leps, budget, sortedPlants, conditionsDisplay;
+	Button inventory, optionsButton;
+	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
+	
+	public GardenScreen(GardenConditions condition) {
+		createTiles();
+		createText();
+		createButton();
+		createScreen(condition.getSun(), condition.getSoil(), condition.getMoisture(), condition.getBudget());
+	}
+	
+	public GardenScreen() {
+		createTiles();
+		createText();
+		createButton();
+		createScreen("", "" , "" , 0);
+	}
+	
+	public void updateCondition(GardenConditions condition) {
+		setConditionText(condition.getSun(), condition.getSoil(), condition.getMoisture());
+		updateLepAndBudget(0, condition.getBudget());
+	}
+	
+	public void createTiles() {
+		gardenTile = new TilePane();
+		gardenTileTwo = new TilePane();
+		gardenFlow = new FlowPane();
+		gardenBorder = new BorderPane();
+	}
+	
+	public void createText() {
+		leps = new Text();
+		budget = new Text();
+		sortedPlants = new Text("Sorted Plants");
+		conditionsDisplay = new Text();
+	}
+	
+	public void createButton() {
+		inventory = new Button("See Full Inventory");
+		optionsButton = new Button("Options");
+	}
+	
+	public void setConditionText(String sun, String soil, String moist) {
+		conditionsDisplay.setText(sun + " | " + soil  + " | " + moist);
+	}
 	/**
 	 * Creates a hashmap of three plant images
 	 * 
@@ -71,15 +107,31 @@ public class GardenScreen {
 	 * @param three third plant
 	 * @return HashMap String, Image of created images
 	 */
-	public HashMap<String, Image> createPlantImages(String one, String two, String three) {
-		HashMap<String, Image> plantData = new HashMap<String, Image>();
-    	
-		
-		plantData.put(one, milkweed);
-    	plantData.put(two, planttwo);
-    	plantData.put(three, plantthree);
-    	
-    	return plantData;
+	
+	public void createPlantImageList(String one, String two, String three) {
+		plantImageList.put(one, milkweed);
+    	plantImageList.put(two, planttwo);
+    	plantImageList.put(three, plantthree);
+	}
+	
+	public HashMap<String, Image> returnPlantImageList() {
+		return plantImageList;
+	}
+	
+	/**
+	 * Updates what is displayed by GardenScreen
+	 * 
+	 * @param newLeps int increments number of leps
+	 * @param newBudget int increments budget
+	 */
+	public void updateLepAndBudget(int newLeps, int newBudget) {
+		leps.setText("Leps Supported: " + newLeps);
+		budget.setText("Budget: $" + newBudget);
+			
+	}
+	
+	public BorderPane getScreen() {
+		return gardenBorder;
 	}
 	
 	
@@ -93,18 +145,16 @@ public class GardenScreen {
 	 * @param lepsSupported the number of leps supported
 	 * @return ImageView of new plant
 	 */
-	public ImageView newPlant(String NodeID, HashMap<String, Image> plantImages, String name, int price, int lepsSupported) {
+	public ImageView newPlant(String NodeID, String name, int price, int lepsSupported) {
 		ImageView iv1;
-		Image plantView = plantImages.get(NodeID);
+		Image plantView = plantImageList.get(NodeID);
 		
-		
-	
 		iv1 = new ImageView();
 		iv1.setImage(plantView);
 		iv1.setPreserveRatio(true);
 		iv1.setFitHeight(100);
 		iv1.setId(NodeID);
-		Tooltip t =  new Tooltip("Scientific Name: " + name + "\nPrice: $" + price + "\nLeps: " + lepsSupported/*"Scientific Name: " + plant.getScientificName() + "\nPrice: $" + plant.getPrice() + "\nLeps: " + plant.getLepsSupported()*/);
+		Tooltip t =  new Tooltip("Scientific Name: " + name + "\nPrice: $" + price + "\nLeps: " + lepsSupported);
 		Tooltip.install(iv1, t);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
@@ -136,73 +186,41 @@ public class GardenScreen {
 	 * @param budgetNeeded int budget needed
 	 * @return BorderPane for GardenScreen
 	 */
-	public BorderPane createBorder(String ConditionSun, String ConditionSoil, String ConditionMoisture, HashMap<String, Image> plantImages, int lepsNeeded, int budgetNeeded) {
+	public void createScreen(String sun, String soil, String moisture, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");
-		gardenFlow.setPadding(new Insets(10, 10, 10, 10));
-		//flow.setStyle("-fx-background-color: Brown;");
+		gardenFlow.setPadding(new Insets(10, 10, 10, 10));;
 		gardenFlow.setBackground(new Background(backgroundimage));
 		
-		
-	
 		gardenBorder.setCenter(gardenFlow); 
 		gardenTile.setPadding(new Insets(10, 10, 10, 10));
 		gardenTile.setStyle("-fx-background-color: yellow");
 		
-		sortedPlants.setText("Sorted Plants");
-	
 		gardenTile.getChildren().add(sortedPlants);
-		//tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
-		//tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
-		//tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
-		//addSortedTile(gardenTile, plants, plantImages, plantsMap);
-		
 		
 		gardenBorder.setLeft(gardenTile);
 		gardenTileTwo.setPadding(new Insets(10, 10, 10, 10));
 		gardenTileTwo.setStyle("-fx-background-color: pink;");	
 
-		
-		//Text leps = new Text();
-		leps.setText("Leps Supported: " + lepsNeeded);
+		leps.setText("Leps Supported: " + 0);
 		gardenTileTwo.getChildren().add(leps);
 		
-		//Text budget = new Text();
 		budget.setText("Budget: $" + budgetNeeded);
 		gardenTileTwo.getChildren().add(budget);
 		
 		//Adding Conditions Text
-		ConditionsDisplay.setText(ConditionSun + " | " + ConditionSoil + " | " + ConditionMoisture);
-		gardenTileTwo.getChildren().add(ConditionsDisplay);
-		
-		
+		setConditionText(sun, soil, moisture);
+		gardenTileTwo.getChildren().add(conditionsDisplay);
 		
 		//Adding the options button to the top tile pane
 		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
 		gardenTileTwo.getChildren().add(optionsButton);
 		gardenTileTwo.getChildren().add(inventory);
 		
-		
 		gardenBorder.setTop(gardenTileTwo);
-		
-		return gardenBorder;
 	}
 	
 	
-	/**
-	 * Updates what is displayed by GardenScreen
-	 * 
-	 * @param newLeps int increments number of leps
-	 * @param newBudget int increments budget
-	 */
-	public void updateGardenDisplay(int newLeps, int newBudget) {
-	    	
-
-			leps.setText("Leps Supported: " + newLeps);
-			budget.setText("Budget: $" + newBudget);
-			
-	    	
-	    	
-	    }
+	
 	
 	
 	

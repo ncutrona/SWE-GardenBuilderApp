@@ -67,12 +67,13 @@ public class GardenConditions {
 	public void setSunConditions(String sun) {
 		if (sun.equals("full")) {
 			sunCond = sunCondition.FULL;
-		}
-		else if (sun.equals("shade")) {
+			System.out.println("In");
+		}else if (sun.equals("shade")) {
 			sunCond = sunCondition.SHADE;
-		}
-		else {
+			System.out.println("In here");
+		}else {
 			sunCond = sunCondition.PARTIAL;
+			System.out.println("In here too");
 		}
 	}
 		

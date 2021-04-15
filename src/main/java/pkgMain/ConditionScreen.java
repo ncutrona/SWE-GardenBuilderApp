@@ -41,7 +41,7 @@ public class ConditionScreen {
 	
 	Label budgetLabel, gardenLabel;
 	TextField budget, gardenName;
-	Button clear, submit, setSun, setMoisture, setSoil, previous, next;
+	Button clear, submit, previous, next;
 	private Text sun, moisture, soil;
 	Slider sunSlider, moistSlider, soilSlider;
 	private HBox input, sunBox, moistBox, soilBox;
@@ -112,9 +112,6 @@ public class ConditionScreen {
 	}
 	
 	public void setButtons() {
-		setSoil = new Button("Set Soil");
-		setMoisture = new Button("Set Moisture");
-		setSun = new Button("Set Sun");
 		previous = new Button("Go Back");
 		next = new Button("Continue");
 	}

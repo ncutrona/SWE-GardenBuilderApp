@@ -33,14 +33,6 @@ import javafx.scene.text.Text;
  */
 public class LoadScreen {
 	
-	BorderPane loadBorder = new BorderPane();
-	StackPane stack;
-	Button loadButton = new Button("Load Garden");
-	Button startButton = new Button("Start Garden");
-
-	
-	
-	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/intro.jpg"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
@@ -48,26 +40,38 @@ public class LoadScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
+	BorderPane border;
+	Button loadButton, startButton;
+	VBox buttonBox;
+
+	public LoadScreen() {
+		createButtonBox();
+		createScreen();
+	}
+	
+	//The image for the background
+	
+	public void createButtonBox() {
+		loadButton = new Button("Load Garden");
+		startButton = new Button("Start Garden");
+		buttonBox = new VBox(10);
+		buttonBox.getChildren().addAll(startButton, loadButton);
+	}
 	
 	/**
 	 * Sets up and returns the BorderPane for LoadScreen
 	 * 
 	 * @return BorderPane for LoadScreen
 	 */
-	public BorderPane createLoadBorder() {
-		
-		VBox buttonBox = new VBox(10);
-		buttonBox.getChildren().addAll(startButton, loadButton);
-		
-		loadBorder.setCenter(buttonBox);
+	public void createScreen() {
+		border = new BorderPane();
+		border.setCenter(buttonBox);
 		buttonBox.setAlignment(Pos.CENTER);
-		
-		loadBorder.setAlignment(buttonBox, Pos.CENTER);
-		//loadBorder.setCenter(loadButton);
-		loadBorder.setBackground(new Background(backgroundimage));
-		
-		return loadBorder;
-		
+		border.setAlignment(buttonBox, Pos.CENTER);
+		border.setBackground(new Background(backgroundimage));	
+	}
+	public BorderPane getScreen() {
+		return border;
 	}
 	
 	
