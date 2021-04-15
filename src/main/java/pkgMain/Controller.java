@@ -206,9 +206,9 @@ public class Controller extends Application{
     	conditionScreen.submit.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
-    			if ((conditionScreen.budget.getText() != null && !conditionScreen.budget.getText().isEmpty() && conditionScreen.gardenName.getText() != null && !conditionScreen.gardenName.getText().isEmpty())) {
+    			if (!conditionScreen.budget.getText().isEmpty() && !conditionScreen.gardenName.getText().isEmpty()) {
     				try {
-    					int intBudget = Integer.parseInt(view.conditionScreen.budget.getText());
+    					int intBudget = Integer.parseInt(conditionScreen.budget.getText());
     					conditionScreen.budget.setText("Your budget was set.");
     					conditionScreen.gardenName.setText("Your Garden Name was set.");
     					model.gardenFinal.setBudget(intBudget);
