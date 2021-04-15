@@ -148,7 +148,7 @@ public class Controller extends Application{
 						HashMap<String, Plant> plants = model.createPlantData();
 						Plant plantNeeded = plants.get(nodeId);
 						ImageView newPlantView = gardenScreen.newPlant(nodeId, plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported());
-						newPlantView.relocate(event.getX(), event.getY());
+						newPlantView.relocate(event.getX()- (newPlantView.getFitHeight()/2), event.getY() - (newPlantView.getFitHeight()/2));
 						gardenScreen.gardenPane.getChildren().add(newPlantView);
 		
 						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
