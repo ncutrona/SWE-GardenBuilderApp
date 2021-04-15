@@ -21,6 +21,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -52,7 +53,7 @@ public class GardenScreen {
 	String NodeId = "NULL";
 	
 	TilePane gardenTile, gardenTileTwo;
-	FlowPane gardenFlow;
+	Pane gardenPane;
 	BorderPane gardenBorder;
 	Text leps, budget, sortedPlants, conditionsDisplay;
 	Button inventory, optionsButton;
@@ -80,7 +81,7 @@ public class GardenScreen {
 	public void createTiles() {
 		gardenTile = new TilePane();
 		gardenTileTwo = new TilePane();
-		gardenFlow = new FlowPane();
+		gardenPane = new Pane();
 		gardenBorder = new BorderPane();
 	}
 	
@@ -188,10 +189,10 @@ public class GardenScreen {
 	 */
 	public void createScreen(String sun, String soil, String moisture, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");
-		gardenFlow.setPadding(new Insets(10, 10, 10, 10));;
-		gardenFlow.setBackground(new Background(backgroundimage));
+		gardenPane.setPadding(new Insets(10, 10, 10, 10));;
+		gardenPane.setBackground(new Background(backgroundimage));
 		
-		gardenBorder.setCenter(gardenFlow); 
+		gardenBorder.setCenter(gardenPane); 
 		gardenTile.setPadding(new Insets(10, 10, 10, 10));
 		gardenTile.setStyle("-fx-background-color: yellow");
 		

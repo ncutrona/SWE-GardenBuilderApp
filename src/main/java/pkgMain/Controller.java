@@ -131,7 +131,7 @@ public class Controller extends Application{
     	
     	gardenScreen.createPlantImageList(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
     	
-    	gardenScreen.gardenFlow.setOnDragDropped(new EventHandler <DragEvent>(){
+    	gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
 	
 				Dragboard db = event.getDragboard();
@@ -147,7 +147,9 @@ public class Controller extends Application{
 					if(plant != null) {
 						HashMap<String, Plant> plants = model.createPlantData();
 						Plant plantNeeded = plants.get(nodeId);
-						gardenScreen.gardenFlow.getChildren().add(gardenScreen.newPlant(nodeId, plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported()));
+						ImageView newPlantView = gardenScreen.newPlant(nodeId, plantNeeded.getScientificName(), plantNeeded.getPrice(), plantNeeded.getLepsSupported());
+						newPlantView.relocate(event.getX(), event.getY());
+						gardenScreen.gardenPane.getChildren().add(newPlantView);
 		
 						model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
 						model.stateFinal.gardenBudget -= plantNeeded.price;
@@ -160,10 +162,10 @@ public class Controller extends Application{
 				event.consume();
 			}
 		});
-    	gardenScreen.gardenFlow.setOnDragOver(new EventHandler <DragEvent>() {
+    	gardenScreen.gardenPane.setOnDragOver(new EventHandler <DragEvent>() {
 			public void handle(DragEvent event) {
 				
-				if (event.getGestureSource() != gardenScreen.gardenFlow && event.getDragboard().hasString()) {
+				if (event.getGestureSource() != gardenScreen.gardenPane && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY);
                 }
 				
