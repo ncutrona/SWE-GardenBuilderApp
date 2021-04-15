@@ -65,7 +65,7 @@ public class Controller extends Application{
 	public void start(Stage primaryStage){
 		window = primaryStage;
 		model = new Model();
-		view = new View2();
+		//view = new View2();
 		
 		loadScreen = new LoadScreen();
 		load = new Scene(loadScreen.getScreen(), 1000, 600);
@@ -139,6 +139,7 @@ public class Controller extends Application{
 					String nodeId = db.getString();
 					ImageView plant = new ImageView();
 					plant.setImage(gardenScreen.plantImageList.get(nodeId));
+					System.out.println(nodeId);
 					plant.setPreserveRatio(true);
 					plant.setFitHeight(100);
 					plant.setId(nodeId);
@@ -162,7 +163,7 @@ public class Controller extends Application{
     	gardenScreen.gardenFlow.setOnDragOver(new EventHandler <DragEvent>() {
 			public void handle(DragEvent event) {
 				
-				if (event.getGestureSource() != view.gardenScreen.gardenFlow && event.getDragboard().hasString()) {
+				if (event.getGestureSource() != gardenScreen.gardenFlow && event.getDragboard().hasString()) {
                     event.acceptTransferModes(TransferMode.COPY);
                 }
 				
@@ -172,7 +173,7 @@ public class Controller extends Application{
     	
     	gardenScreen.inventory.setOnAction(e-> window.setScene(inv));
 		
-    	gardenScreen.updateCondition(model.gardenFinal);
+    	
     	//Setting the GardenScene
 		for(Plant p : plantCollection) {
 			gardenScreen.gardenTile.getChildren().add(gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
@@ -194,6 +195,7 @@ public class Controller extends Application{
 				model.gardenFinal.setMoistureConditions(moistList[(int)conditionScreen.moistSlider.getValue()-1]);
 				model.gardenFinal.setSunConditions(sunList[(int)conditionScreen.sunSlider.getValue()-1]);
 				model.gardenFinal.setSoilConditions(soilList[(int)conditionScreen.soilSlider.getValue()-1]);
+				gardenScreen.updateCondition(model.gardenFinal);
 				window.setScene(garden);
 			}
     		
