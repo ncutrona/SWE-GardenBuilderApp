@@ -49,10 +49,8 @@ public class GardenScreen {
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
 	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
 	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
-
-	String NodeId = "NULL";
 	
-	TilePane gardenTile, gardenTileTwo;
+	TilePane gardenTile, infoTile;
 	Pane gardenPane;
 	BorderPane gardenBorder;
 	Text leps, budget, sortedPlants, conditionsDisplay;
@@ -60,14 +58,14 @@ public class GardenScreen {
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
 	public GardenScreen(GardenConditions condition) {
-		createTiles();
+		createPanes();
 		createText();
 		createButton();
 		createScreen(condition.getSun(), condition.getSoil(), condition.getMoisture(), condition.getBudget());
 	}
 	
 	public GardenScreen() {
-		createTiles();
+		createPanes();
 		createText();
 		createButton();
 		createScreen("", "" , "" , 0);
@@ -78,9 +76,9 @@ public class GardenScreen {
 		updateLepAndBudget(0, condition.getBudget());
 	}
 	
-	public void createTiles() {
+	public void createPanes() {
 		gardenTile = new TilePane();
-		gardenTileTwo = new TilePane();
+		infoTile = new TilePane();
 		gardenPane = new Pane();
 		gardenBorder = new BorderPane();
 	}
@@ -98,7 +96,7 @@ public class GardenScreen {
 	}
 	
 	public void setConditionText(String sun, String soil, String moist) {
-		conditionsDisplay.setText(sun + " | " + soil  + " | " + moist);
+		conditionsDisplay.setText(sun + " | " + moist  + " | " + soil);
 	}
 	/**
 	 * Creates a hashmap of three plant images
@@ -127,8 +125,7 @@ public class GardenScreen {
 	 */
 	public void updateLepAndBudget(int newLeps, int newBudget) {
 		leps.setText("Leps Supported: " + newLeps);
-		budget.setText("Budget: $" + newBudget);
-			
+		budget.setText("Budget: $" + newBudget);	
 	}
 	
 	public BorderPane getScreen() {
@@ -199,25 +196,25 @@ public class GardenScreen {
 		gardenTile.getChildren().add(sortedPlants);
 		
 		gardenBorder.setLeft(gardenTile);
-		gardenTileTwo.setPadding(new Insets(10, 10, 10, 10));
-		gardenTileTwo.setStyle("-fx-background-color: pink;");	
+		infoTile.setPadding(new Insets(10, 10, 10, 10));
+		infoTile.setStyle("-fx-background-color: pink;");	
 
 		leps.setText("Leps Supported: " + 0);
-		gardenTileTwo.getChildren().add(leps);
+		infoTile.getChildren().add(leps);
 		
 		budget.setText("Budget: $" + budgetNeeded);
-		gardenTileTwo.getChildren().add(budget);
+		infoTile.getChildren().add(budget);
 		
 		//Adding Conditions Text
 		setConditionText(sun, soil, moisture);
-		gardenTileTwo.getChildren().add(conditionsDisplay);
+		infoTile.getChildren().add(conditionsDisplay);
 		
 		//Adding the options button to the top tile pane
 		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
-		gardenTileTwo.getChildren().add(optionsButton);
-		gardenTileTwo.getChildren().add(inventory);
+		infoTile.getChildren().add(optionsButton);
+		infoTile.getChildren().add(inventory);
 		
-		gardenBorder.setTop(gardenTileTwo);
+		gardenBorder.setTop(infoTile);
 	}
 	
 	

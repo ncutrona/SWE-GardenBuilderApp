@@ -60,7 +60,6 @@ public class ConditionScreen {
 		setSunSlider();
 		setMoistSlider();
 		setSoilSlider();
-		setText();
 		setInputHBox();
 		setScreen();
 		
@@ -103,8 +102,8 @@ public class ConditionScreen {
 		flow.getChildren().add(soil);
 		flow.getChildren().add(soilBox);
 		
-		
 		border.setTop(input);
+		input.setAlignment(Pos.TOP_CENTER);
 		border.setCenter(flow);
 		BorderPane.setAlignment(flow, Pos.CENTER);
 		flow.setAlignment(Pos.CENTER);

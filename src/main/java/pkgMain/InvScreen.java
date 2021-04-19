@@ -30,21 +30,14 @@ import javafx.scene.text.Text;
  */
 public class InvScreen {
 
+	BorderPane invBorder;
+	VBox buttonBox;
+	Button PrevButtonInv;
 	
-	Plant demoPlantOne = new Plant(6, 3, "Acer negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantTwo = new Plant(20, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-	Plant demoPlantThree = new Plant(6, 7, "Betula nigra", "clay", "full", "dry", 100, 100, 1, 0 ,0);
-
-	BorderPane invBorder = new BorderPane();
-	Button PrevButtonInv = new Button("Go BACK");
 	Text plantOne = new Text("Acer negudo; $6.00; Leps Supported: 3; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
 	Text plantTwo = new Text("Cornus florida; $20.00; Leps Supported: 5; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
 	Text plantThree = new Text("Betula nigra; $6.00; Leps Supported: 7; Conditions: Clay, Full Sun, Dry; Link: www.link.com");
 	
-	
-	//This will have to change - simply hard coding for alpha!!
-
-	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/invscreen.jpg"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
 			BackgroundRepeat.NO_REPEAT, 
@@ -52,12 +45,35 @@ public class InvScreen {
 			BackgroundPosition.DEFAULT, 
 			BackgroundSize.DEFAULT);
 
+	
+	
+	public InvScreen() {
+		setButton();
+	}
+	
+	public BorderPane getScreen() {
+		return invBorder;
+	}
+	
+	public void setButton() {
+		PrevButtonInv = new Button("Go BACK");
+	}
+	
+	//This will have to change - simply hard coding for alpha!!
+
+	//The image for the background
+	
+	public void addPlants() {
+		
+	}
+	
 	/**
 	 * Sets up and returns the BorderPane for Inventory Screen
 	 *  
 	 * @return BorderPane for Inventory Screen
 	 */
-	public BorderPane createInvBorder() {
+	public BorderPane createScreen() {
+		invBorder = new BorderPane();
 
 		plantOne.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 
 		plantOne.setFill(Color.WHITE);   

@@ -27,7 +27,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+/*
 public class View2{
 	
 	private Stage stage , popUpStage;
@@ -92,5 +92,6 @@ public class View2{
 		return scene;
 	}
 	
-	
 }
+
+*/
