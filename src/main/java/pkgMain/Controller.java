@@ -194,31 +194,33 @@ public class Controller extends Application{
 				String [] soilList = {"sand", "loam", "clay"};
 				String [] sunList = {"shade","partial","full"};
 				String [] moistList = {"dry", "moist", "wet"};
-				model.gardenFinal.setMoistureConditions(moistList[(int)conditionScreen.moistSlider.getValue()-1]);
-				model.gardenFinal.setSunConditions(sunList[(int)conditionScreen.sunSlider.getValue()-1]);
-				model.gardenFinal.setSoilConditions(soilList[(int)conditionScreen.soilSlider.getValue()-1]);
-				gardenScreen.updateCondition(model.gardenFinal);
-				window.setScene(garden);
+				
+				if(conditionScreenHelper()) {
+					model.gardenFinal.setMoistureConditions(moistList[(int)conditionScreen.moistSlider.getValue()-1]);
+					model.gardenFinal.setSunConditions(sunList[(int)conditionScreen.sunSlider.getValue()-1]);
+					model.gardenFinal.setSoilConditions(soilList[(int)conditionScreen.soilSlider.getValue()-1]);
+					gardenScreen.updateCondition(model.gardenFinal);
+					window.setScene(garden);
+				}
 			}
     		
     	});
-    	
+		
+    	/*
     	conditionScreen.submit.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
     			if (!conditionScreen.budget.getText().isEmpty() && !conditionScreen.gardenName.getText().isEmpty()) {
     				try {
     					int intBudget = Integer.parseInt(conditionScreen.budget.getText());
-    					conditionScreen.budget.setText("Your budget was set.");
-    					conditionScreen.gardenName.setText("Your Garden Name was set.");
+    					conditionScreen.budget.setPromptText("Your budget was set.");
+    					conditionScreen.gardenName.setPromptText("Your Garden Name was set.");
     					model.gardenFinal.setBudget(intBudget);
     					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
     					model.stateFinal.setGardenName(conditionScreen.gardenName.getText());
-    					//view.gardenScreen.budget.setText("Budget: $" + intBudget);
-    				} catch(Exception except) {
-    					conditionScreen.budget.setText("");
+    					
+    				} catch(Exception except) {				
     					conditionScreen.budget.setPromptText("Enter a valid budget $");
-    					conditionScreen.gardenName.setText("");
     					conditionScreen.gardenName.setPromptText("Enter Your Garden Name: ");
     				}
 
@@ -230,18 +232,35 @@ public class Controller extends Application{
     			System.out.println(model.gardenFinal.getBudget());
     		}
     	});
-
+		
     	//Setting an action for the Clear button
     	conditionScreen.clear.setOnAction(new EventHandler<ActionEvent>() {
     		@Override
     		public void handle(ActionEvent e) {
     			conditionScreen.budget.clear();
-    			conditionScreen.budgetLabel.setText(null);
     			conditionScreen.gardenName.clear();
-    			conditionScreen.gardenLabel.setText(null);
     		}
     	});
-
+		*/
 		conditionScreen.previous.setOnAction(e-> window.setScene(load));
+	}
+	
+	public boolean conditionScreenHelper() {
+		if (!conditionScreen.budget.getText().isEmpty() && !conditionScreen.gardenName.getText().isEmpty()) {
+			try {
+				int intBudget = Integer.parseInt(conditionScreen.budget.getText());
+				conditionScreen.budget.setPromptText("Your budget was set.");
+				conditionScreen.gardenName.setPromptText("Your Garden Name was set.");
+				model.gardenFinal.setBudget(intBudget);
+				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
+				model.stateFinal.setGardenName(conditionScreen.gardenName.getText());
+				return true;
+			} catch(Exception except) {				
+				conditionScreen.budget.clear();
+				conditionScreen.gardenName.clear();
+				
+			}
+		}
+		return false;
 	}
 }
