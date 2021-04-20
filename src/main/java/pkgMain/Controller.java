@@ -14,6 +14,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -195,9 +197,26 @@ public class Controller extends Application{
     		}
     	});
     	
+    	// Delete plant handler
+    	gardenScreen.gardenPane.setOnMouseClicked(new EventHandler<MouseEvent>() {	
+    		@Override
+    		public void handle(MouseEvent e) {
+    			if (e.getButton() == MouseButton.SECONDARY) {
+    				e.consume();
+        			gardenScreen.gardenPane.getChildren().remove(e.getTarget());
+        			HashMap<String, Plant> plants = model.createPlantData();
+        			ImageView removePlant = (ImageView) e.getTarget();
+        			String removedPlantName = removePlant.getId();
+        			Plant removedPlant = plants.get(removedPlantName);
+					model.stateFinal.totalLepsSupported -= removedPlant.lepsSupported;
+					model.stateFinal.gardenBudget += removedPlant.price;
+					gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+    			}
+    		}
+    	});
+    	
     	gardenScreen.inventory.setOnAction(e-> window.setScene(inv));
 		
-    	
     	//Setting the GardenScene
 		for(Plant p : plantCollection) {
 			gardenScreen.gardenTile.getChildren().add(gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
