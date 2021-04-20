@@ -49,6 +49,7 @@ public class InvScreen {
 	
 	public InvScreen() {
 		setButton();
+		createScreen();
 	}
 	
 	public BorderPane getScreen() {
@@ -72,7 +73,7 @@ public class InvScreen {
 	 *  
 	 * @return BorderPane for Inventory Screen
 	 */
-	public BorderPane createScreen() {
+	public void createScreen() {
 		invBorder = new BorderPane();
 
 		plantOne.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 10)); 
@@ -96,10 +97,7 @@ public class InvScreen {
 
 		invBorder.setAlignment(buttonBox, Pos.CENTER);
 		//loadBorder.setCenter(loadButton);
-		invBorder.setBackground(new Background(backgroundimage));
-
-		return invBorder;
-			
+		invBorder.setBackground(new Background(backgroundimage));			
 		
-}
+	}
 }

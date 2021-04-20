@@ -64,7 +64,7 @@ public class Controller extends Application{
 	public void start(Stage primaryStage){
 		window = primaryStage;
 		model = new Model();
-		
+	
 		//create screen and scene
 		loadScreen = new LoadScreen();
 		load = new Scene(loadScreen.getScreen(), 1000, 600);
@@ -76,9 +76,9 @@ public class Controller extends Application{
 		garden = new Scene(gardenScreen.getScreen(), 1000, 600);
 		invScreen = new InvScreen();
 		inv = new Scene(invScreen.getScreen(),800, 600);
+		popup = new PopUpWindow();
+		pop = new Scene(popup.getScreen());
 
-		
-		
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
 		invScreenHandler();
@@ -86,7 +86,7 @@ public class Controller extends Application{
 		gardenScreenHandler();
 		loadScreenHandler();
 		conditionScreenHandler();
-	
+		
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
 		window.setScene(load);
 		window.show();
@@ -95,26 +95,12 @@ public class Controller extends Application{
 	}
 	public void popUpHandler() {
 		// Setting an action for the options button
-		/*
-		gardenScreen.optionsButton.setOnAction(new EventHandler<ActionEvent>() {	
-    		@Override
-    		public void handle(ActionEvent e) {
-    			popupStage = new Stage();
-    			popup = new PopUpWindow();
-    			Scene scene = new Scene(popup.display());
-    			
-    			popupStage.initModality(Modality.APPLICATION_MODAL);	
-    			popupStage.setTitle("Options");
-    			popupStage.setMinWidth(250);
-    			popupStage.setMinHeight(500);
-    			popupStage.setScene(scene);
-    			popupStage.showAndWait(); 
-    		}
-    	});
+		
+		
     	//popup.restart.setOnAction(k -> );
     	popup.save.setOnAction(k -> popupStage.close());
     	popup.resume.setOnAction(k -> popupStage.close());
-    	*/
+    	
 	}
 	public void invScreenHandler() {
 		invScreen.PrevButtonInv.setOnAction(e-> window.setScene(load));
@@ -173,7 +159,18 @@ public class Controller extends Application{
 				event.consume();
 			}
 		});
-    	
+    	gardenScreen.optionsButton.setOnAction(new EventHandler<ActionEvent>() {	
+    		@Override
+    		public void handle(ActionEvent e) {
+    			popupStage = new Stage();  			
+    			popupStage.initModality(Modality.APPLICATION_MODAL);	
+    			popupStage.setTitle("Options");
+    			popupStage.setMinWidth(250);
+    			popupStage.setMinHeight(500);
+    			popupStage.setScene(pop);
+    			popupStage.showAndWait(); 
+    		}
+    	});
     	
     	gardenScreen.inventory.setOnAction(e-> window.setScene(inv));
 		

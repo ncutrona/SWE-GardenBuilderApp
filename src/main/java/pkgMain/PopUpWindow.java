@@ -23,9 +23,8 @@ import javafx.scene.layout.VBox;
  */
 public class PopUpWindow {
 
-	Button resume = new Button("Resume");
-	Button save = new Button("Save");
-	Button restart = new Button("Restart");
+	Button resume,save, restart;
+	VBox layout;
 	
 	Image background = new Image(getClass().getResourceAsStream("/img/vfjk56.png"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
@@ -39,15 +38,29 @@ public class PopUpWindow {
 	 * 
 	 * @return the layout VBox of the popup window
 	 */
-	public VBox display() {
-		VBox layout = new VBox(10);
+	
+	public PopUpWindow() {
+		createButtons();
+		setDisplay();
+	}
+	
+	public VBox getScreen() {
+		return layout;
+	}
+	
+	public void createButtons() {
+		resume = new Button("Resume");
+		save = new Button("Save");
+		restart = new Button("Restart");
+	}
+	public void setDisplay() {
+		layout = new VBox(10);
 		layout.getChildren().add(resume);
 		layout.getChildren().add(save);
 		layout.getChildren().add(restart);
 		layout.setAlignment(Pos.CENTER);
 		
 		layout.setBackground(new Background(backgroundimage));
-		return layout;
 	}
 	
 }
