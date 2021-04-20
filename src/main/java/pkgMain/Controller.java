@@ -65,19 +65,7 @@ public class Controller extends Application{
 		window = primaryStage;
 		model = new Model();
 	
-		//create screen and scene
-		loadScreen = new LoadScreen();
-		load = new Scene(loadScreen.getScreen(), 1000, 600);
-		saveScreen = new SaveScreen();
-		save = new Scene(saveScreen.createLoadingBorder(),800, 600);
-		conditionScreen = new ConditionScreen();
-		condition = new Scene(conditionScreen.getScreen(), 1000, 600);
-		gardenScreen = new GardenScreen();
-		garden = new Scene(gardenScreen.getScreen(), 1000, 600);
-		invScreen = new InvScreen();
-		inv = new Scene(invScreen.getScreen(),800, 600);
-		popup = new PopUpWindow();
-		pop = new Scene(popup.getScreen());
+		createScreenAndScene();
 
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
@@ -93,17 +81,52 @@ public class Controller extends Application{
     	
     	
 	}
+	
+	public void createScreenAndScene() {
+		loadScreen = new LoadScreen();
+		load = new Scene(loadScreen.getScreen(), 1000, 600);
+		saveScreen = new SaveScreen();
+		save = new Scene(saveScreen.createLoadingBorder(),800, 600);
+		conditionScreen = new ConditionScreen();
+		condition = new Scene(conditionScreen.getScreen(), 800, 600);
+		gardenScreen = new GardenScreen();
+		garden = new Scene(gardenScreen.getScreen(), 1000, 600);
+		invScreen = new InvScreen();
+		inv = new Scene(invScreen.getScreen(),800, 600);
+		popup = new PopUpWindow();
+		pop = new Scene(popup.getScreen());
+	}
+	
 	public void popUpHandler() {
 		// Setting an action for the options button
 		
-		
-    	//popup.restart.setOnAction(k -> );
+    	popup.restart.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				popupStage.close();
+				clearInfo();
+				window.setScene(load);
+			}
+    	});
+    	
     	popup.save.setOnAction(k -> popupStage.close());
     	popup.resume.setOnAction(k -> popupStage.close());
     	
 	}
+	
+	public void clearInfo() {
+		conditionScreen.budget.clear();
+		conditionScreen.gardenName.clear();
+		gardenScreen.gardenPane.getChildren().removeAll(gardenScreen.gardenPane.getChildren());
+		conditionScreen.budget.setPromptText("Enter your Budget $");
+		conditionScreen.soilSlider.setValue(1);
+		conditionScreen.sunSlider.setValue(1);
+		conditionScreen.moistSlider.setValue(1);
+	}
+	
+	
 	public void invScreenHandler() {
-		invScreen.PrevButtonInv.setOnAction(e-> window.setScene(load));
+		invScreen.PrevButtonInv.setOnAction(e-> window.setScene(garden));
 	}
 	public void saveScreenHandler() {
 		saveScreen.prevButton.setOnAction(e-> window.setScene(load));
@@ -223,8 +246,6 @@ public class Controller extends Application{
 		if (!conditionScreen.budget.getText().isEmpty() && !conditionScreen.gardenName.getText().isEmpty()) {
 			try {
 				int intBudget = Integer.parseInt(conditionScreen.budget.getText());
-				conditionScreen.budget.setPromptText("Your budget was set.");
-				conditionScreen.gardenName.setPromptText("Your Garden Name was set.");
 				model.gardenFinal.setBudget(intBudget);
 				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
 				model.stateFinal.setGardenName(conditionScreen.gardenName.getText());
