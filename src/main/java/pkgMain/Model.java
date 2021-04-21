@@ -24,8 +24,14 @@ public class Model {
 	Plant demoPlantTwo = new Plant(20, 5, "Cornus florida", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	Plant demoPlantThree = new Plant(6, 7, "Betula nigra", "clay", "full", "dry", 100, 100, 1, 0 ,0);
 	
+	ArrayList<Plant> plantsMaster= new ArrayList<Plant>();;
+	HashMap<String, Plant> plantDataList = new HashMap<String, Plant>();
+	Collection<Plant> plantCollection;
+	
 	public Model() {
-		
+		setPlants();
+		createPlantData();
+		sortPlantList(plantsMaster);
 	}
 	
 	
@@ -34,13 +40,10 @@ public class Model {
 	 * 
 	 * @return ArrayList of Plants with 3 demo plants
 	 */
-	public ArrayList<Plant> getPlants() {
-		ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
+	public void setPlants() {
 		plantsMaster.add(demoPlantOne);
 		plantsMaster.add(demoPlantTwo);
 		plantsMaster.add(demoPlantThree);
-		return plantsMaster;
-		
 	}
 	
 	
@@ -50,15 +53,15 @@ public class Model {
 	 * 
 	 * @return HashMap String, Plant  with 3 demo plants
 	 */
-	public HashMap<String, Plant> createPlantData() {
-		HashMap<String, Plant> plantData = new HashMap<String, Plant>();
-    	plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
-    	plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
-    	plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
-    	
-    	return plantData;
+	public void createPlantData() {
+    	plantDataList.put(demoPlantOne.getScientificName(), demoPlantOne);
+    	plantDataList.put(demoPlantTwo.getScientificName(), demoPlantTwo);
+    	plantDataList.put(demoPlantThree.getScientificName(), demoPlantThree);
+
 	}
 	
-	Collection<Plant> plantCollection = Plant.sortPlants(getPlants());
+	public void sortPlantList(ArrayList<Plant> plants) {
+		plantCollection = Plant.sortPlants(plants);
+	}
 		
 	}
