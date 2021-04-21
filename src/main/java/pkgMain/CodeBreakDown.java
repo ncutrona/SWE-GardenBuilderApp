@@ -1,244 +1,151 @@
 package pkgMain;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import javafx.scene.Scene;
 
 import javafx.application.Application;
+import javafx.beans.property.*;
+import javafx.beans.value.*;
+import javafx.collections.*;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
+import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
+
+
+
+/** Drag the anchors around to change a polygon's points. */
 public class CodeBreakDown extends Application {
-	/*
-	 * String NodeId = "NULL";
-	 * 
-	 * GardenConditions garden = new GardenConditions(500, "full", "dry", "clay");
-	 * GardenState state = new GardenState("Test Garden", "Arpil", 0, false,
-	 * garden.getBudget());
-	 * 
-	 * Plant demoPlantOne = new Plant(6, 3, "A negudo", "clay", "full", "dry", 100,
-	 * 100, 1, 0 ,0); Plant demoPlantTwo = new Plant(12, 5, "B negudo", "clay",
-	 * "full", "dry", 100, 100, 1, 0 ,0); Plant demoPlantThree = new Plant(3, 7,
-	 * "C negudo", "clay", "full", "dry", 100, 100, 1, 0 ,0); int gardenBudget =
-	 * garden.getBudget(); TilePane tile = new TilePane(); TilePane tileTwo = new
-	 * TilePane(); FlowPane flow = new FlowPane(); BorderPane border = new
-	 * BorderPane(); Text leps = new Text(); Text budget = new Text(); Text
-	 * sortedPlants = new Text(); Text ConditionsDisplay = new Text(); Image
-	 * milkweed = new
-	 * Image(getClass().getResourceAsStream("/img/commonMilkweed.png")); Image
-	 * planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
-	 * Image plantthree = new
-	 * Image(getClass().getResourceAsStream("/img/plantthree.png")); Image
-	 * background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
-	 * 
-	 * public String Conditions = "Soil : " + garden.getSoil() + ",  Sun : " +
-	 * garden.getSun() + ",  Moisture : " + garden.getMoisture();
-	 * 
-	 * BackgroundImage backgroundimage = new BackgroundImage(background,
-	 * BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-	 * BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-	 * 
-	 * ArrayList<Plant> plantsMaster = new ArrayList<Plant>();
-	 * 
-	 * public void getPlants() { plantsMaster.add(demoPlantOne);
-	 * plantsMaster.add(demoPlantTwo); plantsMaster.add(demoPlantThree);
-	 * 
-	 * 
-	 * }
-	 * 
-	 * //getSortedPlants();
-	 * 
-	 * public void addSortedTile(TilePane tile, Collection<Plant> plants) {
-	 * 
-	 * for(Plant p : plants) {
-	 * tile.getChildren().add(newPlant(p.getScientificName())); }
-	 * 
-	 * }
-	 * 
-	 * //Added - Creates a hashmap of our plants to be called when we update the
-	 * garden in order to select the plant to update public HashMap<String, Plant>
-	 * createPlantData() { HashMap<String, Plant> plantData = new HashMap<String,
-	 * Plant>(); plantData.put(demoPlantOne.getScientificName(), demoPlantOne);
-	 * plantData.put(demoPlantTwo.getScientificName(), demoPlantTwo);
-	 * plantData.put(demoPlantThree.getScientificName(), demoPlantThree);
-	 * 
-	 * return plantData; }
-	 * 
-	 * public HashMap<String, Image> createPlantImages() { HashMap<String, Image>
-	 * plantData = new HashMap<String, Image>();
-	 * plantData.put(demoPlantOne.getScientificName(), milkweed);
-	 * plantData.put(demoPlantTwo.getScientificName(), planttwo);
-	 * plantData.put(demoPlantThree.getScientificName(), plantthree);
-	 * 
-	 * return plantData; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * public ImageView newPlant(String NodeID) { ImageView iv1; HashMap<String,
-	 * Image> plantImages = createPlantImages(); Image plantView =
-	 * plantImages.get(NodeID);
-	 * 
-	 * HashMap<String, Plant> plants = createPlantData(); Plant plant =
-	 * plants.get(NodeID);
-	 * 
-	 * 
-	 * iv1 = new ImageView(); iv1.setImage(plantView); iv1.setPreserveRatio(true);
-	 * iv1.setFitHeight(100); iv1.setId(NodeID); Tooltip t = new
-	 * Tooltip("Scientific Name: " + plant.getScientificName() + "\nPrice: $" +
-	 * plant.getPrice() + "\nLeps: " + plant.getLepsSupported());
-	 * Tooltip.install(iv1, t);
-	 * 
-	 * iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
-	 * 
-	 * public void handle(MouseEvent event) { Dragboard db =
-	 * iv1.startDragAndDrop(TransferMode.COPY); ClipboardContent content = new
-	 * ClipboardContent(); content.putString(iv1.getId()); db.setContent(content);
-	 * event.consume(); System.out.println(iv1.getId()); } });
-	 * 
-	 * 
-	 * return iv1;
-	 * 
-	 * }
-	 * 
-	 * @Override public void start(Stage stage) {
-	 * 
-	 * getPlants(); Collection<Plant> plantCollection =
-	 * Plant.sortPlants(plantsMaster);
-	 * 
-	 * 
-	 * 
-	 * 
-	 * stage.setTitle("Garden Builder v. 0.01 (Alpha)"); //Setting up the Images
-	 * //newPlant("Milkweed");
-	 * 
-	 * 
-	 * //DRAG AND DROP FEATURE *****************************************************
-	 * 
-	 * flow.setOnDragDropped(new EventHandler <DragEvent>(){ public void
-	 * handle(DragEvent event) { HashMap<String, Image> images =
-	 * createPlantImages(); Dragboard db = event.getDragboard(); if(db.hasString())
-	 * { String nodeId = db.getString(); ImageView plant = new ImageView();
-	 * plant.setImage(images.get(nodeId)); plant.setPreserveRatio(true);
-	 * plant.setFitHeight(100); plant.setId(nodeId);
-	 * //System.out.println(tile.lookup("#" + nodeId)); //TILE LOOKUP IS CAUSING
-	 * ISSUES. OTHERWISE CODE IS GOOD
-	 * 
-	 * 
-	 * if(plant != null) { //System.out.println("WE REACH HERE!");
-	 * flow.getChildren().add(newPlant(nodeId)); updateGardenDisplay(nodeId); } }
-	 * 
-	 * event.setDropCompleted(true); event.consume(); } });
-	 * 
-	 * flow.setOnDragOver(new EventHandler <DragEvent>() { public void
-	 * handle(DragEvent event) {
-	 * 
-	 * if (event.getGestureSource() != flow && event.getDragboard().hasString()) {
-	 * allow for both copying and moving, whatever user chooses
-	 * event.acceptTransferModes(TransferMode.COPY); }
-	 * 
-	 * event.consume(); } });
-	 * 
-	 * 
-	 * //***************************************************************************
-	 * //Creating the Layout of Main Garden Screen
-	 * border.setStyle("-fx-background-color: white;"); flow.setPadding(new
-	 * Insets(10, 10, 10, 10)); //flow.setStyle("-fx-background-color: Brown;");
-	 * flow.setBackground(new Background(backgroundimage));
-	 * 
-	 * 
-	 * 
-	 * border.setCenter(flow); tile.setPadding(new Insets(10, 10, 10, 10));
-	 * tile.setStyle("-fx-background-color: yellow");
-	 * 
-	 * sortedPlants.setText("Sorted Plants");
-	 * 
-	 * tile.getChildren().add(sortedPlants);
-	 * //tile.getChildren().add(newPlant(demoPlantOne.getScientificName()));
-	 * //tile.getChildren().add(newPlant(demoPlantTwo.getScientificName()));
-	 * //tile.getChildren().add(newPlant(demoPlantThree.getScientificName()));
-	 * addSortedTile(tile, plantCollection);
-	 * 
-	 * 
-	 * border.setLeft(tile); tileTwo.setPadding(new Insets(10, 10, 10, 10));
-	 * tileTwo.setStyle("-fx-background-color: pink;");
-	 * 
-	 * 
-	 * //Text leps = new Text(); leps.setText("Leps Supported: " +
-	 * state.totalLepsSupported); tileTwo.getChildren().add(leps);
-	 * 
-	 * //Text budget = new Text(); budget.setText("Budget: $" + state.gardenBudget);
-	 * tileTwo.getChildren().add(budget);
-	 * 
-	 * //Adding Conditions Text ConditionsDisplay.setText(Conditions);
-	 * tileTwo.getChildren().add(ConditionsDisplay);
-	 * 
-	 * 
-	 * 
-	 * //Adding the options button to the top tile pane Button optionsButton = new
-	 * Button("Options"); optionsButton.setTooltip(new
-	 * Tooltip("Tooltip for Button")); tileTwo.getChildren().add(optionsButton);
-	 * 
-	 * 
-	 * border.setTop(tileTwo);
-	 * 
-	 * 
-	 * Scene scene = new Scene(border, 800, 600); stage.setScene(scene);
-	 * stage.show(); }
-	 * 
-	 * public void updateGardenDisplay(String NodeId) {
-	 * 
-	 * HashMap<String, Plant> plantData = createPlantData();
-	 * 
-	 * Plant plant = plantData.get(NodeId);
-	 * 
-	 * ArrayList<Integer> updates = GardenState.placePlant(state, plant);
-	 * //System.out.println(updates);
-	 * 
-	 * int newLeps = updates.get(0); int newBudget = updates.get(1);
-	 * 
-	 * leps.setText("Leps Supported: " + newLeps);
-	 * //tileTwo.getChildren().add(leps);
-	 * 
-	 * 
-	 * budget.setText("Budget: $" + newBudget); //tileTwo.getChildren().add(budget);
-	 * 
-	 * 
-	 * }
-	 */
+	
+	public Polygon hexagon = new Polygon();
+	public static void main(String[] args) throws Exception { launch(args); }
 
-	public static void main(String[] args) {
-		launch();
-	}
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+	// main application layout logic.
+	@Override public void start(final Stage stage) throws Exception {
+    	
+		hexagon.getPoints().addAll(new Double[]{        
+ 			   200.0, 50.0, 
+ 			   400.0, 50.0, 
+ 			   450.0, 150.0,          
+ 			   400.0, 250.0, 
+ 			   200.0, 250.0,                   
+ 			   150.0, 150.0, 
+ 			});
 		
+		hexagon.setStroke(Color.FORESTGREEN);
+		hexagon.setStrokeWidth(4);
+		hexagon.setStrokeLineCap(StrokeLineCap.ROUND);
+		hexagon.setFill(Color.CORNSILK.deriveColor(0, 1.2, 1, 0.6));
+		
+		
+		Group root = new Group();
+		root.getChildren().add(hexagon);
+		root.getChildren().addAll(createControlAnchorsFor(hexagon.getPoints()));
+
+		stage.setTitle("Hexagon Manipulation Sample");
+		stage.setScene(
+				new Scene(
+						root,
+						1200, 1200, Color.ALICEBLUE
+						)
+				);
+		stage.show();
 	}
 
+
+	// @return a list of anchors which can be dragged around to modify points in the format [x1, y1, x2, y2...]
+	private ObservableList<Anchor> createControlAnchorsFor(final ObservableList<Double> points) {
+		ObservableList<Anchor> anchors = FXCollections.observableArrayList();
+
+		for (int i = 0; i < points.size(); i+=2) {
+			final int idx = i;
+
+			DoubleProperty xProperty = new SimpleDoubleProperty(points.get(i));
+			DoubleProperty yProperty = new SimpleDoubleProperty(points.get(i + 1));
+
+			xProperty.addListener(new ChangeListener<Number>() {
+				@Override public void changed(ObservableValue<? extends Number> ov, Number oldX, Number x) {
+					points.set(idx, (double) x);
+				}
+			});
+
+			yProperty.addListener(new ChangeListener<Number>() {
+				@Override public void changed(ObservableValue<? extends Number> ov, Number oldY, Number y) {
+					points.set(idx + 1, (double) y);
+				}
+			});
+
+			anchors.add(new Anchor(Color.GOLD, xProperty, yProperty));
+		}
+
+		return anchors;
+	}
+
+	// a draggable anchor displayed around a point.
+	class Anchor extends Circle {
+		private final DoubleProperty x, y;
+
+		Anchor(Color color, DoubleProperty x, DoubleProperty y) {
+			super(x.get(), y.get(), 10);
+			setFill(color.deriveColor(1, 1, 1, 0.5));
+			setStroke(color);
+			setStrokeWidth(2);
+			setStrokeType(StrokeType.OUTSIDE);
+
+			this.x = x;
+			this.y = y;
+
+			x.bind(centerXProperty());
+			y.bind(centerYProperty());
+			enableDrag();
+		}
+
+		// make a node movable by dragging it around with the mouse.
+		private void enableDrag() {
+			final Delta dragDelta = new Delta();
+			setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					// record a delta distance for the drag and drop operation.
+					dragDelta.x = getCenterX() - mouseEvent.getX();
+					dragDelta.y = getCenterY() - mouseEvent.getY();
+					getScene().setCursor(Cursor.MOVE);
+				}
+			});
+			setOnMouseReleased(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					getScene().setCursor(Cursor.HAND);
+				}
+			});
+			setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					double newX = mouseEvent.getX() + dragDelta.x;
+					if (newX > 0 && newX < getScene().getWidth()) {
+						setCenterX(newX);
+					}
+					double newY = mouseEvent.getY() + dragDelta.y;
+					if (newY > 0 && newY < getScene().getHeight()) {
+						setCenterY(newY);
+					}
+				}
+			});
+			setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					if (!mouseEvent.isPrimaryButtonDown()) {
+						getScene().setCursor(Cursor.HAND);
+					}
+				}
+			});
+			setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					if (!mouseEvent.isPrimaryButtonDown()) {
+						getScene().setCursor(Cursor.DEFAULT);
+					}
+				}
+			});
+		}
+
+		// records relative x and y co-ordinates.
+		private class Delta { double x, y; }
+	}
 }
