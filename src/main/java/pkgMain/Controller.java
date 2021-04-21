@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -123,7 +124,13 @@ public class Controller extends Application{
     		public void handle(MouseEvent e) {
     			if (e.getButton() == MouseButton.SECONDARY) {
     				e.consume();
-        			view.deletePlant(e.getTarget());
+    				ImageView removePlant = (ImageView)e.getTarget();
+    		        removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+    		            @Override
+    		            public void handle(ContextMenuEvent event) {
+    		                view.gardenScreen.getDeleteMenu(removePlant).show(removePlant, event.getScreenX(), event.getScreenY());
+    		            }
+    		        });
     			}
     		}
     	});

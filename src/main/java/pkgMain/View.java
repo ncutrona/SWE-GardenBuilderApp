@@ -139,9 +139,7 @@ public class View{
 		}
 	}
 	
-	public void deletePlant(EventTarget e) {
-		gardenScreen.gardenPane.getChildren().remove(e);
-		ImageView removePlant = (ImageView)e;
+	public void deletePlant(ImageView removePlant) {
 		String removedPlantName = removePlant.getId();
 		Plant removedPlant = model.plantDataList.get(removedPlantName);
 		model.stateFinal.totalLepsSupported -= removedPlant.lepsSupported;
