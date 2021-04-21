@@ -1,5 +1,10 @@
 package pkgMain;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,6 +39,7 @@ public class Controller extends Application{
 
 	View view;
 	Stage window;
+	Model model;
 	
 	/**
 	 * main method, launches application.
@@ -58,6 +64,8 @@ public class Controller extends Application{
 	public void start(Stage primaryStage){
 		window = primaryStage;
 		view = new View();
+		model = new Model();
+		view.gardenScreen.createPlantImageList(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
 
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
@@ -72,8 +80,6 @@ public class Controller extends Application{
 		window.show();
     	
 	}
-	
-	
 	
 	public void popUpHandler() {
 		// Setting an action for the options button
@@ -91,7 +97,6 @@ public class Controller extends Application{
     	view.popup.resume.setOnAction(k -> view.closePopUp());
     	
 	}
-	
 	public void invScreenHandler() {
 		view.invScreen.PrevButtonInv.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
 	}
@@ -101,16 +106,23 @@ public class Controller extends Application{
 		//there should be other handlers here for loading a garden
 	}
 	public void gardenScreenHandler() {
+		view.addPlantToGarden(model.plantCollection);
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				view.plantDragDropping(event);
+				int [] lepAndBudget = view.plantDragDropping(event, getPlantList());
+				if(lepAndBudget[0] > 0 && lepAndBudget[1] > 0) {
+					setModelLepAndBudget(lepAndBudget[0], lepAndBudget[1]);
+					view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+				}
+				
 				event.setDropCompleted(true);
 				event.consume();
 			}
 		});
     	view.gardenScreen.gardenPane.setOnDragOver(new EventHandler <DragEvent>() {
-			public void handle(DragEvent event) {
+			@Override
+    		public void handle(DragEvent event) {
 				view.plantDragOver(event);
 				event.consume();
 			}
@@ -123,7 +135,10 @@ public class Controller extends Application{
     		public void handle(MouseEvent e) {
     			if (e.getButton() == MouseButton.SECONDARY) {
     				e.consume();
-        			view.deletePlant(e.getTarget());
+        			Plant removed = view.deletePlant(e.getTarget(), model.plantDataList);
+        			model.stateFinal.totalLepsSupported -= removed.lepsSupported;
+        			model.stateFinal.gardenBudget += removed.price;
+        			view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
     			}
     		}
     	});
@@ -140,8 +155,18 @@ public class Controller extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				if(view.conditionScreenHelper()) {
-					view.setConditions();
+				if(conditionScreenHelper()) {
+					String [] soilList = {"sand", "loam", "clay"};
+					String [] sunList = {"shade","partial","full"};
+					String [] moistList = {"dry", "moist", "wet"};
+					
+					int [] sliderValues = view.returnConditionSliderValue();
+					//System.out.println(sliderValues);
+					
+					model.gardenFinal.setMoistureConditions(moistList[sliderValues[0]]);
+					model.gardenFinal.setSunConditions(sunList[sliderValues[1]]);
+					model.gardenFinal.setSoilConditions(soilList[sliderValues[2]]);
+					view.gardenScreen.updateCondition(model.gardenFinal);
 					window.setScene(view.gardenScreenToScene());
 				}
 				
@@ -162,5 +187,25 @@ public class Controller extends Application{
 		view.conditionScreen.previous.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 	}
 	
-	
+	public void setModelLepAndBudget(int lep, int price) {
+		model.stateFinal.totalLepsSupported += lep;
+		model.stateFinal.gardenBudget -= price;
+	}
+	public HashMap<String, Plant> getPlantList() {
+		return model.plantDataList;
+	}
+	public boolean conditionScreenHelper() {
+		if (view.conditionHasText()) {
+			try {
+				int intBudget = Integer.parseInt(view.conditionScreen.budget.getText());
+				model.gardenFinal.setBudget(intBudget);
+				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
+				model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
+				return true;
+			} catch(Exception except) {				
+				view.setValidBudgetText();
+			}
+		}
+		return false;
+	}
 }

@@ -1,5 +1,6 @@
 package pkgMain;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import javafx.application.Application;
@@ -29,8 +30,6 @@ public class View{
 	private Stage stage, popupStage;
 	private Scene screenScene;
 	
-	Model model;
-	
 	LoadScreen loadScreen;
 	ConditionScreen conditionScreen;
 	GardenScreen gardenScreen;
@@ -41,10 +40,8 @@ public class View{
 	Scene load, save, condition, garden, inv , pop;
 	
 	public View() {
-		model = new Model();
 		createScreenAndScene();
-		gardenScreen.createPlantImageList(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
-		addPlantToGarden();
+		
 		loadScreenToScene();
 	}
 	public Scene getScreen() {
@@ -110,7 +107,8 @@ public class View{
 		conditionScreen.moistSlider.setValue(1);
 	}
 	
-	public void plantDragDropping(DragEvent event) {
+	public int[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {
+		int [] numbers= new int[2];
 		Dragboard db = event.getDragboard();
 		if(db.hasString()) {
 			String nodeId = db.getString();
@@ -122,16 +120,15 @@ public class View{
 			plant.setId(nodeId);
 			
 			if(plant != null) {
-				Plant plantNeeded = model.plantDataList.get(nodeId);
+				Plant plantNeeded = plantList.get(nodeId);
 				plant.relocate(event.getX()- (plant.getFitHeight()/2), event.getY() - (plant.getFitHeight()/2));
 				gardenScreen.gardenPane.getChildren().add(plant);
-
-				model.stateFinal.totalLepsSupported += plantNeeded.lepsSupported;
-				model.stateFinal.gardenBudget -= plantNeeded.price;
-				gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
-			}
-			
-		}	
+				numbers[0] = plantNeeded.getLepsSupported();
+				numbers[1] = plantNeeded.getPrice();
+				return numbers;
+			}	
+		}
+		return numbers;
 	}
 	public void plantDragOver(DragEvent event) {
 		if(event.getGestureSource() != gardenScreen.gardenPane && event.getDragboard().hasString()) {
@@ -139,51 +136,38 @@ public class View{
 		}
 	}
 	
-	public void deletePlant(EventTarget e) {
+	public Plant deletePlant(EventTarget e, HashMap<String, Plant> plantList) {
 		gardenScreen.gardenPane.getChildren().remove(e);
 		ImageView removePlant = (ImageView)e;
 		String removedPlantName = removePlant.getId();
-		Plant removedPlant = model.plantDataList.get(removedPlantName);
-		model.stateFinal.totalLepsSupported -= removedPlant.lepsSupported;
-		model.stateFinal.gardenBudget += removedPlant.price;
-		gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+		Plant removedPlant = plantList.get(removedPlantName);
+		return removedPlant;
 	
 	}
-	public void addPlantToGarden() {
-		System.out.println(model.plantCollection);
-		for(Plant p : model.plantCollection) {
+	public void addPlantToGarden(Collection<Plant> plantCollection) {
+		for(Plant p : plantCollection) {
 			gardenScreen.gardenTile.getChildren().add(gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
 		}
 		
 	}
 	
-	public boolean conditionScreenHelper() {
-		if (!conditionScreen.budget.getText().isEmpty() && !conditionScreen.gardenName.getText().isEmpty()) {
-			try {
-				int intBudget = Integer.parseInt(conditionScreen.budget.getText());
-				model.gardenFinal.setBudget(intBudget);
-				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
-				model.stateFinal.setGardenName(conditionScreen.gardenName.getText());
-				return true;
-			} catch(Exception except) {				
-				conditionScreen.budget.clear();
-				conditionScreen.gardenName.clear();
-				conditionScreen.budget.setPromptText("Enter a valid budget $");	
-			}
-		}
-		return false;
+	public boolean conditionHasText() {
+		boolean hello = (!conditionScreen.budget.getText().isEmpty()) && (!conditionScreen.gardenName.getText().isEmpty());
+		System.out.println(hello);
+		return hello;
 	}
 	
-	public void setConditions() {
-		String [] soilList = {"sand", "loam", "clay"};
-		String [] sunList = {"shade","partial","full"};
-		String [] moistList = {"dry", "moist", "wet"};
-		
-		
-		model.gardenFinal.setMoistureConditions(moistList[(int)conditionScreen.moistSlider.getValue()-1]);
-		model.gardenFinal.setSunConditions(sunList[(int)conditionScreen.sunSlider.getValue()-1]);
-		model.gardenFinal.setSoilConditions(soilList[(int)conditionScreen.soilSlider.getValue()-1]);
-		//since there is already an instance of a gardenScreen, we do no create another one, we update the one we have
-		gardenScreen.updateCondition(model.gardenFinal);
+	public void setValidBudgetText() {
+		conditionScreen.budget.clear();
+		conditionScreen.gardenName.clear();
+		conditionScreen.budget.setPromptText("Enter a valid budget $");
+	}
+	
+	public int[] returnConditionSliderValue() {
+		int [] sliderValue = new int[3];
+		sliderValue[0] = (int)conditionScreen.moistSlider.getValue()-1;
+		sliderValue[1] = (int)conditionScreen.sunSlider.getValue()-1;
+		sliderValue[2] = (int)conditionScreen.soilSlider.getValue()-1;
+		return sliderValue;
 	}
 }
