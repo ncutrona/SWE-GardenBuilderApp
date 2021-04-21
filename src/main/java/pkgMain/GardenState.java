@@ -151,19 +151,4 @@ public class GardenState {
 		this.gardenShape = gardenShape;
 	}*/
 	
-	
-	/**
-	 * 
-	 */
-	public void hoverPlant() {
-		
-	}
-	
-	
-	/**
-	 * 
-	 */
-	public void deletePlant() {
-		
-	}
 }
