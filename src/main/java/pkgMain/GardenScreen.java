@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -217,9 +220,17 @@ public class GardenScreen {
 		gardenBorder.setTop(infoTile);
 	}
 	
-	
-	
-	
-	
+	public ContextMenu getDeleteMenu(ImageView plant) {
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem deletePlant = new MenuItem("Delete plant");
+        deletePlant.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                gardenPane.getChildren().remove(plant);
+            }
+        });
+		contextMenu.getItems().add(deletePlant);
+		return contextMenu;
+	}
 	
 }
