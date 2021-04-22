@@ -77,6 +77,7 @@ public class Controller extends Application{
 		gardenScreenHandler();
 		loadScreenHandler();
 		conditionScreenHandler();
+		pentagonScreenHandler();
 		
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
 		window.setScene(view.getScreen());
@@ -107,6 +108,9 @@ public class Controller extends Application{
 		view.saveScreen.prevButton.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 		
 		//there should be other handlers here for loading a garden
+	}
+	public void pentagonScreenHandler() {
+		view.pentagonScreen.set.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
 	}
 	public void gardenScreenHandler() {
 		view.addPlantToGarden(model.plantCollection);
@@ -197,7 +201,7 @@ public class Controller extends Application{
 					model.gardenFinal.setSunConditions(sunList[sliderValues[1]]);
 					model.gardenFinal.setSoilConditions(soilList[sliderValues[2]]);
 					view.gardenScreen.updateCondition(model.gardenFinal);
-					window.setScene(view.gardenScreenToScene());
+					window.setScene(view.pentagonScreenToScene());
 				}
 				
 			}

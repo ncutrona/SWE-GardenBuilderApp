@@ -35,9 +35,10 @@ public class View{
 	GardenScreen gardenScreen;
 	InvScreen invScreen;
 	SaveScreen saveScreen;
+	PentagonScreen pentagonScreen;
 	PopUpWindow popup;
 	
-	Scene load, save, condition, garden, inv , pop;
+	Scene load, save, condition, garden, inv , pop, pentagon;
 	
 	public View() {
 		createScreenAndScene();
@@ -68,6 +69,10 @@ public class View{
 		screenScene = inv;
 		return screenScene;
 	}
+	public Scene pentagonScreenToScene() {
+		screenScene = pentagon;
+		return screenScene;
+	}
 	public void popScreenToStage() {
 		popupStage = new Stage();  			
 		popupStage.initModality(Modality.APPLICATION_MODAL);	
@@ -95,6 +100,8 @@ public class View{
 		inv = new Scene(invScreen.getScreen(),800, 600);
 		popup = new PopUpWindow();
 		pop = new Scene(popup.getScreen());
+		pentagonScreen = new PentagonScreen();
+		pentagon = new Scene(pentagonScreen.getScreen(), 1000, 600);
 	}
 	
 	public void clearInfo() {
