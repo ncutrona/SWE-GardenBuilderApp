@@ -14,6 +14,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -93,6 +94,7 @@ public class Controller extends Application{
 			public void handle(ActionEvent event) {
 				view.clearInfo();
 				view.closePopUp();
+				pentagonAnchorHandler();
 				window.setScene(view.loadScreenToScene());
 			}
     	});
@@ -119,6 +121,52 @@ public class Controller extends Application{
 			}
 			
 		});
+		pentagonAnchorHandler();
+	}
+	
+	public void pentagonAnchorHandler() {
+		for(Anchor a: view.pentagonScreen.anchors) {
+			final Coordinates dragDelta = new Coordinates();
+			a.setOnMousePressed(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					// record a delta distance for the drag and drop operation.
+					dragDelta.x = a.getCenterX() - mouseEvent.getX();
+					dragDelta.y = a.getCenterY() - mouseEvent.getY();
+					a.getScene().setCursor(Cursor.MOVE);
+				}
+			});
+			a.setOnMouseReleased(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					a.getScene().setCursor(Cursor.HAND);
+				}
+			});
+			a.setOnMouseDragged(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					double newX = mouseEvent.getX() + dragDelta.x;
+					if (newX > 0 && newX < a.getScene().getWidth()) {
+						a.setCenterX(newX);
+					}
+					double newY = mouseEvent.getY() + dragDelta.y;
+					if (newY > 0 && newY < a.getScene().getHeight()) {
+						a.setCenterY(newY);
+					}
+				}
+			});
+			a.setOnMouseEntered(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					if (!mouseEvent.isPrimaryButtonDown()) {
+						a.getScene().setCursor(Cursor.HAND);
+					}
+				}
+			});
+			a.setOnMouseExited(new EventHandler<MouseEvent>() {
+				@Override public void handle(MouseEvent mouseEvent) {
+					if (!mouseEvent.isPrimaryButtonDown()) {
+						a.getScene().setCursor(Cursor.DEFAULT);
+					}
+				}
+			});
+		}
 	}
 	public void gardenScreenHandler() {
 		view.addPlantToGarden(model.plantCollection);

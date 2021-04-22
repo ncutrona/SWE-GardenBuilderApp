@@ -26,6 +26,8 @@ class Coordinates{
 		this.y = y;
 	}
 	
+	public Coordinates() {}
+	
 	
 	/**
 	 * Returns the current x coordinate

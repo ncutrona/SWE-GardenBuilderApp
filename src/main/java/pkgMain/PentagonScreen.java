@@ -34,19 +34,19 @@ import javafx.scene.shape.StrokeType;
 
 public class PentagonScreen {
 	
-	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
-	BackgroundImage backgroundimage = new BackgroundImage(background, 
+	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	private BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
             BackgroundSize.DEFAULT);
 	
-	TilePane pentaGardenTile, pentaInfoTile;
 	Group pentaGardenPane;
 	BorderPane pentaGardenBorder;
 	Button set;
 	
-	public Polygon hexagon;
+	Polygon hexagon;
+	ObservableList<Anchor> anchors;
 	
 	public PentagonScreen() {
 		createPanes();
@@ -72,36 +72,21 @@ public class PentagonScreen {
 		Image img = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
 		hexagon.setFill(new ImagePattern(img));
 		
+		anchors = createControlAnchorsFor(hexagon.getPoints());
+		
 		pentaGardenPane.getChildren().add(hexagon);
-		pentaGardenPane.getChildren().addAll(createControlAnchorsFor(hexagon.getPoints()));
+		pentaGardenPane.getChildren().addAll(anchors);
 		pentaGardenPane.getChildren().add(set);
 	}
 	
 	public void createPanes() {
-		pentaGardenTile = new TilePane();
-		pentaInfoTile = new TilePane();
 		pentaGardenPane = new Group();
 		pentaGardenBorder = new BorderPane();
 	}
 	
 	public void createScreen() {
 		pentaGardenBorder.setStyle("-fx-background-color: white;");
-		// pentaGardenPane.setPadding(new Insets(10, 10, 10, 10));;
-		// pentaGardenPane.setBackground(new Background(backgroundimage));
-		
-		//pentaGardenBorder.setCenter(pentaGardenPane); 
 		pentaGardenBorder.getChildren().add(pentaGardenPane);
-		//pentaGardenTile.setPadding(new Insets(10, 10, 10, 10));
-		//pentaGardenTile.setStyle("-fx-background-color: yellow");
-		
-		//pentaGardenBorder.setLeft(pentaGardenTile);
-		//pentaInfoTile.setPadding(new Insets(10, 10, 10, 10));
-		//pentaInfoTile.setStyle("-fx-background-color: pink;");
-
-		//pentaGardenBorder.setTop(pentaInfoTile);
-		
-		//pentaInfoTile.getChildren().add(set);
-		
 		
 	}
 	
@@ -141,71 +126,5 @@ public class PentagonScreen {
 
 		return anchors;
 	}
-	
-	class Anchor extends Circle {
-		private final DoubleProperty x, y;
-
-		Anchor(Color color, DoubleProperty x, DoubleProperty y) {
-			super(x.get(), y.get(), 10);
-			setFill(color.deriveColor(1, 1, 1, 0.5));
-			setStroke(color);
-			setStrokeWidth(2);
-			setStrokeType(StrokeType.OUTSIDE);
-
-			this.x = x;
-			this.y = y;
-
-			x.bind(centerXProperty());
-			y.bind(centerYProperty());
-			enableDrag();
-		}
-
-		// make a node movable by dragging it around with the mouse.
-		public void enableDrag() {
-			final Delta dragDelta = new Delta();
-			setOnMousePressed(new EventHandler<MouseEvent>() {
-				@Override public void handle(MouseEvent mouseEvent) {
-					// record a delta distance for the drag and drop operation.
-					dragDelta.x = getCenterX() - mouseEvent.getX();
-					dragDelta.y = getCenterY() - mouseEvent.getY();
-					getScene().setCursor(Cursor.MOVE);
-				}
-			});
-			setOnMouseReleased(new EventHandler<MouseEvent>() {
-				@Override public void handle(MouseEvent mouseEvent) {
-					getScene().setCursor(Cursor.HAND);
-				}
-			});
-			setOnMouseDragged(new EventHandler<MouseEvent>() {
-				@Override public void handle(MouseEvent mouseEvent) {
-					double newX = mouseEvent.getX() + dragDelta.x;
-					if (newX > 0 && newX < getScene().getWidth()) {
-						setCenterX(newX);
-					}
-					double newY = mouseEvent.getY() + dragDelta.y;
-					if (newY > 0 && newY < getScene().getHeight()) {
-						setCenterY(newY);
-					}
-				}
-			});
-			setOnMouseEntered(new EventHandler<MouseEvent>() {
-				@Override public void handle(MouseEvent mouseEvent) {
-					if (!mouseEvent.isPrimaryButtonDown()) {
-						getScene().setCursor(Cursor.HAND);
-					}
-				}
-			});
-			setOnMouseExited(new EventHandler<MouseEvent>() {
-				@Override public void handle(MouseEvent mouseEvent) {
-					if (!mouseEvent.isPrimaryButtonDown()) {
-						getScene().setCursor(Cursor.DEFAULT);
-					}
-				}
-			});
-		}
-
-		// records relative x and y co-ordinates.
-		private class Delta { double x, y; }
-	}
-
 }
+
