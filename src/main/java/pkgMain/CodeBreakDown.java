@@ -1,13 +1,16 @@
 package pkgMain;
 import javafx.scene.Scene;
-
+import javafx.scene.control.Button;
 import javafx.application.Application;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
 import javafx.collections.*;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
@@ -17,7 +20,8 @@ import javafx.stage.Stage;
 
 /** Drag the anchors around to change a polygon's points. */
 public class CodeBreakDown extends Application {
-	
+	Button setShape = new Button("submit");
+	StackPane border;
 	public Polygon hexagon = new Polygon();
 	public static void main(String[] args) throws Exception { launch(args); }
 
@@ -38,16 +42,31 @@ public class CodeBreakDown extends Application {
 		hexagon.setStrokeLineCap(StrokeLineCap.ROUND);
 		hexagon.setFill(Color.CORNSILK.deriveColor(0, 1.2, 1, 0.6));
 		
-		
 		Group root = new Group();
 		root.getChildren().add(hexagon);
 		root.getChildren().addAll(createControlAnchorsFor(hexagon.getPoints()));
+		root.getChildren().add(setShape);
+		root.relocate(400, 400);
+		
+		
+		setShape.setOnAction(new EventHandler<ActionEvent>() {
 
+			@Override
+			public void handle(ActionEvent event) {
+				border = new StackPane();
+				border.getChildren().add(hexagon);
+				Scene next = new Scene(border, 800, 800);
+				stage.setScene(next);
+				
+			}
+			
+		});
+		
 		stage.setTitle("Hexagon Manipulation Sample");
 		stage.setScene(
 				new Scene(
 						root,
-						1200, 1200, Color.ALICEBLUE
+						800, 800, Color.ALICEBLUE
 						)
 				);
 		stage.show();
