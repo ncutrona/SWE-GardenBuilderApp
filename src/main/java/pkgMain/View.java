@@ -112,6 +112,10 @@ public class View{
 		conditionScreen.soilSlider.setValue(1);
 		conditionScreen.sunSlider.setValue(1);
 		conditionScreen.moistSlider.setValue(1);
+		
+		pentagonScreen.pentaGardenPane.getChildren().removeAll(pentagonScreen.pentaGardenPane.getChildren());
+		pentagonScreen.setHexagon();
+		
 	}
 	
 	public int[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {

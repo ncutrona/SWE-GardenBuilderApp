@@ -110,7 +110,15 @@ public class Controller extends Application{
 		//there should be other handlers here for loading a garden
 	}
 	public void pentagonScreenHandler() {
-		view.pentagonScreen.set.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
+		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				view.gardenScreen.gardenPane.getChildren().add(view.pentagonScreen.hexagon);
+				window.setScene(view.gardenScreenToScene());
+				
+			}
+			
+		});
 	}
 	public void gardenScreenHandler() {
 		view.addPlantToGarden(model.plantCollection);
@@ -156,7 +164,7 @@ public class Controller extends Application{
     	
     	view.gardenScreen.inventory.setOnAction(e-> window.setScene(view.invScreenToScene()));
 	}
-	
+
 	public void deletePlantUpdateState(Plant removed) {
 		model.stateFinal.totalLepsSupported -= removed.lepsSupported;
 		model.stateFinal.gardenBudget += removed.price;

@@ -42,7 +42,7 @@ import javafx.stage.Stage;
  */
 public class GardenScreen {
 	
-	Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+	Image background = new Image(getClass().getResourceAsStream("/img/gardenBackground.jpg"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
