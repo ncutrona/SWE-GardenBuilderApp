@@ -15,6 +15,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ContextMenuEvent;
@@ -137,15 +139,42 @@ public class Controller extends Application{
     			if (e.getButton() == MouseButton.SECONDARY) {
     				e.consume();
         			Plant removed = view.deletePlant(e.getTarget(), model.plantDataList);
-        			model.stateFinal.totalLepsSupported -= removed.lepsSupported;
-        			model.stateFinal.gardenBudget += removed.price;
-        			view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+        			ImageView removePlant = (ImageView) e.getTarget();
+        			removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+        				@Override
+        				public void handle(ContextMenuEvent event) {
+        					getDeleteMenu(removePlant, removed).show(removePlant, event.getScreenX(), event.getScreenY());
+        				}
+        			});
     			}
     		}
     	});
     	
     	view.gardenScreen.inventory.setOnAction(e-> window.setScene(view.invScreenToScene()));
 	}
+	
+	public void deletePlantUpdateState(Plant removed) {
+		model.stateFinal.totalLepsSupported -= removed.lepsSupported;
+		model.stateFinal.gardenBudget += removed.price;
+		view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+	}
+	
+	public ContextMenu getDeleteMenu(ImageView plant, Plant plantObject) {
+		ContextMenu contextMenu = new ContextMenu();
+		MenuItem deletePlant = new MenuItem("Delete plant");
+        deletePlant.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                view.gardenScreen.gardenPane.getChildren().remove(plant);
+                deletePlantUpdateState(plantObject);
+                
+            }
+        });
+		contextMenu.getItems().add(deletePlant);
+		return contextMenu;
+	}
+	
+	
 	public void loadScreenHandler() {
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));

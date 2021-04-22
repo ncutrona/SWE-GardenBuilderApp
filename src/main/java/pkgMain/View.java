@@ -137,7 +137,7 @@ public class View{
 	}
 	
 	public Plant deletePlant(EventTarget e, HashMap<String, Plant> plantList) {
-		gardenScreen.gardenPane.getChildren().remove(e);
+		// gardenScreen.gardenPane.getChildren().remove(e);
 		ImageView removePlant = (ImageView)e;
 		String removedPlantName = removePlant.getId();
 		Plant removedPlant = plantList.get(removedPlantName);

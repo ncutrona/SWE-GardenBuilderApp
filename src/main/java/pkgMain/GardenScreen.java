@@ -220,17 +220,4 @@ public class GardenScreen {
 		gardenBorder.setTop(infoTile);
 	}
 	
-	public ContextMenu getDeleteMenu(ImageView plant) {
-		ContextMenu contextMenu = new ContextMenu();
-		MenuItem deletePlant = new MenuItem("Delete plant");
-        deletePlant.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                gardenPane.getChildren().remove(plant);
-            }
-        });
-		contextMenu.getItems().add(deletePlant);
-		return contextMenu;
-	}
-	
 }
