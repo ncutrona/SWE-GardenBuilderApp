@@ -1,6 +1,7 @@
 package pkgMain;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.application.Application;
 import javafx.beans.property.*;
 import javafx.beans.value.*;
@@ -12,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
@@ -40,7 +42,8 @@ public class CodeBreakDown extends Application {
 		hexagon.setStroke(Color.FORESTGREEN);
 		hexagon.setStrokeWidth(4);
 		hexagon.setStrokeLineCap(StrokeLineCap.ROUND);
-		hexagon.setFill(Color.CORNSILK.deriveColor(0, 1.2, 1, 0.6));
+		Image img = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+		hexagon.setFill(new ImagePattern(img));
 		
 		Group root = new Group();
 		root.getChildren().add(hexagon);
