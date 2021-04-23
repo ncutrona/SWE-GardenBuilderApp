@@ -109,6 +109,7 @@ public class Controller extends Application{
 				save.setName(model.stateFinal.getGardenName());
 				save.setBudget(model.stateFinal.getGardenBudget());
 				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
+				save.setConditions(model.gardenFinal.getSoil(),model.gardenFinal.getSun(), model.gardenFinal.getSun());
 				view.saveScreen.saved.add(save);
 				try {
 					File f = new File("Save.txt");
@@ -118,7 +119,9 @@ public class Controller extends Application{
 					fos.close();
 					oos.close();
 					view.closePopUp();
-				} catch (IOException e) {
+					view.saveScreen.loadGardens();
+					view.saveScreen.createScreen();
+				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 				
@@ -324,10 +327,13 @@ public class Controller extends Application{
 		if (view.conditionHasText()) {
 			try {
 				int intBudget = Integer.parseInt(view.conditionScreen.budget.getText());
-				model.gardenFinal.setBudget(intBudget);
-				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
-				model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
-				return true;
+				if(view.saveScreen.checkIfNameAvailable(view.conditionScreen.gardenName.getText())) {
+					model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
+					model.gardenFinal.setBudget(intBudget);
+					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
+					return true;
+				}
+				view.setValidNameText();
 			} catch(Exception except) {				
 				view.setValidBudgetText();
 			}

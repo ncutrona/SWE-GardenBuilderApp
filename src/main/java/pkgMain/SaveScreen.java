@@ -42,7 +42,7 @@ public class SaveScreen {
 	Button prevButton = new Button("Go Back");
 	VBox fillBox;
 	
-	ArrayList<SaveGarden> saved = new ArrayList<SaveGarden>();
+	ArrayList<SaveGarden> saved;
 	
 	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/loadbk.jpg"));
@@ -55,17 +55,19 @@ public class SaveScreen {
 	
 	public SaveScreen() {
 		try {
-			createScreen();
+			loadGardens();
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			
 		}
+		createScreen();
 	}
 		
 	public BorderPane getScreen() {
 		return this.border;
 	}
 	
-	public void createScreen() throws IOException, ClassNotFoundException {
+	public void loadGardens() throws IOException, ClassNotFoundException {
+		saved = new ArrayList<SaveGarden>();
 		fillBox = new VBox(15);
 		FileInputStream fis = new FileInputStream("Save.txt");
 		
@@ -78,20 +80,32 @@ public class SaveScreen {
 			gardenText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
 			fillBox.getChildren().add(gardenText);
 		}
-		
 		fis.close();
 		ois.close();
+	}
+	
+	public void createScreen() {
 		scroll.setContent(fillBox);
 		scroll.setStyle("-fx-background-color: transparent;");
 		border.setCenter(scroll);
 		border.setTop(prevButton);
 		border.setBackground(new Background(backgroundimage));
 		fillBox.setAlignment(Pos.CENTER);
-		
 	}
 	
 	public String setText(SaveGarden garden) {
-		return "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
+		String text = "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
+		text = text + "\nSun Condition: " + garden.getSunCondition() + " Soil Condition: " + garden.getSoilCondition() + " Moisture Condition: " + garden.getMoistCondition();
+		return text;
+	}
+	
+	public boolean checkIfNameAvailable(String name) {
+		for(SaveGarden garden: saved) {
+			if(garden.getName().equals(name)) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	

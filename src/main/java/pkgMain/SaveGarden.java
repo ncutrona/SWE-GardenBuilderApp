@@ -6,6 +6,7 @@ public class SaveGarden implements Serializable{
 	private int budget;
 	private String Name;
 	private int numLepSupported;
+	private String sunCondition, moistCondition, soilCondition;
 	
 	public SaveGarden() {}
 
@@ -32,6 +33,21 @@ public class SaveGarden implements Serializable{
 	public void setNumLepSupported(int numLepSupported) {
 		this.numLepSupported = numLepSupported;
 	}
+
+	public String getSunCondition() {
+		return sunCondition;
+	}
+	public String getMoistCondition() {
+		return moistCondition;
+	}
+	public String getSoilCondition() {
+		return soilCondition;
+	}
 	
+	public void setConditions(String soil, String sun, String moist) {
+		this.soilCondition = soil;
+		this.sunCondition = sun;
+		this.moistCondition = moist;
+	}
 	
 }
