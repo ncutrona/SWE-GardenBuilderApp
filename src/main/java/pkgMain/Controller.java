@@ -15,6 +15,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -26,6 +27,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -99,7 +101,31 @@ public class Controller extends Application{
 			}
     	});
     	
-    	view.popup.save.setOnAction(k -> view.closePopUp());
+    	view.popup.save.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				SaveGarden save = new SaveGarden();
+				save.setName(model.stateFinal.getGardenName());
+				save.setBudget(model.stateFinal.getGardenBudget());
+				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
+				view.saveScreen.saved.add(save);
+				try {
+					File f = new File("Save.txt");
+					FileOutputStream fos = new FileOutputStream(f);
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(view.saveScreen.saved);
+					fos.close();
+					oos.close();
+					view.closePopUp();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				
+			}
+    		
+    	});
     	view.popup.resume.setOnAction(k -> view.closePopUp());
     	
 	}
@@ -109,7 +135,21 @@ public class Controller extends Application{
 	public void saveScreenHandler() {
 		view.saveScreen.prevButton.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 		
-		//there should be other handlers here for loading a garden
+		
+		/*
+		for(Node n: view.saveScreen.fillBox.getChildren()) {
+			Text text = (Text)n;
+			text.setOnMouseClicked(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
+		}
+		*/
 	}
 	public void pentagonScreenHandler() {
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
@@ -123,7 +163,6 @@ public class Controller extends Application{
 		});
 		pentagonAnchorHandler();
 	}
-	
 	public void pentagonAnchorHandler() {
 		for(Anchor a: view.pentagonScreen.anchors) {
 			final Coordinates dragDelta = new Coordinates();
@@ -212,7 +251,6 @@ public class Controller extends Application{
     	
     	view.gardenScreen.inventory.setOnAction(e-> window.setScene(view.invScreenToScene()));
 	}
-
 	public void deletePlantUpdateState(Plant removed) {
 		model.stateFinal.totalLepsSupported -= removed.lepsSupported;
 		model.stateFinal.gardenBudget += removed.price;
@@ -233,8 +271,6 @@ public class Controller extends Application{
 		contextMenu.getItems().add(deletePlant);
 		return contextMenu;
 	}
-	
-	
 	public void loadScreenHandler() {
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));
