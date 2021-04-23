@@ -1,7 +1,13 @@
 package pkgMain;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.util.ArrayList;
+
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -31,12 +37,12 @@ import javafx.scene.text.Text;
  */
 public class SaveScreen {
 
-	BorderPane loadingBorder = new BorderPane();
-	Button loadingButton = new Button("Load Garden in Progress");
+	BorderPane border = new BorderPane();
+	ScrollPane scroll = new ScrollPane();
 	Button prevButton = new Button("Go Back");
-	Button LoadingButton2 = new Button("Load Garden in Progress");
-	Text saved1 = new Text("Test Garden | Saved: 4/14/2021");
-	Text saved2 = new Text("Test Garden Original | Saved 4/11/2021");
+	VBox fillBox;
+	
+	ArrayList<SaveGarden> saved = new ArrayList<SaveGarden>();
 	
 	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/loadbk.jpg"));
@@ -46,42 +52,46 @@ public class SaveScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	/**
-	 * Creates and sets up the BorderPant for SaveScreen
-	 * 
-	 * @return BorderPane for SaveScreen
-	 */
-	public BorderPane createLoadingBorder() {
+	
+	public SaveScreen() {
+		try {
+			createScreen();
+		} catch (ClassNotFoundException | IOException e) {
+			e.printStackTrace();
+		}
+	}
 		
-		saved1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
-		saved1.setFill(Color.RED);   
-		saved1.setStrokeWidth(1); 
-		saved1.setStroke(Color.BLUE);
-		saved2.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20)); 
-		saved2.setFill(Color.RED);   
-		saved2.setStrokeWidth(1); 
-		saved2.setStroke(Color.BLUE);
+	public BorderPane getScreen() {
+		return this.border;
+	}
+	
+	public void createScreen() throws IOException, ClassNotFoundException {
+		fillBox = new VBox(15);
+		FileInputStream fis = new FileInputStream("Save.txt");
 		
-		VBox fillBox = new VBox(15);
-		HBox buttonbox2 = new HBox(10);
-		buttonbox2.getChildren().addAll(saved2, LoadingButton2);
-		HBox buttonBox = new HBox(10);
-		buttonBox.getChildren().addAll(saved1, loadingButton);
+		ObjectInputStream ois = new ObjectInputStream(fis);
+		ArrayList<SaveGarden> gardens = (ArrayList<SaveGarden>) ois.readObject();
+
+		for(SaveGarden garden: gardens) {
+			saved.add(garden);
+			Text gardenText = new Text(setText(garden));
+			gardenText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+			fillBox.getChildren().add(gardenText);
+		}
 		
-		buttonBox.setAlignment(Pos.CENTER);
-		buttonbox2.setAlignment(Pos.CENTER);
-		
-		fillBox.getChildren().addAll(buttonBox, buttonbox2);
-		
-		loadingBorder.setCenter(fillBox);
+		fis.close();
+		ois.close();
+		scroll.setContent(fillBox);
+		scroll.setStyle("-fx-background-color: transparent;");
+		border.setCenter(scroll);
+		border.setTop(prevButton);
+		border.setBackground(new Background(backgroundimage));
 		fillBox.setAlignment(Pos.CENTER);
 		
-		loadingBorder.setAlignment(fillBox, Pos.CENTER);
-		loadingBorder.setTop(prevButton);
-		loadingBorder.setBackground(new Background(backgroundimage));
-		
-		return loadingBorder;
-		
+	}
+	
+	public String setText(SaveGarden garden) {
+		return "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
 	}
 	
 	

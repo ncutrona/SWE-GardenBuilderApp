@@ -91,7 +91,7 @@ public class View{
 		loadScreen = new LoadScreen();
 		load = new Scene(loadScreen.getScreen(), 1000, 600);
 		saveScreen = new SaveScreen();
-		save = new Scene(saveScreen.createLoadingBorder(),800, 600);
+		save = new Scene(saveScreen.getScreen(),800, 600);
 		conditionScreen = new ConditionScreen();
 		condition = new Scene(conditionScreen.getScreen(), 800, 600);
 		gardenScreen = new GardenScreen();
@@ -125,7 +125,6 @@ public class View{
 			String nodeId = db.getString();
 			ImageView plant = new ImageView();
 			plant.setImage(gardenScreen.plantImageList.get(nodeId));
-			System.out.println(nodeId);
 			plant.setPreserveRatio(true);
 			plant.setFitHeight(100);
 			plant.setId(nodeId);
@@ -163,9 +162,8 @@ public class View{
 	}
 	
 	public boolean conditionHasText() {
-		boolean hello = (!conditionScreen.budget.getText().isEmpty()) && (!conditionScreen.gardenName.getText().isEmpty());
-		System.out.println(hello);
-		return hello;
+		boolean hasText = (!conditionScreen.budget.getText().isEmpty()) && (!conditionScreen.gardenName.getText().isEmpty());
+		return hasText;
 	}
 	
 	public void setValidBudgetText() {
