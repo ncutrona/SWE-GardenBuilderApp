@@ -66,8 +66,8 @@ public class PentagonScreen {
 				150.0, 150.0, 
 	 	});
 		
-		hexagon.setStroke(Color.FORESTGREEN);
-		hexagon.setStrokeWidth(4);
+		hexagon.setStroke(Color.GREEN);
+		hexagon.setStrokeWidth(1);
 		hexagon.setStrokeLineCap(StrokeLineCap.ROUND);
 		Image img = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
 		hexagon.setFill(new ImagePattern(img));
