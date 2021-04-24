@@ -60,7 +60,7 @@ public class SummaryScreen {
 	public void createTileData(String gardenName, int remainingBudget, int finalLeps) {
 		
 		Text name = new Text("Name: " + gardenName + " ");
-		Text budget = new Text("Remaining Budget: " + remainingBudget + " ");
+		Text budget = new Text("Remaining Budget: $" + remainingBudget + " ");
 		Text leps = new Text("Total Garden Leps Supported: " + finalLeps);
 		
 		name.setFont(Font.font ("Verdana", 15));
@@ -115,7 +115,7 @@ public class SummaryScreen {
 			Text quantity = new Text("Quantity: " + valueText);
 			
 			//Total Spent
-			Text totalSpent = new Text("Total Spent: " + String.valueOf(plant.price * value));
+			Text totalSpent = new Text("Total Spent: $" + String.valueOf(plant.price * value));
 			//Leps Supported
 			Text lepsSupported = new Text("Leps Supported: " + String.valueOf(plant.lepsSupported * value));
 			
