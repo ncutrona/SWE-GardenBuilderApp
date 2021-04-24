@@ -1,5 +1,7 @@
 package pkgMain;
 
+import java.util.ArrayList;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -79,6 +81,18 @@ public class PentagonScreen {
 		pentaGardenPane.getChildren().add(hexagon);
 		pentaGardenPane.getChildren().addAll(anchors);
 		pentaGardenPane.getChildren().add(set);
+	}
+	public Polygon setAndGetHexagon(ArrayList<Double> hexPoints) {
+		hexagon = new Polygon();
+		hexagon.getPoints().addAll(hexPoints);
+		
+		hexagon.setStroke(Color.GREEN);
+		hexagon.setStrokeWidth(1);
+		hexagon.setStrokeLineCap(StrokeLineCap.ROUND);
+		Image img = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
+		hexagon.setFill(new ImagePattern(img));
+		
+		return hexagon;
 	}
 	
 	public void createPanes() {

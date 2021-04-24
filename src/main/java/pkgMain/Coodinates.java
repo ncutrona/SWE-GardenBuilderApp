@@ -1,5 +1,6 @@
 package pkgMain;
 
+import java.io.Serializable;
 
 /**
  * Coordinates class, usable x,y coordinates for saving location
@@ -10,7 +11,7 @@ package pkgMain;
  * @author Joey Loporto
  * @author Tommy Cheung
  */
-class Coordinates{
+class Coordinates implements Serializable{
 	double x, y;
 	
 	

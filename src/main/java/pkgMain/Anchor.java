@@ -25,9 +25,4 @@ public class Anchor extends Circle {
 		y.bind(centerYProperty());
 		//enableDrag();
 	}
-
-	// make a node movable by dragging it around with the mouse.
-
-	// records relative x and y co-ordinates.
-	private class Delta { double x, y; }
 }

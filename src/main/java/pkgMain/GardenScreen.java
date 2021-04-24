@@ -61,7 +61,7 @@ public class GardenScreen {
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
 	//Keeping Track of what plants are placed on garden.
-	ArrayList<String> addedPlants = new ArrayList<String>();
+	HashMap<String, ArrayList<Coordinates>> addedPlants = new HashMap<String, ArrayList<Coordinates>>();
 	
 	public GardenScreen(GardenConditions condition) {
 		createPanes();

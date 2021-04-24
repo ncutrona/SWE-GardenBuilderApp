@@ -134,15 +134,13 @@ public class SummaryScreen {
 		
 	}
 	
-	public HashMap<String, Integer> findTotal(ArrayList<String> names) {
+	public HashMap<String, Integer> findTotal(HashMap<String, ArrayList<Coordinates>> names) {
 
 		HashMap<String, Integer> data = new HashMap<String, Integer>();
-		Set<String> distinct = new HashSet<>(names);
 		
-		for (String s: distinct) {
-			data.put(s, Collections.frequency(names, s));
+		for (String s: names.keySet()) {
+			data.put(s, names.get(s).size());
 		}
-		
 		return data;
 		
 	}

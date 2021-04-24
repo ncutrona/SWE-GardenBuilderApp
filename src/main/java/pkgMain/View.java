@@ -1,5 +1,6 @@
 package pkgMain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -22,6 +23,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -133,16 +138,43 @@ public class View{
 			
 			if(plant != null) {
 				Plant plantNeeded = plantList.get(nodeId);
-				plant.relocate(event.getX()- (plant.getFitHeight()/2), event.getY() - (plant.getFitHeight()/2));
+				double x = event.getX()- (plant.getFitHeight()/2);
+				double y = event.getY() - (plant.getFitHeight()/2);
+				plant.relocate(x, y);
 				gardenScreen.gardenPane.getChildren().add(plant);
 				numbers[0] = plantNeeded.getLepsSupported();
 				numbers[1] = plantNeeded.getPrice();
-				gardenScreen.addedPlants.add(nodeId);
+				gardenScreenAddPlant(nodeId, x, y);
 				return numbers;
 			}	
 		}
 		return numbers;
 	}
+	public void gardenScreenAddPlant(String nodeID, double x, double y) {
+		if(!gardenScreen.addedPlants.containsKey(nodeID)) {
+			gardenScreen.addedPlants.put(nodeID, new ArrayList<Coordinates>());
+		}
+		gardenScreen.addedPlants.get(nodeID).add(new Coordinates(x,y));
+	}
+
+	public void loadPlantsToGarden() {
+		for(String plantName: gardenScreen.addedPlants.keySet()) {
+			for(Coordinates c: gardenScreen.addedPlants.get(plantName)) {
+				Image plantImage = gardenScreen.plantImageList.get(plantName);
+				ImageView plantView = new ImageView(plantImage);
+				plantView.setPreserveRatio(true);
+				plantView.setFitHeight(100);
+				plantView.setId(plantName);
+				plantView.relocate(c.getX(), c.getY());
+				gardenScreen.gardenPane.getChildren().add(plantView);
+			}
+			
+		}
+	}
+	public void loadHexagonToGarden(ArrayList<Double> hexPoints) {
+		gardenScreen.gardenPane.getChildren().addAll(pentagonScreen.setAndGetHexagon(hexPoints));
+	}
+	
 	public void plantDragOver(DragEvent event) {
 		if(event.getGestureSource() != gardenScreen.gardenPane && event.getDragboard().hasString()) {
 			event.acceptTransferModes(TransferMode.COPY_OR_MOVE);

@@ -112,6 +112,8 @@ public class Controller extends Application{
 				save.setBudget(model.stateFinal.getGardenBudget());
 				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
 				save.setConditions(model.gardenFinal.getSoil(),model.gardenFinal.getSun(), model.gardenFinal.getMoisture());
+				save.setPlants(view.gardenScreen.addedPlants);
+				save.setHexPoints(view.pentagonScreen.hexagon.getPoints());
 				view.saveScreen.savedGarden.put(save.getName(), save);
 				try {
 					File f = new File("Save.txt");
@@ -123,6 +125,7 @@ public class Controller extends Application{
 					view.closePopUp();
 					view.saveScreen.loadGardens();
 					view.saveScreen.createScreen();
+					saveScreenLoadButtonHandler();
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 				}
@@ -156,6 +159,9 @@ public class Controller extends Application{
 					model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
 					view.gardenScreen.updateCondition(model.gardenFinal);
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
+					view.gardenScreen.addedPlants = garden.getPlants();
+					view.loadHexagonToGarden(garden.getHexPoints());
+					view.loadPlantsToGarden();
 					window.setScene(view.gardenScreenToScene());
 				}
 				
@@ -166,6 +172,7 @@ public class Controller extends Application{
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				
 				view.gardenScreen.gardenPane.getChildren().add(view.pentagonScreen.hexagon);
 				window.setScene(view.gardenScreenToScene());
 				
@@ -275,15 +282,14 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					view.clearInfo();
-    					//view.closePopUp();
     					view.gardenScreen.addedPlants.clear();
     					sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
     				}
     	    	});
-        				}
-        			});
+        	}
+        });
     	
  
 	}
