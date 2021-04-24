@@ -32,7 +32,7 @@ import javafx.util.StringConverter;
  */
 public class ConditionScreen {
 
-	private Image background = new Image(getClass().getResourceAsStream("/img/gcs.png"));
+	private Image background = new Image(getClass().getResourceAsStream("/img/conditions.jpg"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 

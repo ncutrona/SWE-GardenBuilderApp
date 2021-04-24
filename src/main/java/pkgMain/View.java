@@ -89,19 +89,19 @@ public class View{
 	
 	public void createScreenAndScene() {
 		loadScreen = new LoadScreen();
-		load = new Scene(loadScreen.getScreen(), 1000, 600);
+		load = new Scene(loadScreen.getScreen(), 1900, 1100);
 		saveScreen = new SaveScreen();
-		save = new Scene(saveScreen.getScreen(),800, 600);
+		save = new Scene(saveScreen.getScreen(),1900, 1100);
 		conditionScreen = new ConditionScreen();
-		condition = new Scene(conditionScreen.getScreen(), 800, 600);
+		condition = new Scene(conditionScreen.getScreen(), 1900, 1100);
 		gardenScreen = new GardenScreen();
-		garden = new Scene(gardenScreen.getScreen(), 1000, 600);
+		garden = new Scene(gardenScreen.getScreen(), 1900, 1100);
 		invScreen = new InvScreen();
-		inv = new Scene(invScreen.getScreen(),800, 600);
+		inv = new Scene(invScreen.getScreen(),1900, 1100);
 		popup = new PopUpWindow();
 		pop = new Scene(popup.getScreen());
 		pentagonScreen = new PentagonScreen();
-		pentagon = new Scene(pentagonScreen.getScreen(), 1000, 600);
+		pentagon = new Scene(pentagonScreen.getScreen(), 1900, 1100);
 	}
 	
 	public void clearInfo() {

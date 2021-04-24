@@ -269,7 +269,7 @@ public class Controller extends Application{
     			SummaryScreen sumScreen = new SummaryScreen();
     			HashMap<String, Integer> frequency = sumScreen.findTotal(view.gardenScreen.addedPlants);
     			sumScreen.createSummaryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList(), frequency, model.stateFinal.getGardenName(), model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
-    			window.setScene(new Scene(sumScreen.getScreen(), 800, 600));
+    			window.setScene(new Scene(sumScreen.getScreen(), 1900, 1100));
     		
     	    	sumScreen.returnHome.setOnAction(new EventHandler<ActionEvent>() {
     				@Override

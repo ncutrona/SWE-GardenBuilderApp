@@ -33,7 +33,7 @@ import javafx.scene.text.Text;
  */
 public class LoadScreen {
 	
-	Image background = new Image(getClass().getResourceAsStream("/img/intro.jpg"));
+	Image background = new Image(getClass().getResourceAsStream("/img/mainMenu.jpg"));
 	BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
@@ -41,7 +41,7 @@ public class LoadScreen {
                BackgroundSize.DEFAULT);
 	
 	BorderPane border;
-	Button loadButton, startButton;
+	Button loadButton, startButton, learn;
 	VBox buttonBox;
 
 	public LoadScreen() {
@@ -54,8 +54,9 @@ public class LoadScreen {
 	public void createButtonBox() {
 		loadButton = new Button("Load Garden");
 		startButton = new Button("Start Garden");
+		learn = new Button("Learn About Leps!");
 		buttonBox = new VBox(10);
-		buttonBox.getChildren().addAll(startButton, loadButton);
+		buttonBox.getChildren().addAll(startButton, loadButton, learn);
 	}
 	
 	/**
