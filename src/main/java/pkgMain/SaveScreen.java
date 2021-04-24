@@ -89,7 +89,8 @@ public class SaveScreen {
 	
 	public void createScreen() {
 		scroll.setContent(fillBox);
-		scroll.setStyle("-fx-background-color: transparent;");
+		//NEED TO FIGURE THIS OUT.
+		scroll.setStyle("-fx-background: Transparent;");
 		border.setCenter(scroll);
 		border.setTop(prevButton);
 		border.setBackground(new Background(backgroundimage));

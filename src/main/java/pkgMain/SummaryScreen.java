@@ -1,6 +1,7 @@
 package pkgMain;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -12,7 +13,12 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.*;
@@ -28,7 +34,8 @@ public class SummaryScreen {
 	
 	ScrollPane dataPane;
 	BorderPane summaryBorder;
-	Button close;
+	StackPane Data;
+	Button returnHome;
 	
 	public SummaryScreen() {
 		createPanes();
@@ -38,10 +45,11 @@ public class SummaryScreen {
 	public void createPanes() {
 		summaryBorder = new BorderPane();
 		dataPane = new ScrollPane();
+		Data = new StackPane();
 	}
 	
 	public void createButton() {
-		close = new Button("Close");
+		returnHome = new Button("Return Home");
 	}
 	
 	public BorderPane getScreen() {
@@ -49,10 +57,36 @@ public class SummaryScreen {
 	}
 	
 	
-	public BorderPane createSummaryScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData, HashMap<String, Integer> dataFrequency) {
+	public void createTileData(String gardenName, int remainingBudget, int finalLeps) {
+		
+		Text name = new Text("Name: " + gardenName + " ");
+		Text budget = new Text("Remaining Budget: " + remainingBudget + " ");
+		Text leps = new Text("Total Garden Leps Supported: " + finalLeps);
+		
+		name.setFont(Font.font ("Verdana", 15));
+		name.setFill(Color.WHITE);
+		budget.setFont(Font.font ("Verdana", 15));
+		budget.setFill(Color.WHITE);
+		leps.setFont(Font.font ("Verdana", 15));
+		leps.setFill(Color.WHITE);
+		
+		
+		HBox hbox = new HBox(20);
+		hbox.getChildren().addAll(name, budget, leps, returnHome);
+		Data.getChildren().add(hbox);
+		hbox.setAlignment(Pos.CENTER);
+		
+		Data.setStyle("-fx-background-color: blue;");
+		
+	}
+	
+	public BorderPane createSummaryScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData, HashMap<String, Integer> dataFrequency, String gardenName, int remainingBudget, int finalLeps) {
 		createScreen(plantData, imageData, dataFrequency);
+		createTileData(gardenName, remainingBudget, finalLeps);
 		
 		summaryBorder.setCenter(dataPane);
+		summaryBorder.setTop(Data);
+		summaryBorder.setStyle("-fx-background-color: Pink;");
 		
 		return summaryBorder;
 		
@@ -94,6 +128,7 @@ public class SummaryScreen {
 		}
 		
 		dataPane.setContent(vbox);
+		dataPane.setStyle("-fx-background: Pink;");
 		
 		
 		
@@ -106,11 +141,15 @@ public class SummaryScreen {
 		
 		for (String s: distinct) {
 			data.put(s, Collections.frequency(names, s));
-			System.out.println(Collections.frequency(names, s));
 		}
 		
 		return data;
 		
+	}
+	
+	public void clearSumScreen() {
+		dataPane.setContent(null);
+
 	}
 	
 
