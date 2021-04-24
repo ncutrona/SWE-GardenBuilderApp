@@ -109,6 +109,7 @@ public class View{
 		conditionScreen.gardenName.clear();
 		gardenScreen.gardenPane.getChildren().removeAll(gardenScreen.gardenPane.getChildren());
 		conditionScreen.budget.setPromptText("Enter your Budget $");
+		conditionScreen.gardenName.setPromptText("Enter Your Garden Name:");
 		conditionScreen.soilSlider.setValue(1);
 		conditionScreen.sunSlider.setValue(1);
 		conditionScreen.moistSlider.setValue(1);
@@ -170,8 +171,11 @@ public class View{
 	
 	public void setValidBudgetText() {
 		conditionScreen.budget.clear();
-		conditionScreen.gardenName.clear();
 		conditionScreen.budget.setPromptText("Enter a valid budget $");
+	}
+	public void setValidNameText() {
+		conditionScreen.gardenName.clear();
+		conditionScreen.gardenName.setPromptText("Enter an unused Name");
 	}
 	
 	public int[] returnConditionSliderValue() {

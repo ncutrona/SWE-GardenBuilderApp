@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -27,6 +28,7 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -109,16 +111,19 @@ public class Controller extends Application{
 				save.setName(model.stateFinal.getGardenName());
 				save.setBudget(model.stateFinal.getGardenBudget());
 				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
-				view.saveScreen.saved.add(save);
+				save.setConditions(model.gardenFinal.getSoil(),model.gardenFinal.getSun(), model.gardenFinal.getMoisture());
+				view.saveScreen.savedGarden.put(save.getName(), save);
 				try {
 					File f = new File("Save.txt");
 					FileOutputStream fos = new FileOutputStream(f);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
-					oos.writeObject(view.saveScreen.saved);
+					oos.writeObject(view.saveScreen.savedGarden);
 					fos.close();
 					oos.close();
 					view.closePopUp();
-				} catch (IOException e) {
+					view.saveScreen.loadGardens();
+					view.saveScreen.createScreen();
+				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 				}
 				
@@ -135,21 +140,27 @@ public class Controller extends Application{
 	public void saveScreenHandler() {
 		view.saveScreen.prevButton.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 		
-		
-		/*
+		saveScreenLoadButtonHandler();
+	}
+	public void saveScreenLoadButtonHandler() {
 		for(Node n: view.saveScreen.fillBox.getChildren()) {
-			Text text = (Text)n;
-			text.setOnMouseClicked(new EventHandler<ActionEvent>() {
-
+			HBox h = (HBox)n;
+			Button b = (Button)h.getChildren().get(0);
+			b.setOnMouseClicked(new EventHandler<MouseEvent>(){
 				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					
+				public void handle(MouseEvent event) {
+					//starts at 5 because this gets rid of "Load "
+					SaveGarden garden = view.saveScreen.savedGarden.get(b.getText().substring(5));
+					model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
+					model.stateFinal.GardenName = garden.getName();
+					model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
+					view.gardenScreen.updateCondition(model.gardenFinal);
+					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
+					window.setScene(view.gardenScreenToScene());
 				}
 				
 			});
 		}
-		*/
 	}
 	public void pentagonScreenHandler() {
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
@@ -337,10 +348,13 @@ public class Controller extends Application{
 		if (view.conditionHasText()) {
 			try {
 				int intBudget = Integer.parseInt(view.conditionScreen.budget.getText());
-				model.gardenFinal.setBudget(intBudget);
-				model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
-				model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
-				return true;
+				if(!view.saveScreen.savedGarden.containsKey(view.conditionScreen.gardenName.getText())) {
+					model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
+					model.gardenFinal.setBudget(intBudget);
+					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
+					return true;
+				}
+				view.setValidNameText();
 			} catch(Exception except) {				
 				view.setValidBudgetText();
 			}

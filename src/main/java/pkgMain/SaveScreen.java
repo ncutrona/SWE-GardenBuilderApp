@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -42,7 +43,7 @@ public class SaveScreen {
 	Button prevButton = new Button("Go Back");
 	VBox fillBox;
 	
-	ArrayList<SaveGarden> saved = new ArrayList<SaveGarden>();
+	HashMap<String, SaveGarden> savedGarden;
 	
 	//The image for the background
 	Image background = new Image(getClass().getResourceAsStream("/img/loadbk.jpg"));
@@ -55,45 +56,49 @@ public class SaveScreen {
 	
 	public SaveScreen() {
 		try {
-			createScreen();
+			loadGardens();
 		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
+			
 		}
+		createScreen();
 	}
 		
 	public BorderPane getScreen() {
 		return this.border;
 	}
 	
-	public void createScreen() throws IOException, ClassNotFoundException {
+	public void loadGardens() throws IOException, ClassNotFoundException {
+		savedGarden = new HashMap<String, SaveGarden>();
 		fillBox = new VBox(15);
 		FileInputStream fis = new FileInputStream("Save.txt");
 		
 		ObjectInputStream ois = new ObjectInputStream(fis);
-		ArrayList<SaveGarden> gardens = (ArrayList<SaveGarden>) ois.readObject();
+		HashMap <String, SaveGarden> gardens = (HashMap<String, SaveGarden>) ois.readObject();
 
-		for(SaveGarden garden: gardens) {
-			saved.add(garden);
+		for(SaveGarden garden : gardens.values()) {
+			savedGarden.put(garden.getName(), garden);
 			Text gardenText = new Text(setText(garden));
+			Button button = new Button("Load " + garden.getName());
+			HBox box =  new HBox(button, gardenText);
 			gardenText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
-			fillBox.getChildren().add(gardenText);
+			fillBox.getChildren().add(box);
 		}
-		
 		fis.close();
 		ois.close();
+	}
+	
+	public void createScreen() {
 		scroll.setContent(fillBox);
 		scroll.setStyle("-fx-background-color: transparent;");
 		border.setCenter(scroll);
 		border.setTop(prevButton);
 		border.setBackground(new Background(backgroundimage));
 		fillBox.setAlignment(Pos.CENTER);
-		
 	}
 	
 	public String setText(SaveGarden garden) {
-		return "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
+		String text = "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
+		text = text + "\nSun Condition: " + garden.getSunCondition() + " Soil Condition: " + garden.getSoilCondition() + " Moisture Condition: " + garden.getMoistCondition();
+		return text;
 	}
-	
-	
-
 }
