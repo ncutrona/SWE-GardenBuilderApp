@@ -1,6 +1,11 @@
 package pkgMain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 
 public class SaveGarden implements Serializable{
 	private int budget;
