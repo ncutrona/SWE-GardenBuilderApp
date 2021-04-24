@@ -129,12 +129,14 @@ public class View{
 			plant.setFitHeight(100);
 			plant.setId(nodeId);
 			
+			
 			if(plant != null) {
 				Plant plantNeeded = plantList.get(nodeId);
 				plant.relocate(event.getX()- (plant.getFitHeight()/2), event.getY() - (plant.getFitHeight()/2));
 				gardenScreen.gardenPane.getChildren().add(plant);
 				numbers[0] = plantNeeded.getLepsSupported();
 				numbers[1] = plantNeeded.getPrice();
+				gardenScreen.addedPlants.add(nodeId);
 				return numbers;
 			}	
 		}

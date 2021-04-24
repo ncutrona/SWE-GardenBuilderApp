@@ -250,6 +250,19 @@ public class Controller extends Application{
     	});
     	
     	view.gardenScreen.inventory.setOnAction(e-> window.setScene(view.invScreenToScene()));
+    	
+    	view.gardenScreen.finish.setOnMouseClicked(new EventHandler<MouseEvent>() {	
+    		@Override
+    		public void handle(MouseEvent e) {
+    			
+    			SummaryScreen sumScreen = new SummaryScreen();
+    			HashMap<String, Integer> frequency = sumScreen.findTotal(view.gardenScreen.addedPlants);
+    			sumScreen.createSummaryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList(), frequency);
+    			window.setScene(new Scene(sumScreen.getScreen(), 800, 600));
+    		
+        				}
+        			});
+ 
 	}
 	public void deletePlantUpdateState(Plant removed) {
 		model.stateFinal.totalLepsSupported -= removed.lepsSupported;

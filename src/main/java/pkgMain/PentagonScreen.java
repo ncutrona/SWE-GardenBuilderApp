@@ -14,6 +14,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.effect.ColorInput;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -74,6 +75,7 @@ public class PentagonScreen {
 		
 		anchors = createControlAnchorsFor(hexagon.getPoints());
 		
+		pentaGardenPane.setStyle("-fx-background-color: pink;");
 		pentaGardenPane.getChildren().add(hexagon);
 		pentaGardenPane.getChildren().addAll(anchors);
 		pentaGardenPane.getChildren().add(set);
@@ -85,7 +87,7 @@ public class PentagonScreen {
 	}
 	
 	public void createScreen() {
-		pentaGardenBorder.setStyle("-fx-background-color: white;");
+		pentaGardenBorder.setStyle("-fx-background-color: pink;");
 		pentaGardenBorder.getChildren().add(pentaGardenPane);
 		
 	}

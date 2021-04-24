@@ -57,8 +57,11 @@ public class GardenScreen {
 	Pane gardenPane;
 	BorderPane gardenBorder;
 	Text leps, budget, sortedPlants, conditionsDisplay;
-	Button inventory, optionsButton;
+	Button inventory, optionsButton, finish;
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
+	
+	//Keeping Track of what plants are placed on garden.
+	ArrayList<String> addedPlants = new ArrayList<String>();
 	
 	public GardenScreen(GardenConditions condition) {
 		createPanes();
@@ -96,6 +99,8 @@ public class GardenScreen {
 	public void createButton() {
 		inventory = new Button("See Full Inventory");
 		optionsButton = new Button("Options");
+		finish = new Button("Finish");
+		
 	}
 	
 	public void setConditionText(String sun, String soil, String moist) {
@@ -216,6 +221,7 @@ public class GardenScreen {
 		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
 		infoTile.getChildren().add(optionsButton);
 		infoTile.getChildren().add(inventory);
+		infoTile.getChildren().add(finish);
 		
 		gardenBorder.setTop(infoTile);
 	}
