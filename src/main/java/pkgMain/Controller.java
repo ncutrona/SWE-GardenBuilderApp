@@ -84,6 +84,7 @@ public class Controller extends Application{
 		loadScreenHandler();
 		conditionScreenHandler();
 		pentagonScreenHandler();
+		lepsSupportedScreenHandler();
 		
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
 		window.setScene(view.getScreen());
@@ -333,9 +334,16 @@ public class Controller extends Application{
 		return coords;
 	}
 	
+	public void lepsSupportedScreenHandler() {
+		view.lepScreen.back.setOnAction(e-> window.setScene(view.loadScreenToScene()));
+	}
+	
+	
 	public void loadScreenHandler() {
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));
+		view.loadScreen.learn.setOnAction(e-> window.setScene(view.lepScreenToScene()));
+		
 	}
 	public void conditionScreenHandler() {
 		

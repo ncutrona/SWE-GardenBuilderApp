@@ -42,8 +42,9 @@ public class View{
 	SaveScreen saveScreen;
 	PentagonScreen pentagonScreen;
 	PopUpWindow popup;
+	LepMotivationScreen lepScreen;
 	
-	Scene load, save, condition, garden, inv , pop, pentagon;
+	Scene load, save, condition, garden, inv , pop, pentagon, leps;
 	
 	public View() {
 		createScreenAndScene();
@@ -78,6 +79,12 @@ public class View{
 		screenScene = pentagon;
 		return screenScene;
 	}
+	
+	public Scene lepScreenToScene() {
+		screenScene = leps;
+		return screenScene;
+	}
+	
 	public void popScreenToStage() {
 		popupStage = new Stage();  			
 		popupStage.initModality(Modality.APPLICATION_MODAL);	
@@ -107,6 +114,8 @@ public class View{
 		pop = new Scene(popup.getScreen());
 		pentagonScreen = new PentagonScreen();
 		pentagon = new Scene(pentagonScreen.getScreen(), 1900, 1100);
+		lepScreen = new LepMotivationScreen();
+		leps = new Scene(lepScreen.getScreen(), 1900, 1100);
 	}
 	
 	public void clearInfo() {
