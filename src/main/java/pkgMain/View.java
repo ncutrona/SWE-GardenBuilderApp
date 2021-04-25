@@ -140,7 +140,9 @@ public class View{
 				Plant plantNeeded = plantList.get(nodeId);
 				double x = event.getX()- (plant.getFitHeight()/2);
 				double y = event.getY() - (plant.getFitHeight()/2);
-				plant.relocate(x, y);
+				//plant.relocate(x, y);
+				plant.setY(y);
+				plant.setX(x);
 				gardenScreen.gardenPane.getChildren().add(plant);
 				numbers[0] = plantNeeded.getLepsSupported();
 				numbers[1] = plantNeeded.getPrice();
