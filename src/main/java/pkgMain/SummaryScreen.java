@@ -101,7 +101,9 @@ public class SummaryScreen {
 		
 		VBox vbox = new VBox(15);
 		
-		for (Map.Entry mapElement : dataFrequency.entrySet()) {
+		Map<String, Integer> sortedMap = new TreeMap<String, Integer>(dataFrequency);
+		
+		for (Map.Entry mapElement : sortedMap.entrySet()) {
 			
 			String key = (String)mapElement.getKey();
 			int value = (int)mapElement.getValue();
