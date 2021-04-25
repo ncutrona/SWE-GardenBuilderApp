@@ -57,7 +57,7 @@ public class LepMotivationScreen {
 		what.setFill(Color.WHITE);
 		what.setStroke(Color.PINK);
 		
-		Text infoWhat = new Text(" - Lepidoptera is an order of insects that includes butterflies and moths.\n \n- About 180,000 species of the Lepidoptera are described, in 126 families and 46 superfamilies,\n 10 percent of the total described species of living organisms.\n\n- It is one of the most widespread and widely recognizable insect orders in the world");
+		Text infoWhat = new Text(" - Lepidoptera is an order of insects that includes butterflies and moths.\n\n\n- About 180,000 species of the Lepidoptera are described, in 126 families and 46 superfamilies,\n 10 percent of the total described species of living organisms.\n\n\n- It is one of the most widespread and widely recognizable insect orders in the world");
 
 		//Adding to the VBOX
 		infoOne.getChildren().addAll(what, infoWhat);
@@ -67,8 +67,8 @@ public class LepMotivationScreen {
 		why.setFill(Color.WHITE);
 		why.setStroke(Color.PINK);
 		
-		Text infoWhy = new Text(" - Lepidoptera is an order of insects that includes butterflies and moths.\n \n- About 180,000 species of the Lepidoptera are described, in 126 families and 46 superfamilies,\n 10 percent of the total described species of living organisms.\n\n- It is one of the most widespread and widely recognizable insect orders in the world");
 		
+		Text infoWhy = new Text("- In most land environments the lepidopterans are ecologically important \n because they transform large amounts of plant matter into animal matter and in turn serve as food for \n many other groups of animals.");
 		
 		//Adding to the VBOX
 		infoTwo.getChildren().addAll(why, infoWhy);
@@ -79,7 +79,7 @@ public class LepMotivationScreen {
 		how.setFill(Color.WHITE);
 		how.setStroke(Color.PINK);
 		
-		Text infoHow = new Text(" - Lepidoptera is an order of insects that includes butterflies and moths.\n \n- About 180,000 species of the Lepidoptera are described, in 126 families and 46 superfamilies,\n 10 percent of the total described species of living organisms.\n\n- It is one of the most widespread and widely recognizable insect orders in the world");
+		Text infoHow = new Text(" - Adopt a more tolerant approach to debris and spent plant material in \n he garden in order to support lepidoptera. The likelihood of seeing certain species of lepidoptera can \n be limited due to stringent habitat requirements or ranged");
 		
 		
 		//Adding to the VBOX
@@ -105,7 +105,7 @@ public class LepMotivationScreen {
 		border.setCenter(buttonData);
 		border.setStyle("-fx-background-color: #93e1e6;");
 		data.setAlignment(Pos.CENTER);
-		buttonData.setAlignment(Pos.CENTER);
+		buttonData.setAlignment(Pos.TOP_CENTER);
 
 		
 	}
