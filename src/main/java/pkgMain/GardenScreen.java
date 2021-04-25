@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.text.Text;
@@ -53,9 +55,11 @@ public class GardenScreen {
 	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
 	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
 	
-	TilePane gardenTile, infoTile;
+	TilePane infoTile;
+	GridPane gardenTile;
 	Pane gardenPane;
 	BorderPane gardenBorder;
+	ScrollPane plantScroll;
 	Text leps, budget, sortedPlants, conditionsDisplay;
 	Button inventory, optionsButton, finish;
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
@@ -83,10 +87,11 @@ public class GardenScreen {
 	}
 	
 	public void createPanes() {
-		gardenTile = new TilePane();
+		gardenTile = new GridPane();
 		infoTile = new TilePane();
 		gardenPane = new Pane();
 		gardenBorder = new BorderPane();
+		plantScroll = new ScrollPane();
 	}
 	
 	public void createText() {
@@ -203,7 +208,10 @@ public class GardenScreen {
 		
 		gardenTile.getChildren().add(sortedPlants);
 		
-		gardenBorder.setLeft(gardenTile);
+		plantScroll.setContent(gardenTile);
+		gardenBorder.setLeft(plantScroll);
+		
+		
 		infoTile.setPadding(new Insets(10, 10, 10, 10));
 		infoTile.setStyle("-fx-background-color: pink;");	
 

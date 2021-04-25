@@ -201,8 +201,10 @@ public class View{
 	
 	}
 	public void addPlantToGarden(Collection<Plant> plantCollection) {
+		int i = 1;
 		for(Plant p : plantCollection) {
-			gardenScreen.gardenTile.getChildren().add(gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
+			gardenScreen.gardenTile.addRow(i, gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
+			i++;
 		}
 		
 	}

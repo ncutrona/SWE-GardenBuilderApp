@@ -58,7 +58,7 @@ public class Model {
 		setPlants();
 		createPlantData();
 		sortPlantList(plantsMaster);
-		// readCsv();
+		readCsv();
 	}
 	
 	
