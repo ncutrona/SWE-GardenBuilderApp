@@ -78,7 +78,7 @@ public class Controller extends Application{
 
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
-		invScreenHandler();
+		// invScreenHandler();
 		saveScreenHandler();
 		gardenScreenHandler();
 		loadScreenHandler();
@@ -139,9 +139,7 @@ public class Controller extends Application{
     	view.popup.resume.setOnAction(k -> view.closePopUp());
     	
 	}
-	public void invScreenHandler() {
-		view.invScreen.PrevButtonInv.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
-	}
+
 	public void saveScreenHandler() {
 		view.saveScreen.prevButton.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 		
@@ -274,7 +272,22 @@ public class Controller extends Application{
     		}
     	});
     	
-    	view.gardenScreen.inventory.setOnAction(e-> window.setScene(view.invScreenToScene()));
+    	view.gardenScreen.inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {	
+    		@Override
+    		public void handle(MouseEvent e) {
+    			InvScreen invScreen = new InvScreen();
+    			invScreen.createInventoryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList());
+    			window.setScene(new Scene(invScreen.getScreen(), 1900, 1100));
+    			
+    	    	invScreen.prevButtonInv.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					window.setScene(view.gardenScreenToScene());
+    				}
+    	    	});
+ 
+        	}
+        });
     	
     	view.gardenScreen.finish.setOnMouseClicked(new EventHandler<MouseEvent>() {	
     		@Override
@@ -300,6 +313,7 @@ public class Controller extends Application{
     	
  
 	}
+	
 	public void deletePlantUpdateState(Plant removed) {
 		model.stateFinal.totalLepsSupported -= removed.lepsSupported;
 		model.stateFinal.gardenBudget += removed.price;
