@@ -31,28 +31,28 @@ public class Model {
 	HashMap<String, Plant> plantDataList = new HashMap<String, Plant>();
 	Collection<Plant> plantCollection;
 
-	// Code for reading in from a file
-	public void readCsv() throws IOException {
-		File plantData = Paths.get("src/main/resources/Plant_Data.csv").toFile().getAbsoluteFile();
-		BufferedReader br = new BufferedReader(new FileReader(plantData));
-		String line = "";
-		try {
-			while ((line = br.readLine()) != null) {
-				String[] data = line.split(",");
-				Plant plant = new Plant(Integer.parseInt(data[5]), Integer.parseInt(data[1]),
-						data[0], data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
-				plantsMaster.add(plant);
-				plantDataList.put(plant.getScientificName(), plant);
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
+//	// Code for reading in from a file
+//	public void readCsv() throws IOException {
+//		File plantData = Paths.get("src/main/resources/Plant_Data.csv").toFile().getAbsoluteFile();
+//		BufferedReader br = new BufferedReader(new FileReader(plantData));
+//		String line = "";
+//		try {
+//			while ((line = br.readLine()) != null) {
+//				String[] data = line.split(",");
+//				Plant plant = new Plant(Integer.parseInt(data[5]), Integer.parseInt(data[1]),
+//						data[0], data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
+//				plantsMaster.add(plant);
+//				plantDataList.put(plant.getScientificName(), plant);
+//			}
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	public Model() throws IOException {
 		// setPlants();
 		// createPlantData();
-		readCsv();
+		//readCsv();
 		sortPlantList(plantsMaster);
 	}
 

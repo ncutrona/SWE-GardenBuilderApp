@@ -326,7 +326,7 @@ public class Plant {
 	 * @param cond GardenConditions desired conditions
 	 * @return ArrayList of plants that meet desired conditions
 	 */
-	public static ArrayList<Plant> conditionCheckedPlants(ArrayList<Plant> masterList, GardenConditions cond) {
+	public static ArrayList<Plant> conditionCheckedPlants(ArrayList<Plant> masterList, String sun, String soil, String moisture) {
 
 
 		ArrayList<Plant> conditionedPlants = new ArrayList<Plant>();
@@ -334,7 +334,8 @@ public class Plant {
 
 		for(Plant plant : masterList) {
 
-			if(plant.soil == cond.getSoil() && plant.sun == cond.getSun() && plant.moisture == cond.getMoisture()) {
+			if(plant.sun.toLowerCase().contains(sun.toLowerCase()) && plant.soil.toLowerCase().contains(soil.toLowerCase()) 
+					&& plant.moisture.toLowerCase().contains(moisture.toLowerCase())) {
 				conditionedPlants.add(plant);
 			}
 		}

@@ -1,10 +1,13 @@
 package pkgMain;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -78,6 +81,7 @@ public class Controller extends Application{
 		window = primaryStage;
 		view = new View(); 
 		model = new Model();
+		readCsv();
 		view.gardenScreen.createPlantImageList(model.plantsMaster);
 		
 		//call screen handler so buttons and stuff actually do something
@@ -230,7 +234,8 @@ public class Controller extends Application{
 		}
 	}
 	public void gardenScreenHandler() {
-		view.addPlantToGarden(model.plantCollection);
+		view.addPlantToGarden(Plant.conditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
+				model.gardenFinal.getSoil(), model.gardenFinal.getMoisture()));
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
@@ -459,5 +464,23 @@ public class Controller extends Application{
 			}
 		}
 		return false;
+	}
+	
+	// Code for reading in from a file
+	public void readCsv() throws IOException {
+		File plantData = Paths.get("src/main/resources/Plant_Data.csv").toFile().getAbsoluteFile();
+		BufferedReader br = new BufferedReader(new FileReader(plantData));
+		String line = "";
+		try {
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split(",");
+				Plant plant = new Plant(Integer.parseInt(data[5]), Integer.parseInt(data[1]),
+						data[0], data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
+				model.plantsMaster.add(plant);
+				model.plantDataList.put(plant.getScientificName(), plant);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 }
