@@ -26,6 +26,7 @@ public class CodeBreakDownScroll extends Application {
 		
 		Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
 		ImageView iv1;
+		Button PrevButtonInv = new Button("Go Back");
 		
         VBox root = new VBox();
         ScrollPane scroll = new ScrollPane();
@@ -50,7 +51,7 @@ public class CodeBreakDownScroll extends Application {
         HBox labels = new HBox();
         labels.setSpacing(40);
         labels.setPadding(new Insets(10));
-        labels.getChildren().addAll(imageLabel, plantNameLabel, lepsLabel, conditionsLabel, dimensionsLabel);
+        labels.getChildren().addAll(imageLabel, plantNameLabel, lepsLabel, conditionsLabel, dimensionsLabel, PrevButtonInv);
         grid.addRow(0, labels);
         
 		for (int i = 1; i < 20; i++) {
