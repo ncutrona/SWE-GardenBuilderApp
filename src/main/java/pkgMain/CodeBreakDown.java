@@ -8,36 +8,61 @@ import javafx.beans.value.*;
 import javafx.collections.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.print.PrinterJob;
 import javafx.scene.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-/*
-
-
- Drag the anchors around to change a polygon's points.
 public class CodeBreakDown extends Application {
-
+	Stage window;
+	Scene pdf;
 	
-	public static void main(String[] args) throws Exception { launch(args); }
-
-	// main application layout logic.
-	@Override public void start(final Stage stage) throws Exception {
-    	
+	@Override
+	public void start(Stage primaryStage) {
 		
+		Button btn = new Button("Download PDF");
+		window = primaryStage;
+		BorderPane border = new BorderPane();
+		Text t = new Text("TESTING PDF");
+		//border.getChildren().add(t);
+		border.setTop(btn);
+		border.setCenter(t);
 
-
-	// @return a list of anchors which can be dragged around to modify points in the format [x1, y1, x2, y2...]
+		
+		btn.setOnAction(e-> {
+			PrinterJob job = PrinterJob.createPrinterJob();
+			if(job != null){
+				System.out.println("Get here?");
+				job.showPrintDialog(window); // Window must be your main Stage
+				job.printPage(border);
+				job.endJob();
+				System.out.println("Get here?");
+			}
+		});
+		 
+		window.setTitle("PDF TEST");
+		pdf = new Scene(border, 500, 500);
+		window.setScene(pdf);
+		window.show();
+	}
 	
-
-	// a draggable anchor displayed around a point.
+	public static void main(String[] args) {
+		launch();
+	}
+	
+	
 	
 }
-	
-	
-*/
+
+

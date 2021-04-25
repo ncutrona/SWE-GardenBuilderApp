@@ -15,6 +15,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.print.PageLayout;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -31,6 +34,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -275,11 +279,10 @@ public class Controller extends Application{
     	view.gardenScreen.inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {	
     		@Override
     		public void handle(MouseEvent e) {
-    			InvScreen invScreen = new InvScreen();
-    			invScreen.createInventoryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList());
-    			window.setScene(new Scene(invScreen.getScreen(), 1900, 1100));
+    			view.invScreen.createInventoryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList());
+    			window.setScene(view.invScreenToScene());
     			
-    	    	invScreen.prevButtonInv.setOnAction(new EventHandler<ActionEvent>() {
+    	    	view.invScreen.prevButtonInv.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
     					window.setScene(view.gardenScreenToScene());
@@ -293,22 +296,58 @@ public class Controller extends Application{
     		@Override
     		public void handle(MouseEvent e) {
     			
-    			SummaryScreen sumScreen = new SummaryScreen();
-    			HashMap<String, Integer> frequency = sumScreen.findTotal(view.gardenScreen.addedPlants);
-    			sumScreen.createSummaryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList(), frequency, model.stateFinal.getGardenName(), model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
-    			window.setScene(new Scene(sumScreen.getScreen(), 1900, 1100));
+    			view.setSummaryScreen(model.plantDataList, model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
+    			window.setScene(view.sumScreenToScene());
     		
-    	    	sumScreen.returnHome.setOnAction(new EventHandler<ActionEvent>() {
+    	    	view.sumScreen.returnHome.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
     					view.clearInfo();
     					view.gardenScreen.addedPlants.clear();
-    					sumScreen.clearSumScreen();
+    					view.sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
     				}
     	    	});
-        	}
+    	    	view.sumScreen.printInfo.setOnAction(f-> {
+    	    		Printer printer = Printer.getDefaultPrinter();
+    	    	    PageLayout pageLayout = printer.getDefaultPageLayout();
+    	    	    
+    	    	    Node node = view.sumScreen.getScreen();
+
+    	    	    // Printable area
+    	    	    double pWidth = pageLayout.getPrintableWidth();
+    	    	    double pHeight = pageLayout.getPrintableHeight();
+
+    	    	    // Node's (Image) dimensions
+    	    	    double nWidth = node.getBoundsInParent().getWidth();
+    	    	    double nHeight = node.getBoundsInParent().getHeight();
+
+    	    	    // How much space is left? Or is the image to big?
+    	    	    double widthLeft = pWidth - nWidth;
+    	    	    double heightLeft = pHeight - nHeight;
+
+    	    	    // scale the image to fit the page in width, height or both
+    	    	    double scale;
+
+    	    	    if (widthLeft < heightLeft) {
+    	    	    	scale = pWidth / nWidth;
+    	    	    }
+    	    	    else {
+    	    	    	scale = pHeight / nHeight;
+    	    	    }
+
+    	    	    // preserve ratio (both values are the same)
+    	    	    node.getTransforms().add(new Scale(scale, scale));
+					PrinterJob job = PrinterJob.createPrinterJob();
+					if(job != null){
+						job.showPrintDialog(window);
+						job.printPage(node);
+						job.endJob();
+						node.getTransforms().clear();
+					}
+    	    	});
+        	}	
         });
     	
  

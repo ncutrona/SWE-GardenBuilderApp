@@ -35,7 +35,9 @@ public class SummaryScreen {
 	ScrollPane dataPane;
 	BorderPane summaryBorder;
 	StackPane Data;
-	Button returnHome;
+	Button returnHome, printInfo;
+	
+	Text name,budget, leps;
 	
 	public SummaryScreen() {
 		createPanes();
@@ -50,6 +52,7 @@ public class SummaryScreen {
 	
 	public void createButton() {
 		returnHome = new Button("Return Home");
+		printInfo = new Button("Print Info");
 	}
 	
 	public BorderPane getScreen() {
@@ -59,9 +62,9 @@ public class SummaryScreen {
 	
 	public void createTileData(String gardenName, int remainingBudget, int finalLeps) {
 		
-		Text name = new Text("Name: " + gardenName + " ");
-		Text budget = new Text("Remaining Budget: $" + remainingBudget + " ");
-		Text leps = new Text("Total Garden Leps Supported: " + finalLeps);
+		name = new Text("Name: " + gardenName + " ");
+		budget = new Text("Remaining Budget: $" + remainingBudget + " ");
+		leps = new Text("Total Garden Leps Supported: " + finalLeps);
 		
 		name.setFont(Font.font ("Verdana", 15));
 		name.setFill(Color.WHITE);
@@ -72,7 +75,7 @@ public class SummaryScreen {
 		
 		
 		HBox hbox = new HBox(20);
-		hbox.getChildren().addAll(name, budget, leps, returnHome);
+		hbox.getChildren().addAll(name, budget, leps, returnHome, printInfo);
 		Data.getChildren().add(hbox);
 		hbox.setAlignment(Pos.CENTER);
 		
@@ -147,6 +150,7 @@ public class SummaryScreen {
 	
 	public void clearSumScreen() {
 		dataPane.setContent(null);
+		Data.getChildren().clear();
 
 	}
 	

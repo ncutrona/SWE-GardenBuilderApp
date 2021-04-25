@@ -35,6 +35,9 @@ public class View{
 	private Stage stage, popupStage;
 	private Scene screenScene;
 	
+	static final double HEIGHT = 1000;
+	static final double WIDTH = 1000;
+	
 	LoadScreen loadScreen;
 	ConditionScreen conditionScreen;
 	GardenScreen gardenScreen;
@@ -43,8 +46,9 @@ public class View{
 	PentagonScreen pentagonScreen;
 	PopUpWindow popup;
 	LepMotivationScreen lepScreen;
+	SummaryScreen sumScreen;
 	
-	Scene load, save, condition, garden, inv , pop, pentagon, leps;
+	Scene load, save, condition, garden, inv , pop, pentagon, leps, sum;
 	
 	public View() {
 		createScreenAndScene();
@@ -84,6 +88,10 @@ public class View{
 		screenScene = leps;
 		return screenScene;
 	}
+	public Scene sumScreenToScene() {
+		screenScene = sum;
+		return screenScene;
+	}
 	
 	public void popScreenToStage() {
 		popupStage = new Stage();  			
@@ -98,24 +106,25 @@ public class View{
 		popupStage.close();
 	}
 	
-	
 	public void createScreenAndScene() {
 		loadScreen = new LoadScreen();
-		load = new Scene(loadScreen.getScreen(), 1900, 1100);
+		load = new Scene(loadScreen.getScreen(), HEIGHT, WIDTH);
 		saveScreen = new SaveScreen();
-		save = new Scene(saveScreen.getScreen(),1900, 1100);
+		save = new Scene(saveScreen.getScreen(),HEIGHT, WIDTH);
 		conditionScreen = new ConditionScreen();
-		condition = new Scene(conditionScreen.getScreen(), 1900, 1100);
+		condition = new Scene(conditionScreen.getScreen(), HEIGHT, WIDTH);
 		gardenScreen = new GardenScreen();
-		garden = new Scene(gardenScreen.getScreen(), 1900, 1100);
+		garden = new Scene(gardenScreen.getScreen(), HEIGHT, WIDTH);
 		invScreen = new InvScreen();
-		inv = new Scene(invScreen.getScreen(),1900, 1100);
+		inv = new Scene(invScreen.getScreen(),HEIGHT, WIDTH);
 		popup = new PopUpWindow();
 		pop = new Scene(popup.getScreen());
 		pentagonScreen = new PentagonScreen();
-		pentagon = new Scene(pentagonScreen.getScreen(), 1900, 1100);
+		pentagon = new Scene(pentagonScreen.getScreen(), HEIGHT, WIDTH);
 		lepScreen = new LepMotivationScreen();
-		leps = new Scene(lepScreen.getScreen(), 1900, 1100);
+		leps = new Scene(lepScreen.getScreen(), HEIGHT, WIDTH);
+		sumScreen = new SummaryScreen();
+		sum = new Scene(sumScreen.getScreen(), HEIGHT, WIDTH);
 	}
 	
 	public void clearInfo() {
@@ -131,6 +140,11 @@ public class View{
 		pentagonScreen.pentaGardenPane.getChildren().removeAll(pentagonScreen.pentaGardenPane.getChildren());
 		pentagonScreen.setHexagon();
 		
+	}
+	
+	public void setSummaryScreen(HashMap<String, Plant> plantDataList,String name, int budget, int lepSupported) {
+		HashMap<String, Integer> frequency = sumScreen.findTotal(gardenScreen.addedPlants);
+		sumScreen.createSummaryScreen(plantDataList, gardenScreen.returnPlantImageList(), frequency, name, budget, lepSupported);
 	}
 	
 	public int[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {
@@ -149,7 +163,6 @@ public class View{
 				Plant plantNeeded = plantList.get(nodeId);
 				double x = event.getX()- (plant.getFitHeight()/2);
 				double y = event.getY() - (plant.getFitHeight()/2);
-				//plant.relocate(x, y);
 				plant.setY(y);
 				plant.setX(x);
 				gardenScreen.gardenPane.getChildren().add(plant);
@@ -176,7 +189,8 @@ public class View{
 				plantView.setPreserveRatio(true);
 				plantView.setFitHeight(100);
 				plantView.setId(plantName);
-				plantView.relocate(c.getX(), c.getY());
+				plantView.setX(c.getX());
+				plantView.setY(c.getY());
 				gardenScreen.gardenPane.getChildren().add(plantView);
 			}
 			
@@ -193,7 +207,6 @@ public class View{
 	}
 	
 	public Plant deletePlant(EventTarget e, HashMap<String, Plant> plantList) {
-		// gardenScreen.gardenPane.getChildren().remove(e);
 		ImageView removePlant = (ImageView)e;
 		String removedPlantName = removePlant.getId();
 		Plant removedPlant = plantList.get(removedPlantName);
