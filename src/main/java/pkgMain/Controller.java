@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.ListIterator;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -253,16 +254,21 @@ public class Controller extends Application{
     	view.gardenScreen.gardenPane.setOnMouseClicked(new EventHandler<MouseEvent>() {	
     		@Override
     		public void handle(MouseEvent e) {
+    			try {
+    				ImageView eplant = (ImageView)e.getTarget();
+    			}catch(Exception excep) {
+    				return;
+    			}
     			if (e.getButton() == MouseButton.SECONDARY) {
     				e.consume();
-        			Plant removed = view.deletePlant(e.getTarget(), model.plantDataList);
-        			ImageView removePlant = (ImageView) e.getTarget();
-        			removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-        				@Override
-        				public void handle(ContextMenuEvent event) {
-        					getDeleteMenu(removePlant, removed).show(removePlant, event.getScreenX(), event.getScreenY());
-        				}
-        			});
+    				Plant removed = view.deletePlant(e.getTarget(), model.plantDataList);
+    					ImageView removePlant = (ImageView) e.getTarget();
+    					removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+    						@Override
+    						public void handle(ContextMenuEvent event) {
+    							getDeleteMenu(removePlant, removed).show(removePlant, event.getScreenX(), event.getScreenY());
+    						}
+    					});
     			}
     		}
     	});
@@ -307,13 +313,26 @@ public class Controller extends Application{
             public void handle(ActionEvent event) {
                 view.gardenScreen.gardenPane.getChildren().remove(plant);
                 deletePlantUpdateState(plantObject);
-                view.gardenScreen.addedPlants.remove(plant.getId());
-                
+                //First find coordinates to delete, then stores the new arraylist of coordinates to the plant id
+                ArrayList<Coordinates> newCords = deletePlantFromList(view.gardenScreen.addedPlants.get(plant.getId()), plant.getX(), plant.getY());
+                view.gardenScreen.addedPlants.put(plant.getId(), newCords); 
             }
         });
 		contextMenu.getItems().add(deletePlant);
 		return contextMenu;
 	}
+	
+	public ArrayList<Coordinates> deletePlantFromList(ArrayList<Coordinates> coords, double x, double y) {
+		ListIterator<Coordinates> cds = coords.listIterator();
+		while(cds.hasNext()) {
+			Coordinates c = cds.next();
+			if(c.getX() == x && c.getY() == y) {
+				cds.remove();
+			}
+		}
+		return coords;
+	}
+	
 	public void loadScreenHandler() {
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));
