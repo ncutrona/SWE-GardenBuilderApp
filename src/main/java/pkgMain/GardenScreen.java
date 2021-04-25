@@ -120,10 +120,13 @@ public class GardenScreen {
 	 * @return HashMap String, Image of created images
 	 */
 	
-	public void createPlantImageList(String one, String two, String three) {
-		plantImageList.put(one, milkweed);
-    	plantImageList.put(two, planttwo);
-    	plantImageList.put(three, plantthree);
+	public void createPlantImageList(ArrayList<Plant> plantsMaster) {
+//		plantImageList.put(one, milkweed);
+//    	plantImageList.put(two, planttwo);
+//    	plantImageList.put(three, plantthree);
+		for(Plant plant : plantsMaster) {
+			plantImageList.put(plant.scientificName, milkweed);
+		}
 	}
 	
 	public HashMap<String, Image> returnPlantImageList() {

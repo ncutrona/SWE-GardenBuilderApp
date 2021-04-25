@@ -76,9 +76,9 @@ public class Controller extends Application{
 	@Override
 	public void start(Stage primaryStage) throws IOException{
 		window = primaryStage;
-		view = new View();
+		view = new View(); 
 		model = new Model();
-		view.gardenScreen.createPlantImageList(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
+		view.gardenScreen.createPlantImageList(model.plantsMaster);
 		
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
