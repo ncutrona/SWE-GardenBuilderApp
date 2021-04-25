@@ -70,12 +70,12 @@ public class Controller extends Application{
 	 * @param primaryStage primary Stage object
 	 */
 	@Override
-	public void start(Stage primaryStage){
+	public void start(Stage primaryStage) throws IOException{
 		window = primaryStage;
 		view = new View();
 		model = new Model();
 		view.gardenScreen.createPlantImageList(model.demoPlantOne.getScientificName(), model.demoPlantTwo.getScientificName(), model.demoPlantThree.getScientificName());
-
+		
 		//call screen handler so buttons and stuff actually do something
 		popUpHandler();
 		// invScreenHandler();

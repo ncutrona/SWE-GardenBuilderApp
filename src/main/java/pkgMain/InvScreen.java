@@ -99,13 +99,36 @@ public class InvScreen {
 			String key = (String)mapElement.getKey();
 			
 			Image plantImage = imageData.get(key);
-			ImageView plantImageIv = new ImageView(plantImage);
+			ImageView plantImageIv = new ImageView(milkweed);
 			plantImageIv.setPreserveRatio(true);
 			plantImageIv.setFitHeight(100);
 			
 			Plant plant = plantData.get(key);
 			String lepsSupp = String.valueOf(plant.getLepsSupported());
 			String soilCond = plant.getSoil();
+			
+			if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand") && soilCond.toLowerCase().contains("loam")) {
+				soilCond = "Clay, loam, sand";
+			}
+			else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand")) {
+				soilCond = "Clay, sand";
+			}
+			else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("loam")) {
+				soilCond = "Clay, loam";
+			}
+			else if(soilCond.toLowerCase().contains("loam") && soilCond.toLowerCase().contains("sand")) {
+				soilCond = "Loam, sand";
+			}
+			else if(soilCond.toLowerCase().contains("clay")) {
+				soilCond = "Clay";
+			}
+			else if(soilCond.toLowerCase().contains("loam")) {
+				soilCond = "Loam";
+			}
+			else {
+				soilCond = "Sand";
+			}
+			
 			String sunCond = plant.getSun();
 			
 			Text plantName = new Text(key);
