@@ -124,7 +124,7 @@ public class Controller extends Application{
 				save.setBudget(model.stateFinal.getGardenBudget());
 				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
 				save.setConditions(model.gardenFinal.getSoil(),model.gardenFinal.getSun(), model.gardenFinal.getMoisture());
-				save.setPlants(view.gardenScreen.addedPlants);
+				save.setPlants(model.addedPlants);
 				save.setHexPoints(view.pentagonScreen.hexagon.getPoints());
 				view.saveScreen.savedGarden.put(save.getName(), save);
 				try {
@@ -167,9 +167,9 @@ public class Controller extends Application{
 					model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
 					view.gardenScreen.updateCondition(model.gardenFinal);
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
-					view.gardenScreen.addedPlants = garden.getPlants();
+					model.addedPlants = garden.getPlants();
 					view.loadHexagonToGarden(garden.getHexPoints());
-					view.loadPlantsToGarden(model.plantDataList);
+					view.loadPlantsToGarden(model.plantDataList, model.addedPlants);
 					window.setScene(view.gardenScreenToScene());
 				}
 				
@@ -239,9 +239,11 @@ public class Controller extends Application{
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				int [] lepAndBudget = view.plantDragDropping(event, getPlantList());
-				if(lepAndBudget[0] > 0 && lepAndBudget[1] > 0) {
-					setModelLepAndBudget(lepAndBudget[0], lepAndBudget[1]);
+				double[] coords = view.plantDragDropping(event, getPlantList());
+				if(coords[0] != 0 && coords[1] != 0) {
+					Plant p = model.plantDataList.get(event.getDragboard().getString());
+					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
+					setModelLepAndBudget(p.getLepsSupported(), p.getPrice());
 					view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
 				}
 				
@@ -313,7 +315,7 @@ public class Controller extends Application{
     		@Override
     		public void handle(MouseEvent e) {
     			
-    			view.setSummaryScreen(model.plantDataList, model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
+    			view.setSummaryScreen(model.plantDataList, model.addedPlants,model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
     			window.setScene(view.sumScreenToScene());
     			view.popup.save.fire();
 				
@@ -322,7 +324,7 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					view.clearInfo();
-    					view.gardenScreen.addedPlants.clear();
+    					model.addedPlants.clear();
     					view.sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
@@ -388,8 +390,8 @@ public class Controller extends Application{
                 view.gardenScreen.gardenPane.getChildren().remove(plant);
                 deletePlantUpdateState(plantObject);
                 //First find coordinates to delete, then stores the new arraylist of coordinates to the plant id
-                ArrayList<Coordinates> newCords = deletePlantFromList(view.gardenScreen.addedPlants.get(plant.getId()), plant.getX(), plant.getY());
-                view.gardenScreen.addedPlants.put(plant.getId(), newCords); 
+                ArrayList<Coordinates> newCords = deletePlantFromList(model.addedPlants.get(plant.getId()), plant.getX(), plant.getY());
+                model.addedPlants.put(plant.getId(), newCords); 
             }
         });
 		contextMenu.getItems().add(deletePlant);
@@ -497,5 +499,12 @@ public class Controller extends Application{
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void gardenScreenAddPlant(String nodeID, double x, double y) {
+		if(!model.addedPlants.containsKey(nodeID)) {
+			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
+		}
+		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
 	}
 }

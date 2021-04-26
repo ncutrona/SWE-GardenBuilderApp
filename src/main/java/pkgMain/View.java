@@ -142,13 +142,13 @@ public class View{
 		
 	}
 	
-	public void setSummaryScreen(HashMap<String, Plant> plantDataList,String name, int budget, int lepSupported) {
-		HashMap<String, Integer> frequency = sumScreen.findTotal(gardenScreen.addedPlants);
+	public void setSummaryScreen(HashMap<String, Plant> plantDataList,HashMap<String, ArrayList<Coordinates>> plants,String name, int budget, int lepSupported) {
+		HashMap<String, Integer> frequency = sumScreen.findTotal(plants);
 		sumScreen.createSummaryScreen(plantDataList, gardenScreen.returnPlantImageList(), frequency, name, budget, lepSupported);
 	}
 	
-	public int[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {
-		int [] numbers= new int[2];
+	public double[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {
+		double [] xAndY = new double[2];
 		Dragboard db = event.getDragboard();
 		if(db.hasString()) {
 			String nodeId = db.getString();
@@ -166,25 +166,27 @@ public class View{
 				plant.setY(y);
 				plant.setX(x);
 				gardenScreen.gardenPane.getChildren().add(plant);
-				numbers[0] = plantNeeded.getLepsSupported();
-				numbers[1] = plantNeeded.getPrice();
-				gardenScreenAddPlant(nodeId, x, y);
-				return numbers;
+				xAndY[0] = plant.getX();
+				xAndY[1] = plant.getY();
+				return xAndY;
 			}	
 		}
-		return numbers;
+		return xAndY;
 	}
+	/*
 	public void gardenScreenAddPlant(String nodeID, double x, double y) {
 		if(!gardenScreen.addedPlants.containsKey(nodeID)) {
 			gardenScreen.addedPlants.put(nodeID, new ArrayList<Coordinates>());
 		}
 		gardenScreen.addedPlants.get(nodeID).add(new Coordinates(x,y));
 	}
+	*/
 
-	public void loadPlantsToGarden(HashMap<String, Plant> plantList) {
-		for(String plantName: gardenScreen.addedPlants.keySet()) {
+
+	public void loadPlantsToGarden(HashMap<String, Plant> plantList, HashMap<String, ArrayList<Coordinates>> plants) {
+		for(String plantName: plants.keySet()) {
 			Plant p = plantList.get(plantName);
-			for(Coordinates c: gardenScreen.addedPlants.get(plantName)) {
+			for(Coordinates c: plants.get(plantName)) {
 				Image plantImage = gardenScreen.plantImageList.get(plantName);
 				ImageView plantView = new ImageView(plantImage);
 				plantView.setFitWidth(p.getWidth());

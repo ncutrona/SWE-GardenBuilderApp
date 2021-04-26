@@ -51,10 +51,6 @@ public class GardenScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
-	Image planttwo = new Image(getClass().getResourceAsStream("/img/planttwo.png"));
-	Image plantthree = new Image(getClass().getResourceAsStream("/img/plantthree.png"));
-	
 	TilePane infoTile;
 	GridPane gardenTile;
 	Pane gardenPane;
@@ -64,8 +60,7 @@ public class GardenScreen {
 	Button inventory, optionsButton, finish;
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
-	//Keeping Track of what plants are placed on garden.
-	HashMap<String, ArrayList<Coordinates>> addedPlants = new HashMap<String, ArrayList<Coordinates>>();
+	
 	
 	public GardenScreen(GardenConditions condition) {
 		createPanes();
