@@ -51,7 +51,7 @@ public class Model {
 //		}
 //	}
 
-	public Model() throws IOException {
+	public Model() {
 		// setPlants();
 		// createPlantData();
 		//readCsv();

@@ -158,6 +158,11 @@ public class PlantTest {
 	}
 	
 	@Test
+	public void testConditionCheckedPlants() {
+		fail("Not yet implemented");
+	}
+	
+	@Test
 	public void testSortPlants() {
 		Plant.sortPlants(testList);
 		fail("Not yet implemented");
@@ -166,7 +171,7 @@ public class PlantTest {
 	@Test
 	public void testconditionCheckedPlants() {
 		testList.add(tester);
-		Plant.conditionCheckedPlants(testList, testCond);
+		Plant.conditionCheckedPlants(testList, "full", "loam", "wet");
 		fail("Not yet implemented");
 	}
 	

@@ -7,6 +7,7 @@ import org.junit.Test;
 import pkgMain.Model;
 
 public class ModelTest {
+	
 	Model tester = new Model();
 	
 	public static void main (String args[]) {
@@ -15,7 +16,7 @@ public class ModelTest {
 	
 	@Test
 	public void testModelUpdate() {
-		tester.updateModel();
+		// tester.updateModel();
 		fail("Not yet implemented");
 	}
 
