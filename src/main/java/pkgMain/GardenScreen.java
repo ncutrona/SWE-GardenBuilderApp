@@ -125,7 +125,10 @@ public class GardenScreen {
 //    	plantImageList.put(two, planttwo);
 //    	plantImageList.put(three, plantthree);
 		for(Plant plant : plantsMaster) {
-			plantImageList.put(plant.scientificName, milkweed);
+			plant.scientificName = plant.scientificName.strip();
+			System.out.println(plant.scientificName + " - /img/" + plant.scientificName.replace(" ", "_") +".png");
+			plantImageList.put(plant.scientificName, new Image(getClass().getResourceAsStream("/img/" + plant.scientificName.replace(" ", "_") +".png")));
+			
 		}
 	}
 	
