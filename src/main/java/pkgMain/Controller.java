@@ -139,8 +139,6 @@ public class Controller extends Application{
 				} catch (IOException | ClassNotFoundException e) {
 					e.printStackTrace();
 				}
-				
-				
 			}
     		
     	});
@@ -169,7 +167,7 @@ public class Controller extends Application{
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
 					view.gardenScreen.addedPlants = garden.getPlants();
 					view.loadHexagonToGarden(garden.getHexPoints());
-					view.loadPlantsToGarden();
+					view.loadPlantsToGarden(model.plantDataList);
 					window.setScene(view.gardenScreenToScene());
 				}
 				
@@ -303,6 +301,7 @@ public class Controller extends Application{
     			
     			view.setSummaryScreen(model.plantDataList, model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
     			window.setScene(view.sumScreenToScene());
+    			view.popup.save.fire();
     		
     	    	view.sumScreen.returnHome.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
@@ -475,7 +474,7 @@ public class Controller extends Application{
 			while ((line = br.readLine()) != null) {
 				String[] data = line.split(",");
 				Plant plant = new Plant(Integer.parseInt(data[5]), Integer.parseInt(data[1]),
-						data[0], data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
+						data[0].strip(), data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
 				model.plantsMaster.add(plant);
 				model.plantDataList.put(plant.getScientificName(), plant);
 			}

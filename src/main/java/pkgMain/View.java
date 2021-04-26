@@ -35,8 +35,8 @@ public class View{
 	private Stage stage, popupStage;
 	private Scene screenScene;
 	
-	static final double HEIGHT = 1000;
 	static final double WIDTH = 1000;
+	static final double HEIGHT = 700;
 	
 	LoadScreen loadScreen;
 	ConditionScreen conditionScreen;
@@ -108,23 +108,23 @@ public class View{
 	
 	public void createScreenAndScene() {
 		loadScreen = new LoadScreen();
-		load = new Scene(loadScreen.getScreen(), HEIGHT, WIDTH);
+		load = new Scene(loadScreen.getScreen(), WIDTH, HEIGHT);
 		saveScreen = new SaveScreen();
-		save = new Scene(saveScreen.getScreen(),HEIGHT, WIDTH);
+		save = new Scene(saveScreen.getScreen(),WIDTH, HEIGHT);
 		conditionScreen = new ConditionScreen();
-		condition = new Scene(conditionScreen.getScreen(), HEIGHT, WIDTH);
+		condition = new Scene(conditionScreen.getScreen(),WIDTH, HEIGHT);
 		gardenScreen = new GardenScreen();
-		garden = new Scene(gardenScreen.getScreen(), HEIGHT, WIDTH);
+		garden = new Scene(gardenScreen.getScreen(), WIDTH, HEIGHT);
 		invScreen = new InvScreen();
-		inv = new Scene(invScreen.getScreen(),HEIGHT, WIDTH);
+		inv = new Scene(invScreen.getScreen(),WIDTH, HEIGHT);
 		popup = new PopUpWindow();
 		pop = new Scene(popup.getScreen());
 		pentagonScreen = new PentagonScreen();
-		pentagon = new Scene(pentagonScreen.getScreen(), HEIGHT, WIDTH);
+		pentagon = new Scene(pentagonScreen.getScreen(), WIDTH, HEIGHT);
 		lepScreen = new LepMotivationScreen();
-		leps = new Scene(lepScreen.getScreen(), HEIGHT, WIDTH);
+		leps = new Scene(lepScreen.getScreen(), WIDTH, HEIGHT);
 		sumScreen = new SummaryScreen();
-		sum = new Scene(sumScreen.getScreen(), HEIGHT, WIDTH);
+		sum = new Scene(sumScreen.getScreen(), WIDTH, HEIGHT);
 	}
 	
 	public void clearInfo() {
@@ -154,14 +154,14 @@ public class View{
 			String nodeId = db.getString();
 			ImageView plant = new ImageView();
 			plant.setImage(gardenScreen.plantImageList.get(nodeId));
-			plant.setPreserveRatio(true);
-			plant.setFitHeight(100);
+			plant.setFitWidth(plantList.get(nodeId).getWidth());
+			plant.setFitHeight(plantList.get(nodeId).getHeight());
 			plant.setId(nodeId);
 			
 			
 			if(plant != null) {
 				Plant plantNeeded = plantList.get(nodeId);
-				double x = event.getX()- (plant.getFitHeight()/2);
+				double x = event.getX()- (plant.getFitWidth()/2);
 				double y = event.getY() - (plant.getFitHeight()/2);
 				plant.setY(y);
 				plant.setX(x);
@@ -181,13 +181,14 @@ public class View{
 		gardenScreen.addedPlants.get(nodeID).add(new Coordinates(x,y));
 	}
 
-	public void loadPlantsToGarden() {
+	public void loadPlantsToGarden(HashMap<String, Plant> plantList) {
 		for(String plantName: gardenScreen.addedPlants.keySet()) {
+			Plant p = plantList.get(plantName);
 			for(Coordinates c: gardenScreen.addedPlants.get(plantName)) {
 				Image plantImage = gardenScreen.plantImageList.get(plantName);
 				ImageView plantView = new ImageView(plantImage);
-				plantView.setPreserveRatio(true);
-				plantView.setFitHeight(100);
+				plantView.setFitWidth(p.getWidth());
+				plantView.setFitHeight(p.getHeight());
 				plantView.setId(plantName);
 				plantView.setX(c.getX());
 				plantView.setY(c.getY());
@@ -216,7 +217,7 @@ public class View{
 	public void addPlantToGarden(Collection<Plant> plantCollection) {
 		int i = 1;
 		for(Plant p : plantCollection) {
-			gardenScreen.gardenTile.addRow(i, gardenScreen.newPlant(p.getScientificName(), p.getScientificName(),  p.getPrice(),  p.getLepsSupported()));
+			gardenScreen.gardenTile.addRow(i, gardenScreen.newPlant(p));
 			i++;
 		}
 		

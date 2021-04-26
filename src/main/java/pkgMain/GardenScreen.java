@@ -126,8 +126,8 @@ public class GardenScreen {
 //    	plantImageList.put(three, plantthree);
 		for(Plant plant : plantsMaster) {
 			plant.scientificName = plant.scientificName.strip();
-			System.out.println(plant.scientificName + " - /img/" + plant.scientificName.replace(" ", "_") +".png");
-			plantImageList.put(plant.scientificName, new Image(getClass().getResourceAsStream("/img/" + plant.scientificName.replace(" ", "_") +".png")));
+			Image image = new Image(getClass().getResourceAsStream("/img/" + plant.scientificName.replace(" ", "_") +".png"));
+			plantImageList.put(plant.scientificName, image);
 			
 		}
 	}
@@ -162,16 +162,16 @@ public class GardenScreen {
 	 * @param lepsSupported the number of leps supported
 	 * @return ImageView of new plant
 	 */
-	public ImageView newPlant(String NodeID, String name, int price, int lepsSupported) {
+	public ImageView newPlant(Plant p) {
 		ImageView iv1;
-		Image plantView = plantImageList.get(NodeID);
+		Image plantView = plantImageList.get(p.getScientificName());
 		
 		iv1 = new ImageView();
 		iv1.setImage(plantView);
-		iv1.setPreserveRatio(true);
+		iv1.setFitWidth(100);
 		iv1.setFitHeight(100);
-		iv1.setId(NodeID);
-		Tooltip t =  new Tooltip("Scientific Name: " + name + "\nPrice: $" + price + "\nLeps: " + lepsSupported);
+		iv1.setId(p.getScientificName());
+		Tooltip t =  new Tooltip("Scientific Name: " +  p.getScientificName() + "\nPrice: $" + p.getScientificName() + "\nLeps: " + p.getLepsSupported());
 		Tooltip.install(iv1, t);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
