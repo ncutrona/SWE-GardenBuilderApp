@@ -340,7 +340,7 @@ public class Plant {
 			}
 		}
 
-		//checking enum conditions....
+		Collections.sort(conditionedPlants, new PlantCompare());
 
 		return conditionedPlants;
 	}

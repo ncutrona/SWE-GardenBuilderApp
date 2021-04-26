@@ -468,7 +468,7 @@ public class Controller extends Application{
 	
 	// Code for reading in from a file
 	public void readCsv() throws IOException {
-		File plantData = Paths.get("src/main/resources/Plant_Data.csv").toFile().getAbsoluteFile();
+		File plantData = Paths.get("src/main/resources/finalPlantData.csv").toFile().getAbsoluteFile();
 		BufferedReader br = new BufferedReader(new FileReader(plantData));
 		String line = "";
 		try {
