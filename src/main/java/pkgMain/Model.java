@@ -9,6 +9,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javafx.scene.image.Image;
 
@@ -29,6 +30,7 @@ public class Model {
 
 	ArrayList<Plant> plantsMaster= new ArrayList<Plant>();;
 	HashMap<String, Plant> plantDataList = new HashMap<String, Plant>();
+	HashMap<String, Plant> lepsHash = new HashMap<String, Plant>();
 	Collection<Plant> plantCollection;
 
 //	// Code for reading in from a file
@@ -54,6 +56,7 @@ public class Model {
 		// createPlantData();
 		//readCsv();
 		sortPlantList(plantsMaster);
+		// sortHashLeps(plantCollection);
 	}
 
 
@@ -84,6 +87,14 @@ public class Model {
 
 	public void sortPlantList(ArrayList<Plant> plants) {
 		plantCollection = Plant.sortPlants(plants);
+	}
+	
+	public void sortHashLeps(Collection plants) {
+		Iterator<Plant> iterator = plants.iterator();
+		while (iterator.hasNext()) {
+			lepsHash.put(iterator.next().getScientificName(), iterator.next());
+			System.out.println(lepsHash.get(iterator.next()));
+		}
 	}
 
 }

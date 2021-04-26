@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import pkgMain.Conditions.moistureCondition;
 import pkgMain.Conditions.soilCondition;

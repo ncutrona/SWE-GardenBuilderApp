@@ -84,6 +84,7 @@ public class Controller extends Application{
 		view = new View(); 
 		model = new Model();
 		readCsv();
+		// model.sortHashLeps(model.plantCollection);
 		view.gardenScreen.createPlantImageList(model.plantsMaster);
 		
 		//call screen handler so buttons and stuff actually do something
@@ -291,6 +292,7 @@ public class Controller extends Application{
     	    	view.invScreen.prevButtonInv.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
+    					view.invScreen.invGrid.getChildren().clear();
     					window.setScene(view.gardenScreenToScene());
     				}
     	    	});
@@ -301,6 +303,11 @@ public class Controller extends Application{
     						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
     						view.invScreen.invGrid.getChildren().clear();
     		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
+    		    			window.setScene(view.invScreenToScene());
+    					}
+    					else if (view.invScreen.filterBy.getValue().equals("Leps supported")) {
+    						view.invScreen.invGrid.getChildren().clear();
+    		    			view.invScreen.createInventoryScreen(model.lepsHash, view.gardenScreen.returnPlantImageList());
     		    			window.setScene(view.invScreenToScene());
     					}
     				}
