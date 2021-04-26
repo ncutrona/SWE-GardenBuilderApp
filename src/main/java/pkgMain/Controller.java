@@ -84,7 +84,6 @@ public class Controller extends Application{
 		view = new View(); 
 		model = new Model();
 		readCsv();
-		// model.sortHashLeps(model.plantCollection);
 		view.gardenScreen.createPlantImageList(model.plantsMaster);
 		
 		//call screen handler so buttons and stuff actually do something
@@ -135,7 +134,7 @@ public class Controller extends Application{
 					oos.writeObject(view.saveScreen.savedGarden);
 					fos.close();
 					oos.close();
-					view.closePopUp();
+					//view.closePopUp(); THIS WILL BREAK IF UNCOMMENTED. IF YOU DNT CLICK ON OPTIONS, POPUP IS NuLL AND THROWS EXCEPTION TO BREAK RETURN HOME BUTTON.
 					view.saveScreen.loadGardens();
 					view.saveScreen.createScreen();
 					saveScreenLoadButtonHandler();
@@ -292,7 +291,6 @@ public class Controller extends Application{
     	    	view.invScreen.prevButtonInv.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
-    					view.invScreen.invGrid.getChildren().clear();
     					window.setScene(view.gardenScreenToScene());
     				}
     	    	});
@@ -303,11 +301,6 @@ public class Controller extends Application{
     						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
     						view.invScreen.invGrid.getChildren().clear();
     		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
-    		    			window.setScene(view.invScreenToScene());
-    					}
-    					else if (view.invScreen.filterBy.getValue().equals("Leps supported")) {
-    						view.invScreen.invGrid.getChildren().clear();
-    		    			view.invScreen.createInventoryScreen(model.lepsHash, view.gardenScreen.returnPlantImageList());
     		    			window.setScene(view.invScreenToScene());
     					}
     				}
@@ -323,6 +316,7 @@ public class Controller extends Application{
     			view.setSummaryScreen(model.plantDataList, model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
     			window.setScene(view.sumScreenToScene());
     			view.popup.save.fire();
+				
     		
     	    	view.sumScreen.returnHome.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
@@ -332,6 +326,7 @@ public class Controller extends Application{
     					view.sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
+    					
     				}
     	    	});
     	    	view.sumScreen.printInfo.setOnAction(f-> {
