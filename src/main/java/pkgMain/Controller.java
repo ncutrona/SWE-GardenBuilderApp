@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
@@ -282,7 +284,8 @@ public class Controller extends Application{
     	});
     	
     	view.gardenScreen.inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {	
-    		@Override
+    		@SuppressWarnings("unchecked") // Remove later?
+			@Override
     		public void handle(MouseEvent e) {
     			view.invScreen.createInventoryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList());
     			window.setScene(view.invScreenToScene());
@@ -291,6 +294,17 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					window.setScene(view.gardenScreenToScene());
+    				}
+    	    	});
+    	    	view.invScreen.filterBy.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					if (view.invScreen.filterBy.getValue().equals("A to Z")) {
+    						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
+    						view.invScreen.invGrid.getChildren().clear();
+    		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
+    		    			window.setScene(view.invScreenToScene());
+    					}
     				}
     	    	});
  

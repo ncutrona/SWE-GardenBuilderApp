@@ -3,9 +3,11 @@ package pkgMain;
 import java.util.HashMap;
 import java.util.Map;
 
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -45,6 +47,7 @@ public class InvScreen {
 	ImageView plantIV;
 	ScrollPane scroll;
 	Text imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel;
+	ComboBox filterBy;
 	
 	public InvScreen() {
 		createButton();
@@ -79,6 +82,10 @@ public class InvScreen {
 		sunConditionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 		dimensionsLabel = new Text("Dimensions (ft):");
 		dimensionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
+		String filters[] = {"Filter by: ", "A to Z", "Leps supported"};
+		filterBy = new ComboBox(FXCollections.observableArrayList(filters));
+		filterBy.setPromptText("Filter by:");
+		
 	}
 	
 	/**
@@ -86,12 +93,12 @@ public class InvScreen {
 	 *  
 	 * @return GridPane for Inventory Screen
 	 */
-	public void createScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData) {
+	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
         HBox labels = new HBox();
         int i = 1;
         labels.setSpacing(40);
         labels.setPadding(new Insets(10));
-        labels.getChildren().addAll(imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel, prevButtonInv);
+        labels.getChildren().addAll(imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel, prevButtonInv, filterBy);
         invGrid.addRow(0, labels);
         
 		for (Map.Entry mapElement : plantData.entrySet()) {
@@ -99,7 +106,7 @@ public class InvScreen {
 			String key = (String)mapElement.getKey();
 			
 			Image plantImage = imageData.get(key);
-			ImageView plantImageIv = new ImageView(milkweed);
+			ImageView plantImageIv = new ImageView(plantImage);
 			plantImageIv.setPreserveRatio(true);
 			plantImageIv.setFitHeight(100);
 			
@@ -146,7 +153,7 @@ public class InvScreen {
 		
 	}
 	
-	public ScrollPane createInventoryScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData) {
+	public ScrollPane createInventoryScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
 		createScreen(plantData, imageData);
 		return scroll;
 	}
