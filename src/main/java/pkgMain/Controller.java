@@ -122,6 +122,7 @@ public class Controller extends Application{
 				view.clearInfo();
 				view.closePopUp();
 				pentagonAnchorHandler();
+				window.setScene(view.loadScreenToScene());
 			}
     	});
     	
