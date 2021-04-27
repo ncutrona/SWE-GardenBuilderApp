@@ -8,178 +8,167 @@ import org.junit.Test;
 import pkgMain.Plant;
 public class PlantTest {
 	
-	Plant tester = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
-	Plant tester2 = new Plant(500, 2, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
-	Plant tester3 = new Plant(500, 3, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant tester = new Plant(500, 10, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerCCP1 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerCCP2 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerCCP3 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerCCP4 = new Plant(500, 2, "Test", "sand", "full", "dry", 50, 50, 5, 0, 0);
+	Plant tester2 = new Plant(500, 20, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant tester3 = new Plant(500, 30, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant tester4 = new Plant(500, 30, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant tester5 = new Plant(500, 30, "YTest", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant tester6 = new Plant(500, 30, "ATest", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	ArrayList<Plant> testList = new ArrayList<Plant>();
 	GardenConditions testCond = new GardenConditions(500, "full", "dry", "loam");
 	PlantCompare testPC = new PlantCompare();
 	
-	public static void main(String args[]) {
-
-	}
-	
 	@Test
 	public void testtoString() {
-		tester.toString();
-		fail("Not yet implemented");
+		assertEquals("Test", tester.toString());
 	}
 	
 	@Test
 	public void testgetPrice() {
-		tester.getPrice();
-		fail("Not yet implemented");
+		assertEquals(500, tester3.getPrice());
 	}
 	
 	@Test
 	public void testsetPrice() {
 		tester.setPrice(5);
-		fail("Not yet implemented");
+		assertEquals(5, tester.getPrice());
 	}
 	
 	@Test
 	public void testsetLepsSupported() {
-		tester.setLepsSupported(2);
-		fail("Not yet implemented");
+		tester.setLepsSupported(400);
+		assertEquals(400, tester.getLepsSupported());
 	}
 	
 	@Test
 	public void testgetLepsSupported() {
-		tester.getLepsSupported();
-		fail("Not yet implemented");
+		assertEquals(10, tester.getLepsSupported());
 	}
 	
 	@Test
 	public void testgetScientificName() {
-		tester.getScientificName();
-		fail("Not yet implemented");
+		assertEquals("Test", tester.getScientificName());
 	}
 	
 	@Test
 	public void testsetScientificName() {
 		tester.setScientificName("Plant");
-		fail("Not yet implemented");
+		assertEquals("Plant", tester.getScientificName());
 	}
 	
 	@Test
 	public void testgetSoil() {
-		tester.getSoil();
-		fail("Not yet implemented");
+		assertEquals("loam", tester.getSoil());
 	}
 	
 	@Test
 	public void testsetSoil() {
 		tester.setSoil("clay");
-		fail("Not yet implemented");
+		assertEquals("clay", tester.getSoil());
 	}
 	
 	@Test
 	public void testgetSun() {
-		tester.getSun();
-		fail("Not yet implemented");
+		assertEquals("full", tester.getSun());
 	}
 
 	@Test	
 	public void testsetSun() {
 		tester.setSun("shade");
-		fail("Not yet implemented");
+		assertEquals("shade", tester.getSun());
 	}
 	
 	@Test
 	public void testgetMoisture() {
-		tester.getMoisture();
-		fail("Not yet implemented");
+		assertEquals("dry", tester.getMoisture());
 	}
 	
 	@Test
 	public void testsetMoisture() {
 		tester.setMoisture("wet");
-		fail("Not yet implemented");
+		assertEquals("wet", tester.getMoisture());
 	}
 	
 	@Test
 	public void testgetHeight() {
-		tester.getHeight();
-		fail("Not yet implemented");
+		assertEquals(50, tester.getHeight());
 	}
 	
 	@Test
 	public void testsetHeight() {
-		tester.setHeight(50);
-		fail("Not yet implemented");
+		tester.setHeight(60);
+		assertEquals(60, tester.getHeight());
 	}
 	
 	@Test
 	public void testgetWidth() {
-		tester.getWidth();
-		fail("Not yet implemented");
+		assertEquals(50, tester.getWidth());
 	}
 	
 	@Test
 	public void testsetWidth() {
-		tester.setWidth(50);
-		fail("Not yet implemented");
+		tester.setWidth(60);
+		assertEquals(60, tester.getWidth());
 	}
 	
 	@Test
 	public void testgetBloomTime() {
-		tester.getBloomTime();
-		fail("Not yet implemented");
+		assertEquals(5, tester.getBloomTime());
 	}
 	
 	@Test
 	public void testsetBloomTime() {
 		tester.setBloomTime(5);
-		fail("Not yet implemented");
+		assertEquals(5, tester.getBloomTime());
+		
 	}
 	
 	@Test
 	public void testgetxCor() {
-		tester.getxCor();
-		fail("Not yet implemented");
+		assertEquals(0, tester.getxCor());
 	}
 	
 	@Test
 	public void testsetxCor() {
 		tester.setxCor(2);
-		fail("Not yet implemented");
+		assertEquals(2, tester.getxCor());
 	}
 	
 	@Test
 	public void testgetyCor() {
-		tester.getyCor();
-		fail("Not yet implemented");
+		assertEquals(0, tester.getyCor());
 	}
 	
 	@Test
 	public void testsetyCor() {
 		tester.setyCor(2);
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testConditionCheckedPlants() {
-		fail("Not yet implemented");
-	}
-	
-	@Test
-	public void testSortPlants() {
-		Plant.sortPlants(testList);
-		fail("Not yet implemented");
+		assertEquals(2, tester.getyCor());
 	}
 	
 	@Test
 	public void testconditionCheckedPlants() {
-		testList.add(tester);
-		Plant.conditionCheckedPlants(testList, "full", "loam", "wet");
-		fail("Not yet implemented");
+		testList.add(testerCCP1);
+		testList.add(testerCCP2);
+		testList.add(testerCCP3);
+		testList.add(testerCCP4);
+		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(0), testerCCP1);
+		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(1), testerCCP2);
+		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(2), testerCCP3);
 	}
 	
 	@Test
 	public void testCompare() {
-		testPC.compare(tester, tester2);
-		testPC.compare(tester2, tester3);
-		fail("Not yet implemented");
+		assertEquals(10, testPC.compare(tester, tester2));
+		assertEquals(20, testPC.compare(tester, tester3));
+		assertEquals(0, testPC.compare(tester3, tester4));
+		boolean val1 = testPC.compare(tester4, tester5) < 0;
+		boolean val2 = testPC.compare(tester4, tester6) > 0;
+		assertEquals(true, val1);
+		assertEquals(true, val2);
 	}
 
 }
