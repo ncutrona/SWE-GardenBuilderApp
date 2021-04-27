@@ -28,6 +28,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -140,6 +141,13 @@ public class GardenScreen {
 	 */
 	public void updateLepAndBudget(int newLeps, int newBudget) {
 		leps.setText("Leps Supported: " + newLeps);
+		if(newBudget < 0) {
+			budget.setFill(Color.RED);
+		}
+		
+		else {
+			budget.setFill(Color.BLACK);
+		}
 		budget.setText("Budget: $" + newBudget);	
 	}
 	
