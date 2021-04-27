@@ -294,26 +294,6 @@ public class Plant {
 		this.yCor = yCor;
 	}
 	
-	
-	
-	/**
-	 * Static mathod that sorts an arraylist of plays and returns the sorted collection.
-	 * Uses PlantCompare() to sort.
-	 * 
-	 * @param plantCollection arraylist of plants to be sorted
-	 * @return sorted collection of plants
-	 */
-	public static Collection sortPlants(ArrayList<Plant> plantCollection) {
-
-		Collections.sort(plantCollection, new PlantCompare());
-
-
-		System.out.println(plantCollection);
-		return plantCollection;
-
-	}
-
-	
 	/**
 	 * Static method that returns subcollection of plants that fit conditions.
 	 * 
@@ -338,6 +318,13 @@ public class Plant {
 		Collections.sort(conditionedPlants, new PlantCompare());
 
 		return conditionedPlants;
+	}
+	
+	public static ArrayList<Plant> lepCheckedPlants(ArrayList<Plant> masterList) {
+
+		Collections.sort(masterList, new PlantCompare());
+
+		return masterList;
 	}
 
 }

@@ -299,6 +299,7 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					window.setScene(view.gardenScreenToScene());
+    					view.invScreen.invGrid.getChildren().clear();
     				}
     	    	});
     	    	view.invScreen.filterBy.setOnAction(new EventHandler<ActionEvent>() {
@@ -308,6 +309,12 @@ public class Controller extends Application{
     						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
     						view.invScreen.invGrid.getChildren().clear();
     		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
+    		    			window.setScene(view.invScreenToScene());
+    					}
+    					else if (view.invScreen.filterBy.getValue().equals("Leps supported")) {
+    						view.invScreen.invGrid.getChildren().clear();
+    						model.sortHashLeps(Plant.lepCheckedPlants(model.plantsMaster));
+    		    			view.invScreen.createInventoryScreen(model.lepsHash, view.gardenScreen.returnPlantImageList());
     		    			window.setScene(view.invScreenToScene());
     					}
     				}
