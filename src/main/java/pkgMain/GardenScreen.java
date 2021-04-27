@@ -166,7 +166,7 @@ public class GardenScreen {
 	 * @param lepsSupported the number of leps supported
 	 * @return ImageView of new plant
 	 */
-	public ImageView newPlant(Plant p) {
+	public ImageView newPlantIv(Plant p) {
 		ImageView iv1;
 		Image plantView = plantImageList.get(p.getScientificName());
 		

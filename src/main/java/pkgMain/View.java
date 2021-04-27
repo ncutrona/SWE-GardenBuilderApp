@@ -225,7 +225,7 @@ public class View{
 	public void addPlantToGarden(Collection<Plant> plantCollection) {
 		int i = 1;
 		for(Plant p : plantCollection) {
-			gardenScreen.gardenTile.addRow(i, gardenScreen.newPlant(p));
+			gardenScreen.gardenTile.addRow(i, gardenScreen.newPlantIv(p));
 			i++;
 		}
 		
