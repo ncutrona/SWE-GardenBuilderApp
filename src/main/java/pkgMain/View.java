@@ -28,6 +28,7 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class View{
@@ -35,8 +36,8 @@ public class View{
 	private Stage stage, popupStage;
 	private Scene screenScene;
 	
-	static final double WIDTH = 1000;
-	static final double HEIGHT = 700;
+	static final double WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
+	static final double HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
 	
 	LoadScreen loadScreen;
 	ConditionScreen conditionScreen;
@@ -176,9 +177,13 @@ public class View{
 	
 	public double[] convertToSize(int gardenLength, int gardenWidth, int plantLength, int plantWidth) {
 		double [] dimension = new double[2];
+		double min = 45; //hardcode screenSize/500
 		
 		dimension[0] = plantLength*(HEIGHT / gardenLength);
 		dimension[1] = plantWidth*(WIDTH / gardenWidth);
+		
+		dimension[0] = Math.max(dimension[0], min);
+		dimension[1] = Math.max(dimension[1], min);
 		
 		return dimension;
 	}

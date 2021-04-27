@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 
 
 /**
@@ -39,7 +40,7 @@ public class LoadScreen {
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
-               BackgroundSize.DEFAULT);
+               new BackgroundSize(Screen.getPrimary().getVisualBounds().getHeight(), Screen.getPrimary().getVisualBounds().getWidth(), true, true, true, true));
 	
 	Image startButtonImg = new Image(getClass().getResourceAsStream("/img/Start_Garden.png"));
 	ImageView startButtonIv = new ImageView(startButtonImg);
