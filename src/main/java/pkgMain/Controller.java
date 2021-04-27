@@ -493,7 +493,6 @@ public class Controller extends Application{
 						data[0].strip(), data[2], data[4], data[3], Integer.parseInt(data[7]), Integer.parseInt(data[8]), Integer.parseInt(data[6]), 0, 0);
 				model.plantsMaster.add(plant);
 				model.plantDataList.put(plant.getScientificName(), plant);
-				//System.out.println(plant.getScientificName());
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
