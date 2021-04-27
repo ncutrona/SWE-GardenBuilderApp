@@ -20,6 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Rectangle2D;
 import javafx.print.PageLayout;
 import javafx.print.Printer;
 import javafx.print.PrinterJob;
@@ -41,6 +42,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -80,6 +82,10 @@ public class Controller extends Application{
 	 */
 	@Override
 	public void start(Stage primaryStage) throws IOException{
+		
+		Screen screen = Screen.getPrimary();
+		Rectangle2D bounds = screen.getVisualBounds();
+		
 		window = primaryStage;
 		view = new View(); 
 		model = new Model();
@@ -98,6 +104,11 @@ public class Controller extends Application{
 		
 		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
 		window.setScene(view.getScreen());
+		//window.setX(bounds.getMinX());
+		//window.setY(bounds.getMinY());
+		//window.setWidth(bounds.getWidth());
+		//window.setHeight(bounds.getHeight());
+		window.setMaximized(true);
 		window.show();
     	
 	}
@@ -111,7 +122,6 @@ public class Controller extends Application{
 				view.clearInfo();
 				view.closePopUp();
 				pentagonAnchorHandler();
-				window.setScene(view.loadScreenToScene());
 			}
     	});
     	

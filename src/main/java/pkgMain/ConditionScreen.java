@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.util.StringConverter;
 
 
@@ -37,7 +38,7 @@ public class ConditionScreen {
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
-               BackgroundSize.DEFAULT);
+            new BackgroundSize(Screen.getPrimary().getVisualBounds().getHeight(), Screen.getPrimary().getVisualBounds().getWidth(), true, true, true, true));
 	
 	Label budgetLabel, gardenLabel, dimensionLabel;
 	TextField budget, gardenName, width, length;

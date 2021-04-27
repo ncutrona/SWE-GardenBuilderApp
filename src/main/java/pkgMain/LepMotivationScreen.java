@@ -16,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 
 public class LepMotivationScreen {
 	
@@ -49,6 +50,8 @@ public class LepMotivationScreen {
 		infoThree = new VBox(10);
 		data = new HBox(25);
 		buttonData = new VBox(25);
+		
+		top.setFitWidth(Screen.getPrimary().getVisualBounds().getWidth());
 		
 		
 		//What Are Leps!
@@ -104,7 +107,7 @@ public class LepMotivationScreen {
 		border.setTop(top);
 		border.setCenter(buttonData);
 		border.setStyle("-fx-background-color: #93e1e6;");
-		data.setAlignment(Pos.CENTER);
+		data.setAlignment(Pos.CENTER_LEFT);
 		buttonData.setAlignment(Pos.TOP_CENTER);
 
 		
