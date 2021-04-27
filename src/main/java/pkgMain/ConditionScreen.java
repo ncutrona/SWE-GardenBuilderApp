@@ -111,10 +111,16 @@ public class ConditionScreen {
 		flow.setVgap(20);
 	}
 	
+	
+	/**
+	 * Setup "go back" and "continue" buttons
+	 */
 	public void setButtons() {
 		previous = new Button("Go Back");
 		next = new Button("Continue");
 	}
+	
+	
 	/**
 	 * Setup for the sun slider.
 	 * Uses string converter to set condition based on slider
