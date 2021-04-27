@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -40,6 +41,15 @@ public class LoadScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
+	Image startButtonImg = new Image(getClass().getResourceAsStream("/img/Start_Garden.png"));
+	ImageView startButtonIv = new ImageView(startButtonImg);
+	
+	Image loadButtonImg = new Image(getClass().getResourceAsStream("/img/Load_Garden.png"));
+	ImageView loadButtonIv = new ImageView(loadButtonImg);
+	
+	Image lepsButtonImg = new Image(getClass().getResourceAsStream("/img/Learn_About_Leps.png"));
+	ImageView lepsButtonIv = new ImageView(lepsButtonImg);
+	
 	BorderPane border;
 	Button loadButton, startButton, learn;
 	VBox buttonBox;
@@ -52,10 +62,10 @@ public class LoadScreen {
 	//The image for the background
 	
 	public void createButtonBox() {
-		loadButton = new Button("Load Garden");
-		startButton = new Button("Start Garden");
-		learn = new Button("Learn About Leps!");
-		buttonBox = new VBox(10);
+		loadButton = new Button("", loadButtonIv);
+		startButton = new Button("", startButtonIv);
+		learn = new Button("", lepsButtonIv);
+		buttonBox = new VBox(20);
 		buttonBox.getChildren().addAll(startButton, loadButton, learn);
 	}
 	
