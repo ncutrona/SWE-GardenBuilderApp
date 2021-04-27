@@ -147,17 +147,17 @@ public class View{
 		sumScreen.createSummaryScreen(plantDataList, gardenScreen.returnPlantImageList(), frequency, name, budget, lepSupported);
 	}
 	
-	public double[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList) {
+	public double[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList, int length, int width) {
 		double [] xAndY = new double[2];
 		Dragboard db = event.getDragboard();
 		if(db.hasString()) {
 			String nodeId = db.getString();
 			ImageView plant = new ImageView();
 			plant.setImage(gardenScreen.plantImageList.get(nodeId));
-			plant.setFitWidth(plantList.get(nodeId).getWidth());
-			plant.setFitHeight(plantList.get(nodeId).getHeight());
+			double[] dimensions = convertToSize(length, width, plantList.get(nodeId).getHeight(), plantList.get(nodeId).getWidth());
+			plant.setFitHeight(dimensions[0]);
+			plant.setFitWidth(dimensions[1]);
 			plant.setId(nodeId);
-			
 			
 			if(plant != null) {
 				Plant plantNeeded = plantList.get(nodeId);
@@ -173,24 +173,25 @@ public class View{
 		}
 		return xAndY;
 	}
-	/*
-	public void gardenScreenAddPlant(String nodeID, double x, double y) {
-		if(!gardenScreen.addedPlants.containsKey(nodeID)) {
-			gardenScreen.addedPlants.put(nodeID, new ArrayList<Coordinates>());
-		}
-		gardenScreen.addedPlants.get(nodeID).add(new Coordinates(x,y));
+	
+	public double[] convertToSize(int gardenLength, int gardenWidth, int plantLength, int plantWidth) {
+		double [] dimension = new double[2];
+		
+		dimension[0] = plantLength*(HEIGHT / gardenLength);
+		dimension[1] = plantWidth*(WIDTH / gardenWidth);
+		
+		return dimension;
 	}
-	*/
 
-
-	public void loadPlantsToGarden(HashMap<String, Plant> plantList, HashMap<String, ArrayList<Coordinates>> plants) {
+	public void loadPlantsToGarden(HashMap<String, Plant> plantList, HashMap<String, ArrayList<Coordinates>> plants, int length, int width) {
 		for(String plantName: plants.keySet()) {
 			Plant p = plantList.get(plantName);
 			for(Coordinates c: plants.get(plantName)) {
 				Image plantImage = gardenScreen.plantImageList.get(plantName);
 				ImageView plantView = new ImageView(plantImage);
-				plantView.setFitWidth(p.getWidth());
-				plantView.setFitHeight(p.getHeight());
+				double[] dimension = convertToSize(length, width, p.getHeight(), p.getWidth());
+				plantView.setFitWidth(dimension[1]);
+				plantView.setFitHeight(dimension[0]);
 				plantView.setId(plantName);
 				plantView.setX(c.getX());
 				plantView.setY(c.getY());
@@ -227,7 +228,8 @@ public class View{
 	
 	public boolean conditionHasText() {
 		boolean hasText = (!conditionScreen.budget.getText().isEmpty()) && (!conditionScreen.gardenName.getText().isEmpty());
-		return hasText;
+		boolean hasCoords = (!conditionScreen.length.getText().isEmpty()) && (!conditionScreen.width.getText().isEmpty());
+		return hasText && hasCoords;
 	}
 	
 	public void setValidBudgetText() {
@@ -240,7 +242,7 @@ public class View{
 	}
 	
 	public int[] returnConditionSliderValue() {
-		int [] sliderValue = new int[3];
+		int [] sliderValue = new int[5];
 		sliderValue[0] = (int)conditionScreen.moistSlider.getValue()-1;
 		sliderValue[1] = (int)conditionScreen.sunSlider.getValue()-1;
 		sliderValue[2] = (int)conditionScreen.soilSlider.getValue()-1;

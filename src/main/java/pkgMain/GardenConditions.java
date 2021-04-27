@@ -15,11 +15,17 @@ import pkgMain.Conditions.sunCondition;
  * @author Tommy Cheung
  */
 public class GardenConditions {
-	public int userBudget;
+	private int userBudget;
+	private int width;
+	private int length;
 	
-	static Conditions.sunCondition sunCond = sunCondition.FULL;
-	static Conditions.soilCondition soilCond = soilCondition.CLAY;
-	static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
+	static Conditions.sunCondition sunCond;
+	static Conditions.soilCondition soilCond;
+	static Conditions.moistureCondition moistureCond;
+	
+	//static Conditions.sunCondition sunCond = sunCondition.FULL;
+	//static Conditions.soilCondition soilCond = soilCondition.CLAY;
+	//static Conditions.moistureCondition moistureCond = moistureCondition.DRY;
 	
 	
 	/**
@@ -38,6 +44,11 @@ public class GardenConditions {
 		setSoilConditions(soil);
 	}
 	
+	public void setDimensions(int length, int width) {
+		this.length = length;
+		this.width = width;
+	}
+	
 	
 	/**
 	 * Sets the garden budget from passed in int
@@ -48,6 +59,13 @@ public class GardenConditions {
 		this.userBudget = userBudget;
 	}
 	
+	public int getLength() {
+		return length;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
 	
 	/**
 	 * Returns the garden budget
