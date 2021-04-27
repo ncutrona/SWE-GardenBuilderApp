@@ -26,17 +26,9 @@ import pkgMain.Conditions.sunCondition;
 public class Plant {
 
 	//plant class
-	public int price;
-	public int lepsSupported;
-	public String scientificName;
-	public String soil;
-	public String sun;
-	public String moisture;
-	public int height;
-	public int width;
-	public int bloomTime;
-	public int xCor;
-	public int yCor;
+	private int price, lepsSupported;
+	private String scientificName, soil, sun, moisture;
+	private int height, width, bloomTime, xCor, yCor;
 
 	// Remove and add this to Garden class
 	static Conditions.sunCondition sunCond = sunCondition.FULL;
@@ -371,9 +363,9 @@ class PlantCompare implements Comparator<Plant>{
 	 */
 	public int compare(Plant a1, Plant a2){
 
-		int value = a1.lepsSupported - a2.lepsSupported;
+		int value = a1.getLepsSupported() - a2.getLepsSupported();
 		if(value==0){
-			value = a1.scientificName.compareToIgnoreCase(a2.scientificName);
+			value = a1.getScientificName().compareToIgnoreCase(a2.getScientificName());
 			return value;
 		}
 

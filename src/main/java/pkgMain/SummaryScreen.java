@@ -120,16 +120,15 @@ public class SummaryScreen {
 			Text quantity = new Text("Quantity: " + valueText);
 			
 			//Total Spent
-			Text totalSpent = new Text("Total Spent: $" + String.valueOf(plant.price * value));
+			Text totalSpent = new Text("Total Spent: $" + String.valueOf(plant.getPrice() * value));
 			//Leps Supported
-			Text lepsSupported = new Text("Leps Supported: " + String.valueOf(plant.lepsSupported * value));
+			Text lepsSupported = new Text("Leps Supported: " + String.valueOf(plant.getLepsSupported() * value));
 			
 			//Vbox adding to scroll
 			HBox hbox = new HBox(10);
 			hbox.getChildren().addAll(plantImageIv, name, quantity, totalSpent, lepsSupported);
 			vbox.getChildren().add(hbox);
-			
-			
+
 		}
 		
 		dataPane.setContent(vbox);

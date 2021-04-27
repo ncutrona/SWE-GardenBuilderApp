@@ -9,14 +9,17 @@ import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
 public class SaveGarden implements Serializable{
-	private int budget;
+	private int budget, numLepSupported, length, weight;
 	private String Name;
-	private int numLepSupported;
+
 	private String sunCondition, moistCondition, soilCondition;
 	private HashMap<String, ArrayList<Coordinates>> plants;
 	private ArrayList<Double> hexPoints;
 	
-	public SaveGarden() {}
+	public SaveGarden(int length, int weight) {
+		this.length = length;
+		this.weight = weight;
+	}
 
 	public int getBudget() {
 		return budget;
@@ -69,6 +72,12 @@ public class SaveGarden implements Serializable{
 		this.soilCondition = soil;
 		this.sunCondition = sun;
 		this.moistCondition = moist;
+	}
+	public int getLength() {
+		return this.length;
+	}
+	public int getWidth() {
+		return this.weight;
 	}
 	
 }

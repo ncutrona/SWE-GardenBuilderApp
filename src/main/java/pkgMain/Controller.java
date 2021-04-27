@@ -119,7 +119,7 @@ public class Controller extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				SaveGarden save = new SaveGarden();
+				SaveGarden save = new SaveGarden(model.gardenFinal.getLength(), model.gardenFinal.getWidth());
 				save.setName(model.stateFinal.getGardenName());
 				save.setBudget(model.stateFinal.getGardenBudget());
 				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
@@ -162,19 +162,23 @@ public class Controller extends Application{
 				public void handle(MouseEvent event) {
 					//starts at 5 because this gets rid of "Load "
 					SaveGarden garden = view.saveScreen.savedGarden.get(b.getText().substring(5));
-					model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
-					model.stateFinal.GardenName = garden.getName();
-					model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
+					saveScreenLoadModel(garden);
 					view.gardenScreen.updateCondition(model.gardenFinal);
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
-					model.addedPlants = garden.getPlants();
 					view.loadHexagonToGarden(garden.getHexPoints());
-					view.loadPlantsToGarden(model.plantDataList, model.addedPlants);
+					view.loadPlantsToGarden(model.plantDataList, model.addedPlants, model.gardenFinal.getLength(), model.gardenFinal.getWidth());
 					window.setScene(view.gardenScreenToScene());
 				}
 				
 			});
 		}
+	}
+	public void saveScreenLoadModel(SaveGarden garden) {
+		model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
+		model.stateFinal.GardenName = garden.getName();
+		model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
+		model.addedPlants = garden.getPlants();
+		model.gardenFinal.setDimensions(garden.getLength(), garden.getWidth());
 	}
 	public void pentagonScreenHandler() {
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
@@ -239,7 +243,8 @@ public class Controller extends Application{
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				double[] coords = view.plantDragDropping(event, getPlantList());
+				//System.out.println("Length: " + model.gardenFinal.getLength() + " Width: "  + model.gardenFinal.getWidth());
+				double[] coords = view.plantDragDropping(event, getPlantList(), model.gardenFinal.getLength(), model.gardenFinal.getWidth());
 				if(coords[0] != 0 && coords[1] != 0) {
 					Plant p = model.plantDataList.get(event.getDragboard().getString());
 					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
@@ -284,7 +289,7 @@ public class Controller extends Application{
     	});
     	
     	view.gardenScreen.inventory.setOnMouseClicked(new EventHandler<MouseEvent>() {	
-    		@SuppressWarnings("unchecked") // Remove later?
+			@SuppressWarnings("unchecked")
 			@Override
     		public void handle(MouseEvent e) {
     			view.invScreen.createInventoryScreen(model.plantDataList, view.gardenScreen.returnPlantImageList());
@@ -376,8 +381,8 @@ public class Controller extends Application{
 	}
 	
 	public void deletePlantUpdateState(Plant removed) {
-		model.stateFinal.totalLepsSupported -= removed.lepsSupported;
-		model.stateFinal.gardenBudget += removed.price;
+		model.stateFinal.totalLepsSupported -= removed.getLepsSupported();
+		model.stateFinal.gardenBudget += removed.getPrice();
 		view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
 	}
 	
@@ -439,22 +444,12 @@ public class Controller extends Application{
 					model.gardenFinal.setSoilConditions(soilList[sliderValues[2]]);
 					view.gardenScreen.updateCondition(model.gardenFinal);
 					window.setScene(view.pentagonScreenToScene());
+					
 				}
 				
 			}
     		
     	});
-		
-    	/*
-    	//Setting an action for the Clear button
-    	conditionScreen.clear.setOnAction(new EventHandler<ActionEvent>() {
-    		@Override
-    		public void handle(ActionEvent e) {
-    			conditionScreen.budget.clear();
-    			conditionScreen.gardenName.clear();
-    		}
-    	});
-		*/
 		view.conditionScreen.previous.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 	}
 	
@@ -469,10 +464,13 @@ public class Controller extends Application{
 		if (view.conditionHasText()) {
 			try {
 				int intBudget = Integer.parseInt(view.conditionScreen.budget.getText());
+				int length = Integer.parseInt(view.conditionScreen.length.getText());
+				int width = Integer.parseInt(view.conditionScreen.width.getText());
 				if(!view.saveScreen.savedGarden.containsKey(view.conditionScreen.gardenName.getText())) {
 					model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
 					model.gardenFinal.setBudget(intBudget);
 					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
+					model.gardenFinal.setDimensions(length, width);
 					return true;
 				}
 				view.setValidNameText();

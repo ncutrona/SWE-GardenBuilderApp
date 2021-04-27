@@ -39,8 +39,8 @@ public class ConditionScreen {
             BackgroundPosition.DEFAULT, 
                BackgroundSize.DEFAULT);
 	
-	Label budgetLabel, gardenLabel;
-	TextField budget, gardenName;
+	Label budgetLabel, gardenLabel, dimensionLabel;
+	TextField budget, gardenName, width, length;
 	Button previous, next;
 	private Text sun, moisture, soil;
 	Slider sunSlider, moistSlider, soilSlider;
@@ -226,7 +226,9 @@ public class ConditionScreen {
 	public void setInputHBox() {
 		budgetLabel = new Label("Budget $: ");
 		gardenLabel = new Label("Garden Name: ");
-				
+		
+		
+		
 		budget = new TextField();
 		budget.setPromptText("Enter your Budget $");
 		gardenName = new TextField();
@@ -237,6 +239,16 @@ public class ConditionScreen {
 		input.setStyle("-fx-background-color: pink;");
 		input.getChildren().addAll(budgetLabel, budget, gardenLabel, gardenName);
 		
+		//
+		dimensionLabel = new Label("Enter Dimension:" );
+		Text feet = new Text("X");
+		length = new TextField();
+		width = new TextField();
+		length.setPromptText("Enter length here(feet)");
+		width.setPromptText("Enter width here(feet)");
+		input.getChildren().addAll(dimensionLabel, length, feet, width);
+		
+		//
 	}
 		
 	/**
