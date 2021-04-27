@@ -175,7 +175,7 @@ public class GardenScreen {
 		iv1.setFitWidth(100);
 		iv1.setFitHeight(100);
 		iv1.setId(p.getScientificName());
-		Tooltip t =  new Tooltip("Scientific Name: " +  p.getScientificName() + "\nPrice: $" + p.getScientificName() + "\nLeps: " + p.getLepsSupported());
+		Tooltip t =  new Tooltip("Scientific Name: " +  p.getScientificName() + "\nPrice: $" + p.getPrice() + "\nLeps: " + p.getLepsSupported());
 		Tooltip.install(iv1, t);
 		
 		iv1.setOnDragDetected(new EventHandler<MouseEvent>(){
