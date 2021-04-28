@@ -144,6 +144,7 @@ public class ConditionScreen {
 			}
 		});
 		
+
 		sunBox = setSliderHbox(sunSlider);
 	}
 	
@@ -177,6 +178,7 @@ public class ConditionScreen {
 				}
 			}
 		});
+
 		soilBox = setSliderHbox(soilSlider);
 		soilBox.getChildren().addAll(next, previous);
 	}
@@ -215,6 +217,7 @@ public class ConditionScreen {
 				}
 			}
 		});
+		
 		
 		moistBox = setSliderHbox(moistSlider);
 	}
@@ -260,7 +263,7 @@ public class ConditionScreen {
 	 * @return HBox that contains the slider
 	 */
 	public HBox setSliderHbox(Slider slide) {
-		HBox box = new HBox(5);
+		HBox box = new HBox(20);
 		box.setPadding(new Insets(5, 5, 5, 5));
 		box.setStyle("-fx-background-color: transparent;");
 		box.getChildren().addAll(slide);
@@ -286,6 +289,9 @@ public class ConditionScreen {
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		slider.setMinWidth(380);
+		slider.setStyle("-fx-control-inner-background: palegreen;");
+		
+		
 		return slider;
 	}
 }
