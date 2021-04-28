@@ -298,7 +298,9 @@ public class Plant {
 	 * Static method that returns subcollection of plants that fit conditions.
 	 * 
 	 * @param masterList ArrayList of all plants
-	 * @param cond GardenConditions desired conditions
+	 * @param sun String sun condition
+	 * @param soil String soil condition
+	 * @param moisture String moisture condition
 	 * @return ArrayList of plants that meet desired conditions
 	 */
 	public static ArrayList<Plant> conditionCheckedPlants(ArrayList<Plant> masterList, String sun, String soil, String moisture) {
@@ -320,6 +322,11 @@ public class Plant {
 		return conditionedPlants;
 	}
 	
+	/**
+	 * Sorts the masterList via PlantCompare and returns it
+	 * @param masterList ArrayList-Plant- of plants
+	 * @return sorted ArrayList-Plant-
+	 */
 	public static ArrayList<Plant> lepCheckedPlants(ArrayList<Plant> masterList) {
 
 		Collections.sort(masterList, new PlantCompare());

@@ -111,8 +111,8 @@ public class InvScreen {
 	 * Creates and formats the labels HBox.
 	 * adds plants from plantData, sets conditions accordingly.
 	 * 
-	 * @param plantData HashMap<String, Plant> plantData to be shown on screen
-	 * @param imageData HashMap<String, Image> images for plants
+	 * @param plantData HashMap-String, Plant- plantData to be shown on screen
+	 * @param imageData HashMap-String, Image- images for plants
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
         HBox labels = new HBox();
@@ -178,8 +178,8 @@ public class InvScreen {
 	/**
 	 * calls createScreen to setup the screen, returns the ScrollPane
 	 * 
-	 * @param plantData HashMap<String, Plant> plantData to be shown on screen
-	 * @param imageData HashMap<String, Image> images for plants
+	 * @param plantData HashMap-String, Plant- plantData to be shown on screen
+	 * @param imageData HashMap-String, Image- images for plants
 	 * @return ScrollPane from InvScreen
 	 */
 	public ScrollPane createInventoryScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {

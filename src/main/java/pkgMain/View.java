@@ -224,8 +224,8 @@ public class View{
 	/**
 	 * Sets up the summary screen.
 	 * 
-	 * @param plantDataList HashMap<String, Plant> list of plant data
-	 * @param plants HashMap<String, ArrayList<Coordinates>> list of plants and their coordinates on the garden
+	 * @param plantDataList HashMap-String, Plant- list of plant data
+	 * @param plants HashMap-String, ArrayList-Coordinates-- list of plants and their coordinates on the garden
 	 * @param name String name of the garden
 	 * @param budget int budget for the garden
 	 * @param lepSupported int total leps supported by garden
@@ -239,7 +239,7 @@ public class View{
 	 * Handles dragging and dropping plants in the garden
 	 * 
 	 * @param event DragEvent mouse dragging event
-	 * @param plantList HashMap<String, Plant> list of available plants
+	 * @param plantList HashMap-String, Plant- list of available plants
 	 * @param length int length of garden
 	 * @param width int width of garden
 	 * @return double[] moved plant location
@@ -296,8 +296,8 @@ public class View{
 	/**
 	 * Loads plants to the garden from passed in ArrayList
 	 * 
-	 * @param plantList HashMap<String, Plant> list of available plants
-	 * @param plants HashMap<String, ArrayList<Coordinates>> list of plants in the garden and their coordinates
+	 * @param plantList HashMap-String, Plant- list of available plants
+	 * @param plants HashMap-String, ArrayList-Coordinates-- list of plants in the garden and their coordinates
 	 * @param length length of the garden
 	 * @param width width of the garden
 	 */
@@ -322,7 +322,7 @@ public class View{
 	/**
 	 * Loads the hexagon shape to the garden view
 	 * 
-	 * @param hexPoints ArrayList<Double> points to draw the hexagon
+	 * @param hexPoints ArrayList-Double- points to draw the hexagon
 	 */
 	public void loadHexagonToGarden(ArrayList<Double> hexPoints) {
 		gardenScreen.gardenPane.getChildren().addAll(pentagonScreen.setAndGetHexagon(hexPoints));
@@ -344,7 +344,7 @@ public class View{
 	 * Deletes a plant from Garden view
 	 * 
 	 * @param e EventTarget plant to delete
-	 * @param plantList HashMap<String, Plant> list of available plants
+	 * @param plantList HashMap-String, Plant- list of available plants
 	 * @return Plant removed plant
 	 */
 	public Plant deletePlant(EventTarget e, HashMap<String, Plant> plantList) {
@@ -358,7 +358,7 @@ public class View{
 	/**
 	 * Adds plants to the garden view from Collection
 	 * 
-	 * @param plantCollection Collection<Plant> of plants to add
+	 * @param plantCollection Collection-Plant- of plants to add
 	 */
 	public void addPlantToGarden(Collection<Plant> plantCollection) {
 		int i = 1;

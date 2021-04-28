@@ -140,7 +140,7 @@ public class GardenScreen {
 	/**
 	 * Creates plantImageList from plantsMaster ArrayList
 	 * 
-	 * @param plantsMaster ArrayList<Plant> used to create plantImageList
+	 * @param plantsMaster ArrayList-Plant- used to create plantImageList
 	 */
 	public void createPlantImageList(ArrayList<Plant> plantsMaster) {
 //		plantImageList.put(one, milkweed);
@@ -157,7 +157,7 @@ public class GardenScreen {
 	/**
 	 * returns the plantImageList
 	 * 
-	 * @return HashMap<String, Image>, a list of plant images
+	 * @return HashMap-String, Image-, a list of plant images
 	 */
 	public HashMap<String, Image> returnPlantImageList() {
 		return plantImageList;
@@ -177,7 +177,8 @@ public class GardenScreen {
 	
 	/**
 	 * returns the BorderPane for GardenScreen
-	 * @return
+	 * 
+	 * @return BorderPane for GardenScreen
 	 */
 	public BorderPane getScreen() {
 		return gardenBorder;
@@ -188,6 +189,7 @@ public class GardenScreen {
 	 * Returns an ImageView of a new plant from plantImages
 	 * 
 	 * @param p Plant to return ImageView of
+	 * @return ImageView of new plant
 	 */
 	public ImageView newPlant(Plant p) {
 		ImageView iv1;
@@ -224,9 +226,9 @@ public class GardenScreen {
 	 * Sets styling, padding etc for Panes, Tiles.
 	 * Sets Conditions text. options button.
 	 * 
-	 * @param ConditionSun String current sun condition
-	 * @param ConditionSoil String current soil condition
-	 * @param ConditionMoisture String current moisture condition
+	 * @param sun String current sun condition
+	 * @param soil String current soil condition
+	 * @param moisture String current moisture condition
 	 * @param budgetNeeded int budget needed
 	 */
 	public void createScreen(String sun, String soil, String moisture, int budgetNeeded) {
