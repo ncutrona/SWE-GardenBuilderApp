@@ -103,7 +103,7 @@ public class Controller extends Application{
 		pentagonScreenHandler();
 		lepsSupportedScreenHandler();
 		
-		window.setTitle("GARDEN BUILDER v 0.01 ~ ALPHA");
+		window.setTitle("GARDEN BUILDER v 0.02 ~ BETA");
 		window.setScene(view.getScreen());
 		//window.setX(bounds.getMinX());
 		//window.setY(bounds.getMinY());
