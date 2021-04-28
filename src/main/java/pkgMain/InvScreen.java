@@ -138,11 +138,36 @@ public class InvScreen {
 			
 			String sunCond = plant.getSun();
 			
+			if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Full, partial, shade";
+			}
+			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial")) {
+				sunCond = "Full, partial";
+			}
+			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Full, shade";
+			}
+			else if(sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Partial, shade";
+			}
+			else if(sunCond.toLowerCase().contains("full")) {
+				sunCond = "Full";
+			}
+			else if(sunCond.toLowerCase().contains("partial")) {
+				sunCond = "Partial";
+			}
+			else {
+				sunCond = "Shade";
+			}
+			
 			Text plantName = new Text(key);
 			Text leps = new Text(lepsSupp);
 			Text soilConditions = new Text(soilCond);
 			Text sunConditions = new Text(sunCond);
-			Text dimensions = new Text("2x2");
+			String height = String.valueOf(plant.getHeight());
+			String width = String.valueOf(plant.getWidth());
+			String heightWidth = height + " x " + width;
+			Text dimensions = new Text(heightWidth);
 	        plantHB.setSpacing(40);
 	        plantHB.setPadding(new Insets(10));
 			plantHB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, dimensions);
