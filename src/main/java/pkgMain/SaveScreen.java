@@ -55,6 +55,11 @@ public class SaveScreen {
             new BackgroundSize(Screen.getPrimary().getVisualBounds().getHeight(), Screen.getPrimary().getVisualBounds().getWidth(), true, true, true, true));
 	
 	
+	/**
+	 * Defaults constructor for SaveScreen object.
+	 * Tries to load gardens from file.
+	 * Creates the screen.
+	 */
 	public SaveScreen() {
 		try {
 			loadGardens();
@@ -64,10 +69,18 @@ public class SaveScreen {
 		createScreen();
 	}
 		
+	/**
+	 * Returns the BorderPane for SaveScreen
+	 * 
+	 * @return BorderPane for SaveScreen
+	 */
 	public BorderPane getScreen() {
 		return this.border;
 	}
 	
+	/**
+	 * Loads gardens from file via Serializable interface
+	 */
 	public void loadGardens() throws IOException, ClassNotFoundException {
 		savedGarden = new HashMap<String, SaveGarden>();
 		fillBox = new VBox(15);
@@ -88,6 +101,10 @@ public class SaveScreen {
 		ois.close();
 	}
 	
+	/**
+	 * Creates the screen for SaveScreen.
+	 * Sets up ScrollPane, BorderPane.
+	 */
 	public void createScreen() {
 		scroll.setContent(fillBox);
 		//NEED TO FIGURE THIS OUT.
@@ -98,6 +115,12 @@ public class SaveScreen {
 		fillBox.setAlignment(Pos.CENTER);
 	}
 	
+	/**
+	 * returns the text to display based on garden
+	 * 
+	 * @param garden SaveGarden, garden save from file
+	 * @return text to display
+	 */
 	public String setText(SaveGarden garden) {
 		String text = "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
 		text = text + "\nSun Condition: " + garden.getSunCondition() + " Soil Condition: " + garden.getSoilCondition() + " Moisture Condition: " + garden.getMoistCondition();
