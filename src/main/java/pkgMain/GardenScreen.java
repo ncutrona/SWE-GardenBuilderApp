@@ -63,7 +63,11 @@ public class GardenScreen {
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
 	
-	
+	/**
+	 * creates new GardenScreen object with conditions from params
+	 * 
+	 * @param condition GardenConditions to display
+	 */
 	public GardenScreen(GardenConditions condition) {
 		createPanes();
 		createText();
@@ -71,6 +75,9 @@ public class GardenScreen {
 		createScreen(condition.getSun(), condition.getSoil(), condition.getMoisture(), condition.getBudget());
 	}
 	
+	/**
+	 * Creates new GardenScreen object with default conditions
+	 */
 	public GardenScreen() {
 		createPanes();
 		createText();
@@ -78,11 +85,19 @@ public class GardenScreen {
 		createScreen("", "" , "" , 0);
 	}
 	
+	/**
+	 * updates the condition text and lep/budget count
+	 * 
+	 * @param condition GardenConditions to update
+	 */
 	public void updateCondition(GardenConditions condition) {
 		setConditionText(condition.getSun(), condition.getSoil(), condition.getMoisture());
 		updateLepAndBudget(0, condition.getBudget());
 	}
 	
+	/**
+	 * Creates the necassary panes for GardenScreen
+	 */
 	public void createPanes() {
 		gardenTile = new GridPane();
 		infoTile = new TilePane();
@@ -91,6 +106,9 @@ public class GardenScreen {
 		plantScroll = new ScrollPane();
 	}
 	
+	/**
+	 * Creates text boxes to display
+	 */
 	public void createText() {
 		leps = new Text();
 		budget = new Text();
@@ -98,6 +116,9 @@ public class GardenScreen {
 		conditionsDisplay = new Text();
 	}
 	
+	/**
+	 * Creates necassary buttons
+	 */
 	public void createButton() {
 		inventory = new Button("See Full Inventory");
 		inventory.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
@@ -120,18 +141,23 @@ public class GardenScreen {
 		
 	}
 	
+	/**
+	 * Sets the condition text from params
+	 * 
+	 * @param sun String sun condition
+	 * @param soil String soil condition
+	 * @param moist String moisture condition
+	 */
 	public void setConditionText(String sun, String soil, String moist) {
 		conditionsDisplay.setText(sun + " | " + moist  + " | " + soil);
 	}
-	/**
-	 * Creates a hashmap of three plant images
-	 * 
-	 * @param one first plant
-	 * @param two second plant
-	 * @param three third plant
-	 * @return HashMap String, Image of created images
-	 */
 	
+	
+	/**
+	 * Creates plantImageList from plantsMaster ArrayList
+	 * 
+	 * @param plantsMaster ArrayList<Plant> used to create plantImageList
+	 */
 	public void createPlantImageList(ArrayList<Plant> plantsMaster) {
 //		plantImageList.put(one, milkweed);
 //    	plantImageList.put(two, planttwo);
@@ -144,6 +170,11 @@ public class GardenScreen {
 		}
 	}
 	
+	/**
+	 * returns the plantImageList
+	 * 
+	 * @return HashMap<String, Image>, a list of plant images
+	 */
 	public HashMap<String, Image> returnPlantImageList() {
 		return plantImageList;
 	}
@@ -166,6 +197,11 @@ public class GardenScreen {
 		budget.setText("Budget: $" + newBudget);	
 	}
 	
+	
+	/**
+	 * returns the BorderPane for GardenScreen
+	 * @return
+	 */
 	public BorderPane getScreen() {
 		return gardenBorder;
 	}
@@ -174,12 +210,7 @@ public class GardenScreen {
 	/**
 	 * Returns an ImageView of a new plant from plantImages
 	 * 
-	 * @param NodeID String NodeID of plantImages for the plant image
-	 * @param plantImages ArrayList of plant images accessed by NodeID
-	 * @param name the name of the plant
-	 * @param price the price of the plant
-	 * @param lepsSupported the number of leps supported
-	 * @return ImageView of new plant
+	 * @param p Plant to return ImageView of
 	 */
 	public ImageView newPlantIv(Plant p) {
 		ImageView iv1;
@@ -212,15 +243,14 @@ public class GardenScreen {
 	
 	
 	/**
-	 * Creates the BorderPane for GardenScreen
+	 * Formatting for how GardenScreen is displayed.
+	 * Sets styling, padding etc for Panes, Tiles.
+	 * Sets Conditions text. options button.
 	 * 
 	 * @param ConditionSun String current sun condition
 	 * @param ConditionSoil String current soil condition
 	 * @param ConditionMoisture String current moisture condition
-	 * @param plantImages hashmap of plantImages
-	 * @param lepsNeeded int number of leps needed
 	 * @param budgetNeeded int budget needed
-	 * @return BorderPane for GardenScreen
 	 */
 	public void createScreen(String sun, String soil, String moisture, int budgetNeeded) {
 		gardenBorder.setStyle("-fx-background-color: white;");
