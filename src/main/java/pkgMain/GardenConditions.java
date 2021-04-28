@@ -44,6 +44,12 @@ public class GardenConditions {
 		setSoilConditions(soil);
 	}
 	
+	/**
+	 * Sets the dimensions 
+	 * 
+	 * @param length int length
+	 * @param width int width
+	 */
 	public void setDimensions(int length, int width) {
 		this.length = length;
 		this.width = width;
@@ -59,10 +65,20 @@ public class GardenConditions {
 		this.userBudget = userBudget;
 	}
 	
+	/**
+	 * returns the length
+	 * 
+	 * @return int length
+	 */
 	public int getLength() {
 		return length;
 	}
 	
+	/**
+	 * returns the width
+	 * 
+	 * @return int width
+	 */
 	public int getWidth() {
 		return width;
 	}
