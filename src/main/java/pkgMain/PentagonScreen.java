@@ -35,6 +35,16 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
+/**
+ * PentagonScreen class.
+ * Screen that displays the shape of the garden.
+ *
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class PentagonScreen {
 	
 	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
@@ -51,6 +61,10 @@ public class PentagonScreen {
 	Polygon hexagon;
 	ObservableList<Anchor> anchors;
 	
+	/**
+	 * Default constructor for PentagonScreen object.
+	 * calls methods to create and format necessary attributes.
+	 */
 	public PentagonScreen() {
 		createPanes();
 		createButton();
@@ -58,6 +72,10 @@ public class PentagonScreen {
 		createScreen();
 	}
 
+	/**
+	 * Displays a hexagonal garden, adjusts anchors.
+	 * Set with default points.
+	 */
 	public void setHexagon() {
 		hexagon = new Polygon();
 		hexagon.getPoints().addAll(new Double[]{        
@@ -82,6 +100,13 @@ public class PentagonScreen {
 		pentaGardenPane.getChildren().addAll(anchors);
 		pentaGardenPane.getChildren().add(set);
 	}
+	
+	/**
+	 * Creates a new hexagon based on passed in parameters and returns it
+	 * 
+	 * @param hexPoints points for hexagon shape
+	 * @return new hexagon
+	 */
 	public Polygon setAndGetHexagon(ArrayList<Double> hexPoints) {
 		hexagon = new Polygon();
 		hexagon.getPoints().addAll(hexPoints);
@@ -95,11 +120,18 @@ public class PentagonScreen {
 		return hexagon;
 	}
 	
+	/**
+	 * Creates the GardenPane and BorderPane for PentagonScreen.
+	 */
 	public void createPanes() {
 		pentaGardenPane = new Group();
 		pentaGardenBorder = new BorderPane();
 	}
 	
+	/**
+	 * adjusts the borderPane for PentagonScreen.
+	 * Adds from pentaGardenpane.
+	 */
 	public void createScreen() {
 		pentaGardenBorder.setStyle("-fx-background-color: pink;");
 		pentaGardenBorder.getChildren().add(pentaGardenPane);
@@ -108,6 +140,9 @@ public class PentagonScreen {
 	
 	
 	//NEED TO PUT THIS SOMEWHERE ELSE
+	/**
+	 * Creates the set garden shape button
+	 */
 	public void createButton() {
 		set = new Button("Set Garden Shape");
 		set.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
@@ -117,10 +152,21 @@ public class PentagonScreen {
 				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 	}
 	
+	/**
+	 * returns the BorderPane for PentagonScreen
+	 * 
+	 * @return BorderPane for PentagonScreen
+	 */
 	public BorderPane getScreen() {
 		return pentaGardenBorder;
 	}
 	
+	/**
+	 * Creates the control anchors for the polygon based on passed in points
+	 * 
+	 * @param points points for the new anchors
+	 * @return newly made anchors
+	 */
 	private ObservableList<Anchor> createControlAnchorsFor(final ObservableList<Double> points) {
 		ObservableList<Anchor> anchors = FXCollections.observableArrayList();
 
