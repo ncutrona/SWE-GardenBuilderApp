@@ -48,7 +48,6 @@ public class Model {
 	public void sortHashLeps(ArrayList<Plant> plants) {
 		for(Plant p: plants) {
 			lepsHash.put(p.getScientificName(), p);
-			System.out.println(p.getScientificName());
 		}
 	}
 

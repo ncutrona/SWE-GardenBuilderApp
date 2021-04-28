@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventTarget;
@@ -27,6 +28,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -137,6 +139,8 @@ public class View{
 		conditionScreen.soilSlider.setValue(1);
 		conditionScreen.sunSlider.setValue(1);
 		conditionScreen.moistSlider.setValue(1);
+		conditionScreen.length.clear();
+		conditionScreen.width.clear();
 		
 		pentagonScreen.pentaGardenPane.getChildren().removeAll(pentagonScreen.pentaGardenPane.getChildren());
 		pentagonScreen.setHexagon();
@@ -206,7 +210,7 @@ public class View{
 		}
 	}
 	public void loadHexagonToGarden(ArrayList<Double> hexPoints) {
-		gardenScreen.gardenPane.getChildren().addAll(pentagonScreen.setAndGetHexagon(hexPoints));
+		gardenScreen.gardenPane.getChildren().addAll(fitHexToGarden(pentagonScreen.setAndGetHexagon(hexPoints)));
 	}
 	
 	public void plantDragOver(DragEvent event) {
@@ -252,5 +256,19 @@ public class View{
 		sliderValue[1] = (int)conditionScreen.sunSlider.getValue()-1;
 		sliderValue[2] = (int)conditionScreen.soilSlider.getValue()-1;
 		return sliderValue;
+	}
+	public Polygon fitHexToGarden(Polygon hex) {
+		//int Hmax = 750;
+		//int Wmax = 1400;
+		//double scaleH = Hmax / HEIGHT;
+		//double scaleW = Wmax / WIDTH;
+		
+		double scaleH = (HEIGHT * (10.0/11.0)) / HEIGHT;
+		double scaleW = (WIDTH * (13.5/15.0)) / WIDTH;
+		
+		System.out.println("ScaleH: " + scaleH);
+		System.out.println("ScaleW: " + scaleW);
+		hex.getTransforms().add(new Scale(scaleW, scaleH));
+		return hex;
 	}
 }

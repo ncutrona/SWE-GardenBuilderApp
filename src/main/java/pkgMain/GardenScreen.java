@@ -51,7 +51,7 @@ public class GardenScreen {
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundPosition.DEFAULT, 
-            new BackgroundSize(Screen.getPrimary().getVisualBounds().getHeight(), Screen.getPrimary().getVisualBounds().getWidth(), true, true, true, true));
+            new BackgroundSize(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight(), true, true, true, true));
 	
 	TilePane infoTile;
 	GridPane gardenTile;
@@ -186,7 +186,6 @@ public class GardenScreen {
 				content.putString(iv1.getId());
 				db.setContent(content);
 				event.consume();
-				System.out.println(iv1.getId());
 			}
 		});
     	

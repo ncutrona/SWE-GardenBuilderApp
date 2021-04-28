@@ -39,6 +39,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Modality;
@@ -192,11 +193,14 @@ public class Controller extends Application{
 		model.gardenFinal.setDimensions(garden.getLength(), garden.getWidth());
 	}
 	public void pentagonScreenHandler() {
+		
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				
-				view.gardenScreen.gardenPane.getChildren().add(view.pentagonScreen.hexagon);
+				//**********************************************************************************************************************************************************************************
+				view.gardenScreen.gardenPane.getChildren().add(view.fitHexToGarden(view.pentagonScreen.hexagon));
+				
 				window.setScene(view.gardenScreenToScene());
 				
 			}
@@ -213,6 +217,7 @@ public class Controller extends Application{
 					dragDelta.x = a.getCenterX() - mouseEvent.getX();
 					dragDelta.y = a.getCenterY() - mouseEvent.getY();
 					a.getScene().setCursor(Cursor.MOVE);
+
 				}
 			});
 			a.setOnMouseReleased(new EventHandler<MouseEvent>() {
@@ -254,7 +259,6 @@ public class Controller extends Application{
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				//System.out.println("Length: " + model.gardenFinal.getLength() + " Width: "  + model.gardenFinal.getWidth());
 				double[] coords = view.plantDragDropping(event, getPlantList(), model.gardenFinal.getLength(), model.gardenFinal.getWidth());
 				if(coords[0] != 0 && coords[1] != 0) {
 					Plant p = model.plantDataList.get(event.getDragboard().getString());
@@ -455,7 +459,6 @@ public class Controller extends Application{
 					String [] moistList = {"dry", "moist", "wet"};
 					
 					int [] sliderValues = view.returnConditionSliderValue();
-					//System.out.println(sliderValues);
 					
 					model.gardenFinal.setMoistureConditions(moistList[sliderValues[0]]);
 					model.gardenFinal.setSunConditions(sunList[sliderValues[1]]);
