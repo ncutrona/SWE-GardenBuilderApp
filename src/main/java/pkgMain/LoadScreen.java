@@ -55,6 +55,9 @@ public class LoadScreen {
 	Button loadButton, startButton, learn;
 	VBox buttonBox;
 
+	/**
+	 * Default constructor for LoadScreen object
+	 */
 	public LoadScreen() {
 		createButtonBox();
 		createScreen();
@@ -75,9 +78,7 @@ public class LoadScreen {
 	}
 	
 	/**
-	 * Sets up and returns the BorderPane for LoadScreen
-	 * 
-	 * @return BorderPane for LoadScreen
+	 * Sets up BorderPane for LoadScreen
 	 */
 	public void createScreen() {
 		border = new BorderPane();

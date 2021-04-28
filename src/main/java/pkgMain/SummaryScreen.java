@@ -120,9 +120,9 @@ public class SummaryScreen {
 	/**
 	 * Returns the filled and formatted BorderPane for SummaryScreen
 	 * 
-	 * @param plantData HashMap<String, Plant> data for plants
-	 * @param imageData HashMap<String, Image> images for plants
-	 * @param dataFrequency HashMap<String, Integer> frequency of plants in garden
+	 * @param plantData HashMap-String, Plant- data for plants
+	 * @param imageData HashMap-String, Image- images for plants
+	 * @param dataFrequency HashMap-String, Integer- frequency of plants in garden
 	 * @param gardenName String name of the garden
 	 * @param remainingBudget int remaining budget
 	 * @param finalLeps int final lep count
@@ -145,9 +145,9 @@ public class SummaryScreen {
 	/**
 	 * Creates the SummaryScreen and fills with information to display based on garden data passed in.
 	 * 
-	 * @param plantData HashMap<String, Plant> data of plants
-	 * @param imageData HashMap<String, Image> images of plants
-	 * @param dataFrequency HashMap<String, Integer> frequency of plants in garden
+	 * @param plantData HashMap-String, Plant- data of plants
+	 * @param imageData HashMap-String, Image- images of plants
+	 * @param dataFrequency HashMap-String, Integer- frequency of plants in garden
 	 */
 	public void createScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData, HashMap<String, Integer> dataFrequency) {
 		
@@ -193,8 +193,8 @@ public class SummaryScreen {
 	/**
 	 * Finds the number of each plant in the garden from the list of coordinates for plants.
 	 * 
-	 * @param names ArrayList<Coordinates>> of plants in garden
-	 * @return HashMap<String, Integer> HashMap of plants in the garden and their count
+	 * @param names ArrayList-String, ArrayList-Coordinates-- of plants in garden
+	 * @return HashMap-String, Integer- HashMap of plants in the garden and their count
 	 */
 	public HashMap<String, Integer> findTotal(HashMap<String, ArrayList<Coordinates>> names) {
 

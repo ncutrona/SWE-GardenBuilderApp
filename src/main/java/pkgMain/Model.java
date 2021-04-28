@@ -51,7 +51,7 @@ public class Model {
 	/**
 	 * Sorts the leps from plants into the lepsHash hashmap
 	 * 
-	 * @param plants ArrayList<Plant> of plants to add to lepsHash
+	 * @param plants ArrayList-Plant- of plants to add to lepsHash
 	 */
 	public void sortHashLeps(ArrayList<Plant> plants) {
 		for(Plant p: plants) {

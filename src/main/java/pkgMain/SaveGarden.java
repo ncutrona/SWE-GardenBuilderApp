@@ -67,7 +67,7 @@ public class SaveGarden implements Serializable{
 	/**
 	 * Sets the hexPoints for the shape of the garden
 	 * 
-	 * @param hexPoints ObservableList<Double> points for the garden's polygon
+	 * @param hexPoints ObservableList-Double- points for the garden's polygon
 	 */
 	public void setHexPoints(ObservableList<Double> hexPoints) {
 		this.hexPoints = new ArrayList<Double>();
@@ -77,7 +77,7 @@ public class SaveGarden implements Serializable{
 	/**
 	 * Returns the hexPoints of the garden's shape
 	 * 
-	 * @return ArrayList<Double> points on gardens polygon
+	 * @return ArrayList-Double- points on gardens polygon
 	 */
 	public ArrayList<Double> getHexPoints() {
 		return this.hexPoints;
@@ -95,7 +95,7 @@ public class SaveGarden implements Serializable{
 	/**
 	 * Sets the plants in the garden
 	 * 
-	 * @param plants HashMap<String, ArrayList<Coordinates>> plants to set to garden plants list
+	 * @param plants HashMap-String, ArrayList-Coordinates-- plants to set to garden plants list
 	 */
 	public void setPlants(HashMap<String, ArrayList<Coordinates>> plants) {
 		this.plants = plants;
@@ -104,7 +104,7 @@ public class SaveGarden implements Serializable{
 	/**
 	 * Returns the plants list from the garden
 	 * 
-	 * @return HashMap<String, ArrayList<Coordinates>> garden's plants
+	 * @return HashMap-String, ArrayList-Coordinates-- garden's plants
 	 */
 	public HashMap<String, ArrayList<Coordinates>> getPlants() {
 		return plants;

@@ -34,11 +34,8 @@ public class PopUpWindow {
                BackgroundSize.DEFAULT);
 	
 	/**
-	 * Sets up and returns the layout VBox
-	 * 
-	 * @return the layout VBox of the popup window
+	 * Default constructor for PopUpWindow object.
 	 */
-	
 	public PopUpWindow() {
 		createButtons();
 		setDisplay();
