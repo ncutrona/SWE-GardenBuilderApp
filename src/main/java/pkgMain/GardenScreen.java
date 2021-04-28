@@ -117,7 +117,7 @@ public class GardenScreen {
 	}
 	
 	/**
-	 * Creates necassary buttons
+	 * Creates necessary buttons
 	 */
 	public void createButton() {
 		inventory = new Button("See Full Inventory");

@@ -179,9 +179,9 @@ public class SaveGarden implements Serializable{
 	}
 	
 	/**
-	 * Returns the weight of the garden
+	 * Returns the width of the garden
 	 * 
-	 * @return int garden weight
+	 * @return int garden width
 	 */
 	public int getWidth() {
 		return this.weight;
