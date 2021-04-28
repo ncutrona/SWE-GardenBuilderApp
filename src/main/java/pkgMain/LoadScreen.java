@@ -62,6 +62,10 @@ public class LoadScreen {
 	
 	//The image for the background
 	
+	/**
+	 * Creates load, start, and learn buttons.
+	 * Add buttons to VBox.
+	 */
 	public void createButtonBox() {
 		loadButton = new Button("", loadButtonIv);
 		startButton = new Button("", startButtonIv);
@@ -82,6 +86,12 @@ public class LoadScreen {
 		border.setAlignment(buttonBox, Pos.CENTER);
 		border.setBackground(new Background(backgroundimage));	
 	}
+	
+	/**
+	 * Returns the BorderPane for LoadScreen
+	 * 
+	 * @return BorderPane for LoadScreen
+	 */
 	public BorderPane getScreen() {
 		return border;
 	}
