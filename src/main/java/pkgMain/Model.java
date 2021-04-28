@@ -41,10 +41,18 @@ public class Model {
 	Collection<Plant> lepsInvScreen; 
 
 
+	/**
+	 * Default constructor for Model
+	 */
 	public Model() {
 
 	}
 	
+	/**
+	 * Sorts the leps from plants into the lepsHash hashmap
+	 * 
+	 * @param plants ArrayList-Plant- of plants to add to lepsHash
+	 */
 	public void sortHashLeps(ArrayList<Plant> plants) {
 		for(Plant p: plants) {
 			lepsHash.put(p.getScientificName(), p);

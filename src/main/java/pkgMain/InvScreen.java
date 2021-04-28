@@ -49,26 +49,43 @@ public class InvScreen {
 	Text imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel;
 	ComboBox filterBy;
 	
+	/**
+	 * Creates InvScreen object.
+	 * Creates buttons, panes, textLabels.
+	 */
 	public InvScreen() {
 		createButton();
 		createPanes();
 		createTextLabels();
 	}
 	
+	/**
+	 * Returns the screen's ScrollPane
+	 * @return ScrollPane for InvScreen
+	 */
 	public ScrollPane getScreen() {
 		return scroll;
 	}
 	
+	/**
+	 * Creates go back button for Inventory
+	 */
 	public void createButton() {
 		prevButtonInv = new Button("Go Back");
 	}
 	
+	/**
+	 * Creates the gridpane and scrollpane for InvScreen.
+	 */
 	public void createPanes() {
 		invGrid = new GridPane();
 		scroll = new ScrollPane();
 		scroll.setPannable(true);
 	}
 	
+	/**
+	 * Creates all the text labels and sets up font formatting for InvScreen.
+	 */
 	public void createTextLabels() {
 		imageLabel = new Text("Image:");
 		imageLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
@@ -88,10 +105,14 @@ public class InvScreen {
 		
 	}
 	
+
 	/**
-	 * Sets up and returns the GridPane for Inventory Screen
-	 *  
-	 * @return GridPane for Inventory Screen
+	 * Sets up the InvScreen.
+	 * Creates and formats the labels HBox.
+	 * adds plants from plantData, sets conditions accordingly.
+	 * 
+	 * @param plantData HashMap-String, Plant- plantData to be shown on screen
+	 * @param imageData HashMap-String, Image- images for plants
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
         HBox labels = new HBox();
@@ -138,11 +159,36 @@ public class InvScreen {
 			
 			String sunCond = plant.getSun();
 			
+			if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Full, partial, shade";
+			}
+			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial")) {
+				sunCond = "Full, partial";
+			}
+			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Full, shade";
+			}
+			else if(sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+				sunCond = "Partial, shade";
+			}
+			else if(sunCond.toLowerCase().contains("full")) {
+				sunCond = "Full";
+			}
+			else if(sunCond.toLowerCase().contains("partial")) {
+				sunCond = "Partial";
+			}
+			else {
+				sunCond = "Shade";
+			}
+			
 			Text plantName = new Text(key);
 			Text leps = new Text(lepsSupp);
 			Text soilConditions = new Text(soilCond);
 			Text sunConditions = new Text(sunCond);
-			Text dimensions = new Text("2x2");
+			String height = String.valueOf(plant.getHeight());
+			String width = String.valueOf(plant.getWidth());
+			String heightWidth = height + " x " + width;
+			Text dimensions = new Text(heightWidth);
 	        plantHB.setSpacing(40);
 	        plantHB.setPadding(new Insets(10));
 			plantHB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, dimensions);
@@ -153,6 +199,14 @@ public class InvScreen {
 		
 	}
 	
+	
+	/**
+	 * calls createScreen to setup the screen, returns the ScrollPane
+	 * 
+	 * @param plantData HashMap-String, Plant- plantData to be shown on screen
+	 * @param imageData HashMap-String, Image- images for plants
+	 * @return ScrollPane from InvScreen
+	 */
 	public ScrollPane createInventoryScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
 		createScreen(plantData, imageData);
 		return scroll;

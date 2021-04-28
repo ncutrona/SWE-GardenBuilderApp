@@ -34,25 +34,34 @@ public class PopUpWindow {
                BackgroundSize.DEFAULT);
 	
 	/**
-	 * Sets up and returns the layout VBox
-	 * 
-	 * @return the layout VBox of the popup window
+	 * Default constructor for PopUpWindow object.
 	 */
-	
 	public PopUpWindow() {
 		createButtons();
 		setDisplay();
 	}
 	
+	/**
+	 * Returns the VBox for the layout of PopUpWindow
+	 * 
+	 * @return VBox layout of PopUpWindow
+	 */
 	public VBox getScreen() {
 		return layout;
 	}
 	
+	/**
+	 * Creates the buttons resume save and restart.
+	 */
 	public void createButtons() {
 		resume = new Button("Resume");
 		save = new Button("Save");
 		restart = new Button("Restart");
 	}
+	
+	/**
+	 * adds the buttons to the layout VBox, sets alignment and background.
+	 */
 	public void setDisplay() {
 		layout = new VBox(10);
 		layout.getChildren().add(resume);

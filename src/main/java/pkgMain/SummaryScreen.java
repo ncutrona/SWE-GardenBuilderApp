@@ -23,6 +23,17 @@ import javafx.scene.text.Text;
 
 import java.util.*;
 
+/**
+ * SummaryScreen class.
+ * Formats the Summary Screen.
+ * Displays a summary of information for the garden.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class SummaryScreen {
 	
 	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
@@ -39,27 +50,50 @@ public class SummaryScreen {
 	
 	Text name,budget, leps;
 	
+	/**
+	 * Default constructor for SummaryScreen object.
+	 * Creates Panes and Buttons.
+	 */
 	public SummaryScreen() {
 		createPanes();
 		createButton();
 	}
 	
+	/**
+	 * Creates the BorderPane, ScrollPane, and StackPane for SummaryScreen
+	 */
 	public void createPanes() {
 		summaryBorder = new BorderPane();
 		dataPane = new ScrollPane();
 		Data = new StackPane();
 	}
 	
+	/**
+	 * Creates the return home and print info button for SummaryScreen
+	 */
 	public void createButton() {
 		returnHome = new Button("Return Home");
 		printInfo = new Button("Print Info");
 	}
 	
+	/**
+	 * Returns the BorderPane for SummaryScreen
+	 * 
+	 * @return BorderPane for SummaryScreen
+	 */
 	public BorderPane getScreen() {
 		return summaryBorder;
 	}
 	
 	
+	/**
+	 * Creates the tiledate from passed in args.
+	 * Sets font, adds text to HBox.
+	 * 
+	 * @param gardenName String name of garden
+	 * @param remainingBudget int budget remaining after plants are purchased
+	 * @param finalLeps int final total lep count for the garden
+	 */
 	public void createTileData(String gardenName, int remainingBudget, int finalLeps) {
 		
 		name = new Text("Name: " + gardenName + " ");
@@ -83,6 +117,17 @@ public class SummaryScreen {
 		
 	}
 	
+	/**
+	 * Returns the filled and formatted BorderPane for SummaryScreen
+	 * 
+	 * @param plantData HashMap-String, Plant- data for plants
+	 * @param imageData HashMap-String, Image- images for plants
+	 * @param dataFrequency HashMap-String, Integer- frequency of plants in garden
+	 * @param gardenName String name of the garden
+	 * @param remainingBudget int remaining budget
+	 * @param finalLeps int final lep count
+	 * @return BorderPane for SummaryScreen
+	 */
 	public BorderPane createSummaryScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData, HashMap<String, Integer> dataFrequency, String gardenName, int remainingBudget, int finalLeps) {
 		createScreen(plantData, imageData, dataFrequency);
 		createTileData(gardenName, remainingBudget, finalLeps);
@@ -97,6 +142,13 @@ public class SummaryScreen {
 	}
 	
 	//Need to call this when handler is switched to this screen
+	/**
+	 * Creates the SummaryScreen and fills with information to display based on garden data passed in.
+	 * 
+	 * @param plantData HashMap-String, Plant- data of plants
+	 * @param imageData HashMap-String, Image- images of plants
+	 * @param dataFrequency HashMap-String, Integer- frequency of plants in garden
+	 */
 	public void createScreen(HashMap<String, Plant> plantData, HashMap<String, Image> imageData, HashMap<String, Integer> dataFrequency) {
 		
 		VBox vbox = new VBox(15);
@@ -138,6 +190,12 @@ public class SummaryScreen {
 		
 	}
 	
+	/**
+	 * Finds the number of each plant in the garden from the list of coordinates for plants.
+	 * 
+	 * @param names ArrayList-String, ArrayList-Coordinates-- of plants in garden
+	 * @return HashMap-String, Integer- HashMap of plants in the garden and their count
+	 */
 	public HashMap<String, Integer> findTotal(HashMap<String, ArrayList<Coordinates>> names) {
 
 		HashMap<String, Integer> data = new HashMap<String, Integer>();
@@ -149,6 +207,9 @@ public class SummaryScreen {
 		
 	}
 	
+	/**
+	 * Clears the data in the SummaryScreen
+	 */
 	public void clearSumScreen() {
 		dataPane.setContent(null);
 		Data.getChildren().clear();

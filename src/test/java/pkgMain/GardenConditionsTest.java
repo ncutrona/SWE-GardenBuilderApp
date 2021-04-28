@@ -20,6 +20,23 @@ GardenConditions tester = new GardenConditions(500, "full", "dry", "loam");
 	}
 	
 	@Test
+	public void testSetDimensions() {
+		tester.setDimensions(1, 1);
+	}
+	
+	@Test
+	public void testGetLength() {
+		tester.setDimensions(1, 1);
+		assertEquals(1, tester.getLength());
+	}
+	
+	@Test
+	public void testGetWidth() {
+		tester.setDimensions(1, 1);
+		assertEquals(1, tester.getWidth());
+	}
+	
+	@Test
 	public void testSetSunConditions() {
 		tester.setSunConditions("full");
 		assertEquals("full", tester.getSun());

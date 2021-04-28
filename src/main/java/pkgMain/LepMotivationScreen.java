@@ -18,6 +18,17 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
+/**
+ * LepMotivationScreen class.
+ * Handles formatting of the Lep Motivation Screen.
+ * Displays information about the motivation around leps.
+ * 
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class LepMotivationScreen {
 	
 	
@@ -37,12 +48,19 @@ public class LepMotivationScreen {
 	VBox buttonData;
 	
 
-	
+	/**
+	 * default constructor for LepMotivationScreen.
+	 * first creates info to display, then formats info to display.
+	 */
 	public LepMotivationScreen() {
 		createInfo();
 		createScreen();
 	}
 	
+	/**
+	 * Method to create the info to display on LepMotivationScreen.
+	 * Also sets buttons, font formatting.
+	 */
 	public void createInfo() {
 		back = new Button("Back");
 		infoOne = new VBox(10);
@@ -102,6 +120,9 @@ public class LepMotivationScreen {
 		
 	}
 	
+	/**
+	 * setups up BorderPane and formats for LepMotivationScreen
+	 */
 	public void createScreen() {
 		border = new BorderPane();
 		border.setTop(top);
@@ -113,6 +134,11 @@ public class LepMotivationScreen {
 		
 	}
 	
+	/**
+	 * returns the BorderPane for LepMotivationScreen
+	 * 
+	 * @return BorderPane for LepMotivationScreen
+	 */
 	public BorderPane getScreen() {
 		return border;
 	}

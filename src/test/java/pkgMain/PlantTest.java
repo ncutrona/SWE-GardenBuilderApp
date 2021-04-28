@@ -13,12 +13,17 @@ public class PlantTest {
 	Plant testerCCP2 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
 	Plant testerCCP3 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
 	Plant testerCCP4 = new Plant(500, 2, "Test", "sand", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerLCP1 = new Plant(500, 1, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerLCP2 = new Plant(500, 2, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerLCP3 = new Plant(500, 3, "Test", "loam", "full", "dry", 50, 50, 5, 0, 0);
+	Plant testerLCP4 = new Plant(500, 4, "Test", "sand", "full", "dry", 50, 50, 5, 0, 0);
 	Plant tester2 = new Plant(500, 20, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	Plant tester3 = new Plant(500, 30, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	Plant tester4 = new Plant(500, 30, "Test", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	Plant tester5 = new Plant(500, 30, "YTest", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	Plant tester6 = new Plant(500, 30, "ATest", "clay", "full", "wet", 50, 50, 5, 0, 0);
 	ArrayList<Plant> testList = new ArrayList<Plant>();
+	ArrayList<Plant> testListLCP = new ArrayList<Plant>();
 	GardenConditions testCond = new GardenConditions(500, "full", "dry", "loam");
 	PlantCompare testPC = new PlantCompare();
 	
@@ -158,6 +163,18 @@ public class PlantTest {
 		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(0), testerCCP1);
 		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(1), testerCCP2);
 		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(2), testerCCP3);
+	}
+	
+	@Test
+	public void testLepCheckedPlants() {
+		testListLCP.add(testerLCP1);
+		testListLCP.add(testerLCP2);
+		testListLCP.add(testerLCP3);
+		testListLCP.add(testerLCP4);
+		assertEquals(testerLCP1, Plant.lepCheckedPlants(testListLCP).get(3));
+		assertEquals(testerLCP2, Plant.lepCheckedPlants(testListLCP).get(2));
+		assertEquals(testerLCP3, Plant.lepCheckedPlants(testListLCP).get(1));
+		assertEquals(testerLCP4, Plant.lepCheckedPlants(testListLCP).get(0));
 	}
 	
 	@Test

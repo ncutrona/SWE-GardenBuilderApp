@@ -114,6 +114,11 @@ public class Controller extends Application{
     	
 	}
 	
+	
+	/**
+	 * popUpHandler method, sets up actions and events for the pop up window.
+	 * Handles saving of garden to file "Save.txt".
+	 */
 	public void popUpHandler() {
 		// Setting an action for the options button
 		
@@ -160,11 +165,22 @@ public class Controller extends Application{
     	
 	}
 
+	
+	/**
+	 * saveScreenHandler method.
+	 * handles prevButton event, calls load button handler
+	 */
 	public void saveScreenHandler() {
 		view.saveScreen.prevButton.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 		
 		saveScreenLoadButtonHandler();
 	}
+	
+	
+	/**
+	 * saveScreenLoadButtonHandler method
+	 * handles loading from file on button press.
+	 */
 	public void saveScreenLoadButtonHandler() {
 		for(Node n: view.saveScreen.fillBox.getChildren()) {
 			HBox h = (HBox)n;
@@ -185,6 +201,14 @@ public class Controller extends Application{
 			});
 		}
 	}
+	
+	/**
+	 * saveScreenLoadModel method.
+	 * Handles loading model from SaveGarden.
+	 * Called from saveScreenLoadButtonHandler with SaveGarden garden from file.
+	 * 
+	 * @param garden SaveGarden garden, from file
+	 */
 	public void saveScreenLoadModel(SaveGarden garden) {
 		model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
 		model.stateFinal.GardenName = garden.getName();
@@ -192,6 +216,13 @@ public class Controller extends Application{
 		model.addedPlants = garden.getPlants();
 		model.gardenFinal.setDimensions(garden.getLength(), garden.getWidth());
 	}
+	
+	
+	/**
+	 * pentagonScreenHandler method.
+	 * Controls view of pentagonScreen.
+	 * Calls anchor handler.
+	 */
 	public void pentagonScreenHandler() {
 		
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
@@ -208,6 +239,12 @@ public class Controller extends Application{
 		});
 		pentagonAnchorHandler();
 	}
+	
+	
+	/**
+	 * pentagonAnchorHandler method
+	 * Controls the view and events of pentagonScreen via anchors
+	 */
 	public void pentagonAnchorHandler() {
 		for(Anchor a: view.pentagonScreen.anchors) {
 			final Coordinates dragDelta = new Coordinates();
@@ -253,6 +290,13 @@ public class Controller extends Application{
 			});
 		}
 	}
+	
+	
+	/**
+	 * gardenScreenHandler method.
+	 * controls the view off garden screen, handles adding/dragging plants,
+	 * gardenPane, options buttons, inventory, and finish button.
+	 */
 	public void gardenScreenHandler() {
 		view.addPlantToGarden(Plant.conditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
 				model.gardenFinal.getSoil(), model.gardenFinal.getMoisture()));
@@ -402,12 +446,27 @@ public class Controller extends Application{
  
 	}
 	
+	/**
+	 * deletePlantUpdateState method.
+	 * updates total leps supported and garden budget in model and view.
+	 *  
+	 * @param removed Plant being removed
+	 */
 	public void deletePlantUpdateState(Plant removed) {
 		model.stateFinal.totalLepsSupported -= removed.getLepsSupported();
 		model.stateFinal.gardenBudget += removed.getPrice();
 		view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
 	}
 	
+	
+	/**
+	 * getDeleteMenu method.
+	 * Sets up the delete menu for deleting plants from model, view
+	 * 
+	 * @param plant ImageView of plant to be deleted
+	 * @param plantObject Plant, passed to deletePlantUpdateState()
+	 * @return ContextMenu for the delete menu
+	 */
 	public ContextMenu getDeleteMenu(ImageView plant, Plant plantObject) {
 		ContextMenu contextMenu = new ContextMenu();
 		MenuItem deletePlant = new MenuItem("Delete plant");
@@ -425,6 +484,16 @@ public class Controller extends Application{
 		return contextMenu;
 	}
 	
+	
+	/**
+	 * deletePlantFromList method.
+	 * Deletes plant from passed in arraylist coords matching the passed in x and y coords.
+	 * 
+	 * @param coords ArrayList of plant coordinates
+	 * @param x x coord of plant to be deleted
+	 * @param y y coord of plant to be deleted
+	 * @return original passed in ArrayList<Coordinates> without the deleted plant
+	 */
 	public ArrayList<Coordinates> deletePlantFromList(ArrayList<Coordinates> coords, double x, double y) {
 		ListIterator<Coordinates> cds = coords.listIterator();
 		while(cds.hasNext()) {
@@ -436,17 +505,29 @@ public class Controller extends Application{
 		return coords;
 	}
 	
+	
+	/**
+	 * handles back button for leps supported screen
+	 */
 	public void lepsSupportedScreenHandler() {
 		view.lepScreen.back.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 	}
 	
-	
+	/**
+	 * handles start, load, and learn buttons for loadScreen
+	 */
 	public void loadScreenHandler() {
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));
 		view.loadScreen.learn.setOnAction(e-> window.setScene(view.lepScreenToScene()));
 		
 	}
+	
+	/**
+	 * handles next button view conditionsScreen.
+	 * Sets conditions for sliders in model.
+	 * update conditions in view and show pentagon screen.
+	 */
 	public void conditionScreenHandler() {
 		
 		view.conditionScreen.next.setOnAction(new EventHandler<ActionEvent>() {
@@ -474,13 +555,32 @@ public class Controller extends Application{
 		view.conditionScreen.previous.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 	}
 	
+	/**
+	 * Increments totalLepsSupported and decrements gardenBudget based on price
+	 * 
+	 * @param lep int, increments totalLepsSupported
+	 * @param price int price of plant, removed from gardenBudget
+	 */
 	public void setModelLepAndBudget(int lep, int price) {
 		model.stateFinal.totalLepsSupported += lep;
 		model.stateFinal.gardenBudget -= price;
 	}
+	
+	/**
+	 * returns the plantList from model
+	 * 
+	 * @return HashMap<String, Plant> model.plantDataList
+	 */
 	public HashMap<String, Plant> getPlantList() {
 		return model.plantDataList;
 	}
+	
+	/**
+	 * helper method for conditionScreen.
+	 * updates some model values based on view when needed.
+	 * 
+	 * @return return false when nothing happens, true when values are updated
+	 */
 	public boolean conditionScreenHelper() {
 		if (view.conditionHasText()) {
 			try {
@@ -502,7 +602,9 @@ public class Controller extends Application{
 		return false;
 	}
 	
-	// Code for reading in from a file
+	/**
+	 * Code for reading plant info from csv in src/main/resources/Plant_Data.csv
+	 */
 	public void readCsv() throws IOException {
 		File plantData = Paths.get("src/main/resources/Plant_Data.csv").toFile().getAbsoluteFile();
 		BufferedReader br = new BufferedReader(new FileReader(plantData));
@@ -520,6 +622,13 @@ public class Controller extends Application{
 		}
 	}
 	
+	/**
+	 * adds a plant with nodeID, pos x,y to model
+	 * 
+	 * @param nodeID String nodeID of plant to add
+	 * @param x double x pos of plant
+	 * @param y double y pos of plant
+	 */
 	public void gardenScreenAddPlant(String nodeID, double x, double y) {
 		if(!model.addedPlants.containsKey(nodeID)) {
 			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());

@@ -111,10 +111,26 @@ public class ConditionScreen {
 		flow.setVgap(20);
 	}
 	
+	
+	/**
+	 * Setup "go back" and "continue" buttons
+	 */
 	public void setButtons() {
 		previous = new Button("Go Back");
 		next = new Button("Continue");
+		previous.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+				+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
+		next.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+				+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 	}
+	
+	
 	/**
 	 * Setup for the sun slider.
 	 * Uses string converter to set condition based on slider
@@ -144,6 +160,7 @@ public class ConditionScreen {
 			}
 		});
 		
+
 		sunBox = setSliderHbox(sunSlider);
 	}
 	
@@ -177,6 +194,7 @@ public class ConditionScreen {
 				}
 			}
 		});
+
 		soilBox = setSliderHbox(soilSlider);
 		soilBox.getChildren().addAll(next, previous);
 	}
@@ -215,6 +233,7 @@ public class ConditionScreen {
 				}
 			}
 		});
+		
 		
 		moistBox = setSliderHbox(moistSlider);
 	}
@@ -260,7 +279,7 @@ public class ConditionScreen {
 	 * @return HBox that contains the slider
 	 */
 	public HBox setSliderHbox(Slider slide) {
-		HBox box = new HBox(5);
+		HBox box = new HBox(20);
 		box.setPadding(new Insets(5, 5, 5, 5));
 		box.setStyle("-fx-background-color: transparent;");
 		box.getChildren().addAll(slide);
@@ -286,6 +305,9 @@ public class ConditionScreen {
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
 		slider.setMinWidth(380);
+		slider.setStyle("-fx-control-inner-background: palegreen;");
+		
+		
 		return slider;
 	}
 }
