@@ -103,12 +103,8 @@ public class Controller extends Application{
 		pentagonScreenHandler();
 		lepsSupportedScreenHandler();
 		
-		window.setTitle("GARDEN BUILDER v 0.02 ~ BETA");
+		window.setTitle("GARDEN BUILDER v 0.01 ~ BETA");
 		window.setScene(view.getScreen());
-		//window.setX(bounds.getMinX());
-		//window.setY(bounds.getMinY());
-		//window.setWidth(bounds.getWidth());
-		//window.setHeight(bounds.getHeight());
 		window.setMaximized(true);
 		window.show();
     	
@@ -304,7 +300,7 @@ public class Controller extends Application{
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
 				double[] coords = view.plantDragDropping(event, getPlantList(), model.gardenFinal.getLength(), model.gardenFinal.getWidth());
-				if(coords[0] != 0 && coords[1] != 0) {
+				if(coords[0] != -1.0 && coords[1] != -1.0) {
 					Plant p = model.plantDataList.get(event.getDragboard().getString());
 					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
 					setModelLepAndBudget(p.getLepsSupported(), p.getPrice());

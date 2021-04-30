@@ -272,6 +272,8 @@ public class View{
 				return xAndY;
 			}	
 		}
+		xAndY[0]= -1.0;
+		xAndY[1] = -1.0;
 		return xAndY;
 	}
 	
