@@ -412,6 +412,13 @@ public class View{
 		sliderValue[2] = (int)conditionScreen.soilSlider.getValue()-1;
 		return sliderValue;
 	}
+	
+	/**
+	 * Scales the hex Polygon properly based on the garden's dimensions
+	 * 
+	 * @param hex Polygon to be scaled
+	 * @return scaled Polygon
+	 */
 	public Polygon fitHexToGarden(Polygon hex) {
 		//int Hmax = 750;
 		//int Wmax = 1400;

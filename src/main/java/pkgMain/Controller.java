@@ -492,7 +492,7 @@ public class Controller extends Application{
 	 * @param coords ArrayList of plant coordinates
 	 * @param x x coord of plant to be deleted
 	 * @param y y coord of plant to be deleted
-	 * @return original passed in ArrayList<Coordinates> without the deleted plant
+	 * @return original passed in ArrayList-Coordinates- without the deleted plant
 	 */
 	public ArrayList<Coordinates> deletePlantFromList(ArrayList<Coordinates> coords, double x, double y) {
 		ListIterator<Coordinates> cds = coords.listIterator();
@@ -569,7 +569,7 @@ public class Controller extends Application{
 	/**
 	 * returns the plantList from model
 	 * 
-	 * @return HashMap<String, Plant> model.plantDataList
+	 * @return HashMap-String, Plant- model.plantDataList
 	 */
 	public HashMap<String, Plant> getPlantList() {
 		return model.plantDataList;
