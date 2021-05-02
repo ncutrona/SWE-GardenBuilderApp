@@ -16,6 +16,7 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.util.StringConverter;
@@ -33,6 +34,10 @@ import javafx.util.StringConverter;
  */
 public class ConditionScreen {
 
+	final double TEXTFIELD_SIZE = 30;
+	final double LABEL_SIZE = 35;
+	final double PROMPTEXTLABEL_SIZE = 50; 
+	
 	private Image background = new Image(getClass().getResourceAsStream("/img/conditions.jpg"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
@@ -81,9 +86,12 @@ public class ConditionScreen {
 	 * Sets the text for the condition sliders.
 	 */
 	public void setText() {
-		sun = new Text("Set Garden Sun Conditions");
-		moisture = new Text("Set Garden Moisture Conditions");
-		soil = new Text("Set Garden Soil Conditions");
+		sun = new Text("Set Garden Sun Conditions:");
+		sun.setFont(new Font(LABEL_SIZE));
+		moisture = new Text("Set Garden Moisture Conditions:");
+		moisture.setFont(new Font(LABEL_SIZE));
+		soil = new Text("Set Garden Soil Conditions:");
+		soil.setFont(new Font(LABEL_SIZE));
 	}
 	
 	
@@ -245,27 +253,38 @@ public class ConditionScreen {
 	 */
 	public void setInputHBox() {
 		budgetLabel = new Label("Budget $: ");
+		budgetLabel.setFont(new Font(LABEL_SIZE));
 		gardenLabel = new Label("Garden Name: ");
-		
+		gardenLabel.setFont(new Font(LABEL_SIZE));
 		
 		
 		budget = new TextField();
 		budget.setPromptText("Enter your Budget $");
+		budget.setMaxHeight(PROMPTEXTLABEL_SIZE);
+		
 		gardenName = new TextField();
 		gardenName.setPromptText("Enter Your Garden Name: ");
+		gardenName.setMaxHeight(PROMPTEXTLABEL_SIZE);
 		
-		input =  new HBox(5);
+		input =  new HBox(20);
 		input.setPadding(new Insets(5, 5, 5, 5));
 		input.setStyle("-fx-background-color: pink;");
 		input.getChildren().addAll(budgetLabel, budget, gardenLabel, gardenName);
 		
-		//
+		
 		dimensionLabel = new Label("Enter Dimension:" );
-		Text feet = new Text("X");
+		dimensionLabel.setFont(new Font(LABEL_SIZE));
+		//Text feet = new Text("X");
+		Label feet = new Label("X");
+		feet.setFont(new Font(LABEL_SIZE));
 		length = new TextField();
+		length.setPrefHeight(TEXTFIELD_SIZE);
 		width = new TextField();
+		width.setPrefHeight(TEXTFIELD_SIZE);
 		length.setPromptText("Enter length here(feet)");
+		length.setMaxHeight(PROMPTEXTLABEL_SIZE);
 		width.setPromptText("Enter width here(feet)");
+		width.setMaxHeight(PROMPTEXTLABEL_SIZE);
 		input.getChildren().addAll(dimensionLabel, length, feet, width);
 		
 		//
