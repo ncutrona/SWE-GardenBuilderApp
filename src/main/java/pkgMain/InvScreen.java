@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -40,7 +41,10 @@ import javafx.scene.text.Text;
  */
 public class InvScreen {
 
-	GridPane invGrid;
+	BorderPane invBorder;
+	TilePane invTile;
+	TilePane invTileControls;
+	
 	VBox root;
 	Button prevButtonInv;
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
@@ -83,7 +87,9 @@ public class InvScreen {
 	 * Creates the gridpane and scrollpane for InvScreen.
 	 */
 	public void createPanes() {
-		invGrid = new GridPane();
+		invBorder = new BorderPane();
+		invTile = new TilePane();
+		invTileControls = new TilePane();
 		scroll = new ScrollPane();
 		scroll.setPannable(true);
 	}
@@ -120,15 +126,20 @@ public class InvScreen {
 	 * @param imageData HashMap-String, Image- images for plants
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
-        HBox labels = new HBox();
-        int i = 1;
-        labels.setSpacing(40);
-        labels.setPadding(new Insets(10));
-        labels.getChildren().addAll(imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel, prevButtonInv, filterBy);
-        invGrid.addRow(0, labels);
+        
+		//invTile.setStyle("-fx-background-color: pink;");	
+		//invTileControls.setStyle("-fx-background-color: pink;");
+		invBorder.setStyle("-fx-background-color: pink;");
+		//scroll.setStyle("-fx-background-color: pink;");
+		
+		HBox controls = new HBox();
+        controls.setSpacing(40);
+        controls.setPadding(new Insets(10));
+        controls.getChildren().addAll(prevButtonInv, filterBy);
+        invTileControls.getChildren().addAll(controls);
         
 		for (Map.Entry mapElement : plantData.entrySet()) {
-			HBox plantHB = new HBox();
+			VBox plantVB = new VBox();
 			String key = (String)mapElement.getKey();
 			
 			Image plantImage = imageData.get(key);
@@ -144,23 +155,23 @@ public class InvScreen {
 			
 			String sunCond = plant.getSun();
 			sunCond = returnSunCondition(sunCond);
-			
 			Text plantName = new Text(key);
+			lepsSupp = lepsSupp + " leps supported";
 			Text leps = new Text(lepsSupp);
 			Text soilConditions = new Text(soilCond);
 			Text sunConditions = new Text(sunCond);
-			String height = String.valueOf(plant.getHeight());
-			String width = String.valueOf(plant.getWidth());
+			String height = String.valueOf(plant.getHeight()) + " ft";
+			String width = String.valueOf(plant.getWidth()) + " ft";
 			String heightWidth = height + " x " + width;
 			Text dimensions = new Text(heightWidth);
-	        plantHB.setSpacing(40);
-	        plantHB.setPadding(new Insets(10));
-			plantHB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, dimensions);
-	        invGrid.addRow(i, plantHB);
-	        i++;
+	        plantVB.setSpacing(5);
+	        plantVB.setPadding(new Insets(10));
+			plantVB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, dimensions);
+			invTile.getChildren().add(plantVB);
 		}
-		scroll.setContent(invGrid);
-		
+		invBorder.setTop(invTileControls);
+		invBorder.setCenter(invTile);
+		scroll.setContent(invBorder);
 	}
 	
 	public String returnSoilCondition(String soilCond) {
@@ -190,22 +201,22 @@ public class InvScreen {
 	
 	public String returnSunCondition(String sunCond) {
 		if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
-			sunCond = "Full, partial, shade";
+			sunCond = "Full sun, partial sun, shade";
 		}
 		else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial")) {
-			sunCond = "Full, partial";
+			sunCond = "Full sun, partial sun";
 		}
 		else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("shade")) {
-			sunCond = "Full, shade";
+			sunCond = "Full sun, shade";
 		}
 		else if(sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
-			sunCond = "Partial, shade";
+			sunCond = "Partial sun, shade";
 		}
 		else if(sunCond.toLowerCase().contains("full")) {
-			sunCond = "Full";
+			sunCond = "Full sun";
 		}
 		else if(sunCond.toLowerCase().contains("partial")) {
-			sunCond = "Partial";
+			sunCond = "Partial sun";
 		}
 		else {
 			sunCond = "Shade";
