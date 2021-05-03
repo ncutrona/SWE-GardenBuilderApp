@@ -138,53 +138,12 @@ public class InvScreen {
 			
 			Plant plant = plantData.get(key);
 			String lepsSupp = String.valueOf(plant.getLepsSupported());
-			String soilCond = plant.getSoil();
 			
-			if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand") && soilCond.toLowerCase().contains("loam")) {
-				soilCond = "Clay, loam, sand";
-			}
-			else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand")) {
-				soilCond = "Clay, sand";
-			}
-			else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("loam")) {
-				soilCond = "Clay, loam";
-			}
-			else if(soilCond.toLowerCase().contains("loam") && soilCond.toLowerCase().contains("sand")) {
-				soilCond = "Loam, sand";
-			}
-			else if(soilCond.toLowerCase().contains("clay")) {
-				soilCond = "Clay";
-			}
-			else if(soilCond.toLowerCase().contains("loam")) {
-				soilCond = "Loam";
-			}
-			else {
-				soilCond = "Sand";
-			}
+			String soilCond = plant.getSoil();
+			soilCond = returnSoilCondition(soilCond);
 			
 			String sunCond = plant.getSun();
-			
-			if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
-				sunCond = "Full, partial, shade";
-			}
-			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial")) {
-				sunCond = "Full, partial";
-			}
-			else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("shade")) {
-				sunCond = "Full, shade";
-			}
-			else if(sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
-				sunCond = "Partial, shade";
-			}
-			else if(sunCond.toLowerCase().contains("full")) {
-				sunCond = "Full";
-			}
-			else if(sunCond.toLowerCase().contains("partial")) {
-				sunCond = "Partial";
-			}
-			else {
-				sunCond = "Shade";
-			}
+			sunCond = returnSunCondition(sunCond);
 			
 			Text plantName = new Text(key);
 			Text leps = new Text(lepsSupp);
@@ -202,6 +161,56 @@ public class InvScreen {
 		}
 		scroll.setContent(invGrid);
 		
+	}
+	
+	public String returnSoilCondition(String soilCond) {
+		if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand") && soilCond.toLowerCase().contains("loam")) {
+			soilCond = "Clay, loam, sand";
+		}
+		else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand")) {
+			soilCond = "Clay, sand";
+		}
+		else if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("loam")) {
+			soilCond = "Clay, loam";
+		}
+		else if(soilCond.toLowerCase().contains("loam") && soilCond.toLowerCase().contains("sand")) {
+			soilCond = "Loam, sand";
+		}
+		else if(soilCond.toLowerCase().contains("clay")) {
+			soilCond = "Clay";
+		}
+		else if(soilCond.toLowerCase().contains("loam")) {
+			soilCond = "Loam";
+		}
+		else {
+			soilCond = "Sand";
+		}
+		return soilCond;
+	}
+	
+	public String returnSunCondition(String sunCond) {
+		if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+			sunCond = "Full, partial, shade";
+		}
+		else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial")) {
+			sunCond = "Full, partial";
+		}
+		else if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("shade")) {
+			sunCond = "Full, shade";
+		}
+		else if(sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
+			sunCond = "Partial, shade";
+		}
+		else if(sunCond.toLowerCase().contains("full")) {
+			sunCond = "Full";
+		}
+		else if(sunCond.toLowerCase().contains("partial")) {
+			sunCond = "Partial";
+		}
+		else {
+			sunCond = "Shade";
+		}
+		return sunCond;
 	}
 	
 	
