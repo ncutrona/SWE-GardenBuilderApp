@@ -51,7 +51,7 @@ public class InvScreen {
 	ImageView plantIV;
 	ScrollPane scroll;
 	Text imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel;
-	ComboBox filterBy;
+	ComboBox filterByLepsAlphabet, filterBySoil, filterBySun;
 	
 	/**
 	 * Creates InvScreen object.
@@ -110,9 +110,18 @@ public class InvScreen {
 		sunConditionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 		dimensionsLabel = new Text("Dimensions (ft):");
 		dimensionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
-		String filters[] = {"Filter by: ", "A to Z", "Leps supported"};
-		filterBy = new ComboBox(FXCollections.observableArrayList(filters));
-		filterBy.setPromptText("Filter by:");
+		
+		String filterLepsAlphabet[] = {"Filter by: ", "A to Z", "Leps supported"};
+		filterByLepsAlphabet = new ComboBox(FXCollections.observableArrayList(filterLepsAlphabet));
+		filterByLepsAlphabet.setPromptText("Filter by:");
+		
+		String filterSoil[] = {"Refine soil conditions: ", "Clay", "Loam", "Sand"};
+		filterBySoil = new ComboBox(FXCollections.observableArrayList(filterSoil));
+		filterBySoil.setPromptText("Refine soil conditions:");
+		
+		String filterSun[] = {"Refine sun conditions: ", "Full", "Partial", "Shade"};
+		filterBySun = new ComboBox(FXCollections.observableArrayList(filterSun));
+		filterBySun.setPromptText("Refine sun conditions:");
 		
 	}
 	
@@ -127,16 +136,12 @@ public class InvScreen {
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
         
-		//invTile.setStyle("-fx-background-color: pink;");	
-		//invTileControls.setStyle("-fx-background-color: pink;");
+		invTile.setStyle("-fx-background-color: pink;");	
+		invTileControls.setStyle("-fx-background-color: pink;");
 		invBorder.setStyle("-fx-background-color: pink;");
-		//scroll.setStyle("-fx-background-color: pink;");
-		
-		HBox controls = new HBox();
-        controls.setSpacing(40);
-        controls.setPadding(new Insets(10));
-        controls.getChildren().addAll(prevButtonInv, filterBy);
-        invTileControls.getChildren().addAll(controls);
+		scroll.setStyle("-fx-background-color: pink;");
+
+        invTileControls.getChildren().addAll(prevButtonInv, filterByLepsAlphabet, filterBySoil, filterBySun);
         
 		for (Map.Entry mapElement : plantData.entrySet()) {
 			VBox plantVB = new VBox();
@@ -169,8 +174,8 @@ public class InvScreen {
 			plantVB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, dimensions);
 			invTile.getChildren().add(plantVB);
 		}
-		invBorder.setTop(invTileControls);
 		invBorder.setCenter(invTile);
+		invBorder.setTop(invTileControls);
 		scroll.setContent(invBorder);
 	}
 	

@@ -358,17 +358,17 @@ public class Controller extends Application{
     					view.invScreen.invTileControls.getChildren().clear();
     				}
     	    	});
-    	    	view.invScreen.filterBy.setOnAction(new EventHandler<ActionEvent>() {
+    	    	view.invScreen.filterByLepsAlphabet.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
-    					if (view.invScreen.filterBy.getValue().equals("A to Z")) {
+    					if (view.invScreen.filterByLepsAlphabet.getValue().equals("A to Z")) {
     						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
     						view.invScreen.invTile.getChildren().clear();
     						view.invScreen.invTileControls.getChildren().clear();
     		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
     		    			window.setScene(view.invScreenToScene());
     					}
-    					else if (view.invScreen.filterBy.getValue().equals("Leps supported")) {
+    					else if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
     						view.invScreen.invTile.getChildren().clear();
     						view.invScreen.invTileControls.getChildren().clear();
     						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
