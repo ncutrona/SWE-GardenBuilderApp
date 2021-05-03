@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -332,6 +333,16 @@ public class Plant {
 		Collections.sort(masterList, new PlantCompare());
 
 		return masterList;
+	}
+	
+	public static HashMap<String, Plant> getSoilSortedPlants(ArrayList<Plant> masterList, String condition) {
+		HashMap<String, Plant> soilSortedPlants = new HashMap<String, Plant>();
+		for (Plant plant : masterList) {
+			if (plant.getSoil().toLowerCase().contains(condition)) {
+				soilSortedPlants.put(plant.getScientificName(), plant);
+			}
+		}
+		return soilSortedPlants;
 	}
 
 }

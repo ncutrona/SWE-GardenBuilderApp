@@ -3,6 +3,8 @@ package pkgMain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -434,5 +436,17 @@ public class View{
 		System.out.println("ScaleW: " + scaleW);
 		hex.getTransforms().add(new Scale(scaleW, scaleH));
 		return hex;
+	}
+	
+	public void displayInvAtoZ(Map<String, Plant> aToZ) {
+		invScreen.invTile.getChildren().clear();
+		invScreen.invTileControls.getChildren().clear();
+		invScreen.createInventoryScreen(aToZ, gardenScreen.returnPlantImageList());
+	}
+	
+	public void displayInvLepsSupported(Map<String, Plant> lepsSupportedSortMap) {
+		invScreen.invTile.getChildren().clear();
+		invScreen.invTileControls.getChildren().clear();
+		invScreen.createInventoryScreen(lepsSupportedSortMap, gardenScreen.returnPlantImageList());
 	}
 }

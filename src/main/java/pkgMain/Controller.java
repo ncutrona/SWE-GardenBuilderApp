@@ -363,17 +363,37 @@ public class Controller extends Application{
     				public void handle(ActionEvent event) {
     					if (view.invScreen.filterByLepsAlphabet.getValue().equals("A to Z")) {
     						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
-    						view.invScreen.invTile.getChildren().clear();
-    						view.invScreen.invTileControls.getChildren().clear();
-    		    			view.invScreen.createInventoryScreen(aToZ, view.gardenScreen.returnPlantImageList());
+    						view.displayInvAtoZ(aToZ);
     		    			window.setScene(view.invScreenToScene());
     					}
     					else if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
+    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
+    						Map<String, Plant> lepsSupportedSortMap = model.lepsHash;
+    						view.displayInvLepsSupported(lepsSupportedSortMap);
+    		    			window.setScene(view.invScreenToScene());
+    					}
+    				}
+    	    	});
+    	    	view.invScreen.filterBySoil.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					if (view.invScreen.filterBySoil.getValue().equals("Clay")) {
     						view.invScreen.invTile.getChildren().clear();
     						view.invScreen.invTileControls.getChildren().clear();
-    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
-    		    			view.invScreen.createInventoryScreen(model.lepsHash, view.gardenScreen.returnPlantImageList());
-    		    			window.setScene(view.invScreenToScene());
+    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "clay"), view.gardenScreen.returnPlantImageList());
+    						window.setScene(view.invScreenToScene());
+    					}
+    					else if (view.invScreen.filterBySoil.getValue().equals("Loam")) {
+    						view.invScreen.invTile.getChildren().clear();
+    						view.invScreen.invTileControls.getChildren().clear();
+    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "loam"), view.gardenScreen.returnPlantImageList());
+    						window.setScene(view.invScreenToScene());
+    					}
+    					else {
+    						view.invScreen.invTile.getChildren().clear();
+    						view.invScreen.invTileControls.getChildren().clear();
+    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "sand"), view.gardenScreen.returnPlantImageList());
+    						window.setScene(view.invScreenToScene());
     					}
     				}
     	    	});
