@@ -294,7 +294,7 @@ public class Controller extends Application{
 	 * gardenPane, options buttons, inventory, and finish button.
 	 */
 	public void gardenScreenHandler() {
-		view.addPlantToGarden(Plant.conditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
+		view.addPlantToGarden(Plant.getConditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
 				model.gardenFinal.getSoil(), model.gardenFinal.getMoisture()));
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
@@ -368,7 +368,7 @@ public class Controller extends Application{
     					}
     					else if (view.invScreen.filterBy.getValue().equals("Leps supported")) {
     						view.invScreen.invGrid.getChildren().clear();
-    						model.sortHashLeps(Plant.lepCheckedPlants(model.plantsMaster));
+    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
     		    			view.invScreen.createInventoryScreen(model.lepsHash, view.gardenScreen.returnPlantImageList());
     		    			window.setScene(view.invScreenToScene());
     					}

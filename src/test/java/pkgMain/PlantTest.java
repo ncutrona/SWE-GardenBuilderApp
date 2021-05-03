@@ -160,9 +160,9 @@ public class PlantTest {
 		testList.add(testerCCP2);
 		testList.add(testerCCP3);
 		testList.add(testerCCP4);
-		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(0), testerCCP1);
-		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(1), testerCCP2);
-		assertEquals(Plant.conditionCheckedPlants(testList, "full", "loam", "dry").get(2), testerCCP3);
+		assertEquals(Plant.getConditionCheckedPlants(testList, "full", "loam", "dry").get(0), testerCCP1);
+		assertEquals(Plant.getConditionCheckedPlants(testList, "full", "loam", "dry").get(1), testerCCP2);
+		assertEquals(Plant.getConditionCheckedPlants(testList, "full", "loam", "dry").get(2), testerCCP3);
 	}
 	
 	@Test
@@ -171,10 +171,10 @@ public class PlantTest {
 		testListLCP.add(testerLCP2);
 		testListLCP.add(testerLCP3);
 		testListLCP.add(testerLCP4);
-		assertEquals(testerLCP1, Plant.lepCheckedPlants(testListLCP).get(3));
-		assertEquals(testerLCP2, Plant.lepCheckedPlants(testListLCP).get(2));
-		assertEquals(testerLCP3, Plant.lepCheckedPlants(testListLCP).get(1));
-		assertEquals(testerLCP4, Plant.lepCheckedPlants(testListLCP).get(0));
+		assertEquals(testerLCP1, Plant.getLepSupportedPlants(testListLCP).get(3));
+		assertEquals(testerLCP2, Plant.getLepSupportedPlants(testListLCP).get(2));
+		assertEquals(testerLCP3, Plant.getLepSupportedPlants(testListLCP).get(1));
+		assertEquals(testerLCP4, Plant.getLepSupportedPlants(testListLCP).get(0));
 	}
 	
 	@Test

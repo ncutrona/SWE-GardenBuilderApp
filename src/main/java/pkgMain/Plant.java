@@ -303,7 +303,7 @@ public class Plant {
 	 * @param moisture String moisture condition
 	 * @return ArrayList of plants that meet desired conditions
 	 */
-	public static ArrayList<Plant> conditionCheckedPlants(ArrayList<Plant> masterList, String sun, String soil, String moisture) {
+	public static ArrayList<Plant> getConditionCheckedPlants(ArrayList<Plant> masterList, String sun, String soil, String moisture) {
 
 
 		ArrayList<Plant> conditionedPlants = new ArrayList<Plant>();
@@ -327,7 +327,7 @@ public class Plant {
 	 * @param masterList ArrayList-Plant- of plants
 	 * @return sorted ArrayList-Plant-
 	 */
-	public static ArrayList<Plant> lepCheckedPlants(ArrayList<Plant> masterList) {
+	public static ArrayList<Plant> getLepSupportedPlants(ArrayList<Plant> masterList) {
 
 		Collections.sort(masterList, new PlantCompare());
 
