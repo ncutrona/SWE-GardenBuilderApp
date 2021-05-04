@@ -323,7 +323,7 @@ public class ConditionScreen {
 		slider.setSnapToTicks(true);
 		slider.setShowTickMarks(true);
 		slider.setShowTickLabels(true);
-		slider.setMinWidth(380);
+		slider.setMinWidth(600);
 		slider.setStyle("-fx-control-inner-background: palegreen;");
 		
 		

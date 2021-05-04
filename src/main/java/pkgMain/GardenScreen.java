@@ -265,7 +265,7 @@ public class GardenScreen {
 		
 		gardenBorder.setCenter(gardenPane); 
 		gardenTile.setPadding(new Insets(10, 10, 10, 10));
-		gardenTile.setStyle("-fx-background-color: yellow");
+		gardenTile.setStyle("-fx-background-color: pink");
 		
 		gardenTile.getChildren().add(sortedPlants);
 		
