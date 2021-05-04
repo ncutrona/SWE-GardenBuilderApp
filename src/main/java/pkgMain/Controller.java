@@ -378,21 +378,38 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					if (view.invScreen.filterBySoil.getValue().equals("Clay")) {
-    						view.invScreen.invTile.getChildren().clear();
-    						view.invScreen.invTileControls.getChildren().clear();
-    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "clay"), view.gardenScreen.returnPlantImageList());
+    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "clay");
+    						view.displayInvSoil(soilSortMap);;
     						window.setScene(view.invScreenToScene());
     					}
     					else if (view.invScreen.filterBySoil.getValue().equals("Loam")) {
-    						view.invScreen.invTile.getChildren().clear();
-    						view.invScreen.invTileControls.getChildren().clear();
-    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "loam"), view.gardenScreen.returnPlantImageList());
+    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "loam");
+    						view.displayInvSoil(soilSortMap);;
     						window.setScene(view.invScreenToScene());
     					}
     					else {
-    						view.invScreen.invTile.getChildren().clear();
-    						view.invScreen.invTileControls.getChildren().clear();
-    						view.invScreen.createInventoryScreen(Plant.getSoilSortedPlants(model.plantsMaster, "sand"), view.gardenScreen.returnPlantImageList());
+    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "sand");
+    						view.displayInvSoil(soilSortMap);;
+    						window.setScene(view.invScreenToScene());
+    					}
+    				}
+    	    	});
+    	    	view.invScreen.filterBySun.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
+    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
+    						view.displayInvSoil(sunSortMap);;
+    						window.setScene(view.invScreenToScene());
+    					}
+    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
+    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
+    						view.displayInvSoil(sunSortMap);;
+    						window.setScene(view.invScreenToScene());
+    					}
+    					else {
+    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
+    						view.displayInvSoil(sunSortMap);;
     						window.setScene(view.invScreenToScene());
     					}
     				}

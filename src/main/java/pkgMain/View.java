@@ -449,4 +449,16 @@ public class View{
 		invScreen.invTileControls.getChildren().clear();
 		invScreen.createInventoryScreen(lepsSupportedSortMap, gardenScreen.returnPlantImageList());
 	}
+	
+	public void displayInvSoil(Map<String, Plant> soilSortMap) {
+		invScreen.invTile.getChildren().clear();
+		invScreen.invTileControls.getChildren().clear();
+		invScreen.createInventoryScreen(soilSortMap, gardenScreen.returnPlantImageList());
+	}
+	
+	public void displayInvSun(Map<String, Plant> sunSortMap) {
+		invScreen.invTile.getChildren().clear();
+		invScreen.invTileControls.getChildren().clear();
+		invScreen.createInventoryScreen(sunSortMap, gardenScreen.returnPlantImageList());
+	}
 }

@@ -344,6 +344,16 @@ public class Plant {
 		}
 		return soilSortedPlants;
 	}
+	
+	public static HashMap<String, Plant> getSunSortedPlants(ArrayList<Plant> masterList, String condition) {
+		HashMap<String, Plant> sunSortedPlants = new HashMap<String, Plant>();
+		for (Plant plant : masterList) {
+			if (plant.getSun().toLowerCase().contains(condition)) {
+				sunSortedPlants.put(plant.getScientificName(), plant);
+			}
+		}
+		return sunSortedPlants;
+	}
 
 }
 
