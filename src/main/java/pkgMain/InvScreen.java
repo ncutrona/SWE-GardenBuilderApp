@@ -9,6 +9,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -176,7 +177,13 @@ public class InvScreen {
 		}
 		invBorder.setCenter(invTile);
 		invBorder.setTop(invTileControls);
+		//scroll.setContent(invBorder);
+        //scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+        //scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+        scroll.setFitToHeight(true);
+        scroll.setFitToWidth(true);
 		scroll.setContent(invBorder);
+		
 	}
 	
 	public String returnSoilCondition(String soilCond) {
