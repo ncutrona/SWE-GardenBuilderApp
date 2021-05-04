@@ -177,9 +177,6 @@ public class InvScreen {
 		}
 		invBorder.setCenter(invTile);
 		invBorder.setTop(invTileControls);
-		//scroll.setContent(invBorder);
-        //scroll.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-        //scroll.setVbarPolicy(ScrollBarPolicy.ALWAYS);
         scroll.setFitToHeight(true);
         scroll.setFitToWidth(true);
 		scroll.setContent(invBorder);
