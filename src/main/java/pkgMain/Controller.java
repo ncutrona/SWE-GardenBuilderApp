@@ -546,6 +546,15 @@ public class Controller extends Application{
         	}	
         });
     	
+    	
+    	view.gardenScreen.lepsSupported.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+    			view.lepSupportedScreen.createScreen();
+    			window.setScene(view.lepSupportedScreenToScene());
+			}
+    	});
+    	
  
 	}
 	
