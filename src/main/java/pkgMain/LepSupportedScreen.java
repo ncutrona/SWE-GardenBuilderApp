@@ -1,17 +1,22 @@
 package pkgMain;
 
+import java.util.ArrayList;
+
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class LepSupportedScreen {
 
 	
-	FlowPane lepInfo;
+	TilePane lepInfoTile, lepControlTile;
 	ScrollPane scroll;
+	BorderPane lepBorder;
 	Button goBack;
 	
 	Text test = new Text("TEST");
@@ -38,16 +43,32 @@ public class LepSupportedScreen {
 	
 	
 	public void createPanes() {
-		lepInfo = new FlowPane();
+		lepInfoTile = new TilePane();
+		lepControlTile = new TilePane();
+		lepBorder = new BorderPane();
 		scroll = new ScrollPane();
 		scroll.setPannable(true);
 	}
 	
 	
-	public void createScreen() {
-
-		lepInfo.getChildren().add(test);
-		scroll.setContent(lepInfo);
+	public void createScreen(ArrayList<String> lepsInGardenArray) {
+		lepInfoTile.setStyle("-fx-background-color: pink;");
+		lepControlTile.setStyle("-fx-background-color: pink;");
+		lepControlTile.getChildren().add(goBack);
+		lepBorder.setCenter(lepInfoTile);
+		lepBorder.setTop(lepControlTile);
+        scroll.setFitToHeight(true);
+        scroll.setFitToWidth(true);
+        for (String lep : lepsInGardenArray) {
+        	VBox lepVB = new VBox();
+	        lepVB.setSpacing(5);
+	        lepVB.setPadding(new Insets(10));
+	        Text lepName = new Text(lep);
+	        lepVB.getChildren().add(lepName);
+	        lepInfoTile.getChildren().add(lepVB);
+        }
+		scroll.setContent(lepBorder);
+		
 	}
 	
 	

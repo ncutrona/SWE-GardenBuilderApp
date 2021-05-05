@@ -109,6 +109,7 @@ public class Controller extends Application{
 		conditionScreenHandler();
 		pentagonScreenHandler();
 		lepsSupportedScreenHandler();
+		seeLepsSupportedScreenHandler();
 		
 		window.setTitle("GARDEN BUILDER v 0.01 ~ BETA");
 		window.setScene(view.getScreen());
@@ -550,8 +551,9 @@ public class Controller extends Application{
     	view.gardenScreen.lepsSupported.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-    			view.lepSupportedScreen.createScreen();
+    			view.lepSupportedScreen.createScreen(model.lepsInGardenArray);
     			window.setScene(view.lepSupportedScreenToScene());
+    			
 			}
     	});
     	
@@ -623,6 +625,10 @@ public class Controller extends Application{
 	 */
 	public void lepsSupportedScreenHandler() {
 		view.lepScreen.back.setOnAction(e-> window.setScene(view.loadScreenToScene()));
+	}
+	
+	public void seeLepsSupportedScreenHandler() {
+		view.lepSupportedScreen.goBack.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
 	}
 	
 	/**
