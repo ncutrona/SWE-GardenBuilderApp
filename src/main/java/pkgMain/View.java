@@ -61,8 +61,9 @@ public class View{
 	PopUpWindow popup;
 	LepMotivationScreen lepScreen;
 	SummaryScreen sumScreen;
+	LepSupportedScreen lepSupportedScreen;
 	
-	Scene load, save, condition, garden, inv , pop, pentagon, leps, sum;
+	Scene load, save, condition, garden, inv , pop, pentagon, leps, sum, lepSupport;
 	
 	/**
 	 * default constructor for View object.
@@ -163,6 +164,12 @@ public class View{
 		return screenScene;
 	}
 	
+	
+	public Scene lepSupportedScreenToScene() {
+		screenScene = lepSupport;
+		return screenScene;
+	}
+	
 	/**
 	 * Creates and sets up the pupupStage, then sets scene to pop and calls showAndWait.
 	 */
@@ -205,6 +212,8 @@ public class View{
 		leps = new Scene(lepScreen.getScreen(), WIDTH, HEIGHT);
 		sumScreen = new SummaryScreen();
 		sum = new Scene(sumScreen.getScreen(), WIDTH, HEIGHT);
+		lepSupportedScreen = new LepSupportedScreen();
+		lepSupport = new Scene(lepSupportedScreen.getScreen(), WIDTH, HEIGHT);
 	}
 	
 	/**
