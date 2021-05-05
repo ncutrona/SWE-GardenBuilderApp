@@ -97,6 +97,7 @@ public class Controller extends Application{
 		view = new View(); 
 		model = new Model();
 		readCsv();
+		readLepsCsv();
 		view.gardenScreen.createPlantImageList(model.plantsMaster);
 		
 		//call screen handler so buttons and stuff actually do something
@@ -724,6 +725,22 @@ public class Controller extends Application{
 		}
 	}
 	
+	public void readLepsCsv() throws IOException {
+		File lepData = Paths.get("src/main/resources/leps_supported.csv").toFile().getAbsoluteFile();
+		BufferedReader br = new BufferedReader(new FileReader(lepData));
+		String line = "";
+		try {
+			while ((line = br.readLine()) != null) {
+				String[] data = line.split(",");
+				String lepName = data[2];
+				String plantName = data[4];
+				model.lepsMap.put(plantName, lepName);
+			}
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * adds a plant with nodeID, pos x,y to model
 	 * 
@@ -734,6 +751,9 @@ public class Controller extends Application{
 	public void gardenScreenAddPlant(String nodeID, double x, double y) {
 		if(!model.addedPlants.containsKey(nodeID)) {
 			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
+			if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
+				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
+			}
 		}
 		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
 	}
