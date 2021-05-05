@@ -762,6 +762,7 @@ public class Controller extends Application{
 			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
 			if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
 				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
+				System.out.println(model.lepsInGardenArray);
 			}
 		}
 		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
