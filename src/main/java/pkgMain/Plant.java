@@ -5,10 +5,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import pkgMain.Conditions.moistureCondition;
 import pkgMain.Conditions.soilCondition;
 import pkgMain.Conditions.sunCondition;
@@ -335,8 +341,8 @@ public class Plant {
 		return masterList;
 	}
 	
-	public static HashMap<String, Plant> getSoilSortedPlants(ArrayList<Plant> masterList, String condition) {
-		HashMap<String, Plant> soilSortedPlants = new HashMap<String, Plant>();
+	public static LinkedHashMap<String, Plant> getSoilSortedPlants(ArrayList<Plant> masterList, String condition) {
+		LinkedHashMap<String, Plant> soilSortedPlants = new LinkedHashMap<String, Plant>();
 		for (Plant plant : masterList) {
 			if (plant.getSoil().toLowerCase().contains(condition)) {
 				soilSortedPlants.put(plant.getScientificName(), plant);
@@ -345,8 +351,8 @@ public class Plant {
 		return soilSortedPlants;
 	}
 	
-	public static HashMap<String, Plant> getSunSortedPlants(ArrayList<Plant> masterList, String condition) {
-		HashMap<String, Plant> sunSortedPlants = new HashMap<String, Plant>();
+	public static LinkedHashMap<String, Plant> getSunSortedPlants(ArrayList<Plant> masterList, String condition) {
+		LinkedHashMap<String, Plant> sunSortedPlants = new LinkedHashMap<String, Plant>();
 		for (Plant plant : masterList) {
 			if (plant.getSun().toLowerCase().contains(condition)) {
 				sunSortedPlants.put(plant.getScientificName(), plant);
@@ -354,7 +360,35 @@ public class Plant {
 		}
 		return sunSortedPlants;
 	}
-
+	
+	public static LinkedHashMap<String, Plant> getMoistureSortedPlants(ArrayList<Plant> masterList, String condition) {
+		LinkedHashMap<String, Plant> moistureSortedPlants = new LinkedHashMap<String, Plant>();
+		for (Plant plant : masterList) {
+			if (plant.getMoisture().toLowerCase().contains(condition)) {
+				moistureSortedPlants.put(plant.getScientificName(), plant);
+			}
+		}
+		return moistureSortedPlants;
+	}
+	
+	public static LinkedHashMap<String, Plant> sortInvByConditions(ArrayList<Plant> masterList, String soilCondition, String sunCondition, String moistureCondition) {
+		LinkedHashMap<String, Plant> conditionSortedPlants = new LinkedHashMap<String, Plant>();
+		ArrayList<Plant> soilSortedArray = new ArrayList<Plant>();
+		ArrayList<Plant> sunSortedArray = new ArrayList<Plant>();
+		conditionSortedPlants = getSoilSortedPlants(masterList, soilCondition);
+		for (Map.Entry mapElement : conditionSortedPlants.entrySet()) {
+			Plant plant = (Plant)mapElement.getValue();
+			soilSortedArray.add(plant);
+		}
+		conditionSortedPlants = getSunSortedPlants(soilSortedArray, sunCondition);
+		for (Map.Entry mapElement : conditionSortedPlants.entrySet()) {
+			Plant plant = (Plant)mapElement.getValue();
+			sunSortedArray.add(plant);
+		}
+		conditionSortedPlants = getMoistureSortedPlants(sunSortedArray, moistureCondition);
+		return conditionSortedPlants;
+	}
+ 
 }
 
 /**

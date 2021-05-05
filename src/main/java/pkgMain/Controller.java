@@ -62,6 +62,12 @@ public class Controller extends Application{
 	Stage window;
 	Model model;
 	
+	public boolean alphabetFilter = false;
+	public boolean lepsFilter = false;
+	public String soilFilter = "";
+	public String sunFilter = "";
+	public String moistureFilter = "";
+	
 	/**
 	 * main method, launches application.
 	 * Launch hands off execution to javafx to do various backend tasks
@@ -362,55 +368,115 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					if (view.invScreen.filterByLepsAlphabet.getValue().equals("A to Z")) {
-    						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
-    						view.displayInvAtoZ(aToZ);
-    		    			window.setScene(view.invScreenToScene());
+    						alphabetFilter = true;
     					}
-    					else if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
-    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
-    						Map<String, Plant> lepsSupportedSortMap = model.lepsHash;
-    						view.displayInvLepsSupported(lepsSupportedSortMap);
-    		    			window.setScene(view.invScreenToScene());
+    					else {
+    						alphabetFilter = false;
     					}
+    					
+    					if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
+    						lepsFilter = true;
+    					}
+    					else {
+    						lepsFilter = false;
+    					}
+//    					if (view.invScreen.filterByLepsAlphabet.getValue().equals("A to Z")) {
+//    						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
+//    						view.displayInvAtoZ(aToZ);
+//    		    			window.setScene(view.invScreenToScene());
+//    					}
+//    					else if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
+//    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
+//    						Map<String, Plant> lepsSupportedSortMap = model.lepsHash;
+//    						view.displayInvLepsSupported(lepsSupportedSortMap);
+//    		    			window.setScene(view.invScreenToScene());
+//    					}
     				}
     	    	});
     	    	view.invScreen.filterBySoil.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
-    					if (view.invScreen.filterBySoil.getValue().equals("Clay")) {
-    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "clay");
-    						view.displayInvSoil(soilSortMap);;
-    						window.setScene(view.invScreenToScene());
-    					}
-    					else if (view.invScreen.filterBySoil.getValue().equals("Loam")) {
-    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "loam");
-    						view.displayInvSoil(soilSortMap);;
-    						window.setScene(view.invScreenToScene());
-    					}
-    					else {
-    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "sand");
-    						view.displayInvSoil(soilSortMap);;
-    						window.setScene(view.invScreenToScene());
-    					}
+    					soilFilter = (String)view.invScreen.filterBySoil.getValue();
+    					soilFilter = soilFilter.toLowerCase();
+//    					if (view.invScreen.filterBySoil.getValue().equals("Clay")) {
+//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "clay");
+//    						view.displayInvSoil(soilSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else if (view.invScreen.filterBySoil.getValue().equals("Loam")) {
+//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "loam");
+//    						view.displayInvSoil(soilSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else {
+//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "sand");
+//    						view.displayInvSoil(soilSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
     				}
     	    	});
     	    	view.invScreen.filterBySun.setOnAction(new EventHandler<ActionEvent>() {
     				@Override
     				public void handle(ActionEvent event) {
-    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
-    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
-    						view.displayInvSoil(sunSortMap);;
-    						window.setScene(view.invScreenToScene());
+    					sunFilter = (String)view.invScreen.filterBySun.getValue();
+    					sunFilter = sunFilter.toLowerCase();
+//    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+    				}
+    	    	});
+    	    	view.invScreen.filterByMoisture.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					moistureFilter = (String)view.invScreen.filterByMoisture.getValue();
+    					moistureFilter = moistureFilter.toLowerCase();
+//    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+//    					else {
+//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
+//    						view.displayInvSoil(sunSortMap);;
+//    						window.setScene(view.invScreenToScene());
+//    					}
+    				}
+    	    	});
+    	    	
+    	    	view.invScreen.filterButton.setOnAction(new EventHandler<ActionEvent>() {
+    				@Override
+    				public void handle(ActionEvent event) {
+    					view.invScreen.invTile.getChildren().clear();
+    					view.invScreen.invTileControls.getChildren().clear();
+    					if (alphabetFilter) {
+    						Map<String, Plant> aToZ = new TreeMap<String, Plant>(Plant.sortInvByConditions(model.plantsMaster, soilFilter, sunFilter, moistureFilter));
+    						view.displayInvAtoZ(aToZ);
+    		    			window.setScene(view.invScreenToScene());
     					}
-    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
-    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
-    						view.displayInvSoil(sunSortMap);;
-    						window.setScene(view.invScreenToScene());
+    					else if (lepsFilter) {
+    						view.displayInvLepsSupported(Plant.sortInvByConditions(Plant.getLepSupportedPlants(model.plantsMaster), soilFilter, sunFilter, moistureFilter));
+    		    			window.setScene(view.invScreenToScene());
     					}
-    					else {
-    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
-    						view.displayInvSoil(sunSortMap);;
-    						window.setScene(view.invScreenToScene());
+    					else if(soilFilter != "Refine soil conditions:" || sunFilter != "Refine sun conditions:" || moistureFilter != "Refine moisture conditions:") {
+    						view.displayInvLepsSupported(Plant.sortInvByConditions(model.plantsMaster, soilFilter, sunFilter, moistureFilter));
+    		    			window.setScene(view.invScreenToScene());
     					}
     				}
     	    	});
