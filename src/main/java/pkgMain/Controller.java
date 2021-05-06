@@ -547,16 +547,14 @@ public class Controller extends Application{
         	}	
         });
     	
-    	
     	view.gardenScreen.lepsSupported.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-    			view.lepSupportedScreen.createScreen(model.lepsInGardenArray);
+    			view.lepSupportedScreen.updateLepEncyclopedia(model.lepsInGardenArray);
     			window.setScene(view.lepSupportedScreenToScene());
     			
 			}
     	});
-    	
  
 	}
 	
@@ -741,7 +739,7 @@ public class Controller extends Application{
 	}
 	
 	public void readLepsCsv() throws IOException {
-		File lepData = Paths.get("src/main/resources/leps_supported.csv").toFile().getAbsoluteFile();
+		File lepData = Paths.get("src/main/resources/leps_supported_USA.csv").toFile().getAbsoluteFile();
 		BufferedReader br = new BufferedReader(new FileReader(lepData));
 		String line = "";
 		try {
@@ -753,6 +751,16 @@ public class Controller extends Application{
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		}
+		for (Map.Entry mapElement : model.lepsMap.entrySet()) {
+			String key = (String) mapElement.getKey();
+			String lep = (String) mapElement.getValue();
+			for (int i = 0; i < 100; i++) {
+				if(model.plantsMaster.get(i).getScientificName().equals(key)) {
+					model.plantWithLepSuppMap.put(model.plantsMaster.get(i).getScientificName(), lep);
+					System.out.println(model.plantsMaster.get(i).getScientificName() + ", " + lep);
+				}
+			}
 		}
 	}
 	

@@ -25,6 +25,7 @@ public class LepSupportedScreen {
 	public LepSupportedScreen() {
 		createButton();
 		createPanes();
+		createScreen();
 		
 	}
 	
@@ -51,7 +52,7 @@ public class LepSupportedScreen {
 	}
 	
 	
-	public void createScreen(ArrayList<String> lepsInGardenArray) {
+	public void createScreen() {
 		lepInfoTile.setStyle("-fx-background-color: pink;");
 		lepControlTile.setStyle("-fx-background-color: pink;");
 		lepControlTile.getChildren().add(goBack);
@@ -59,6 +60,10 @@ public class LepSupportedScreen {
 		lepBorder.setTop(lepControlTile);
         scroll.setFitToHeight(true);
         scroll.setFitToWidth(true);
+		scroll.setContent(lepBorder);
+	}
+	
+	public void updateLepEncyclopedia(ArrayList<String> lepsInGardenArray) {
         for (String lep : lepsInGardenArray) {
         	VBox lepVB = new VBox();
 	        lepVB.setSpacing(5);
@@ -67,8 +72,6 @@ public class LepSupportedScreen {
 	        lepVB.getChildren().add(lepName);
 	        lepInfoTile.getChildren().add(lepVB);
         }
-		scroll.setContent(lepBorder);
-		
 	}
 	
 	

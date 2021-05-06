@@ -40,6 +40,7 @@ public class Model {
 	Collection<Plant> plantCollection;
 	Collection<Plant> lepsInvScreen; 
 	
+	HashMap<String, String> plantWithLepSuppMap = new HashMap<String, String>();
 	HashMap<String, String> lepsMap = new HashMap<String, String>();
 	ArrayList<String> lepsInGardenArray = new ArrayList<String>();
 
