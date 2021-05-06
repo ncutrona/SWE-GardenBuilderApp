@@ -127,6 +127,7 @@ public class Controller extends Application{
     	view.popup.restart.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				model.stateFinal.totalLepsSupported = 0;
 				view.clearInfo();
 				view.closePopUp();
 				pentagonAnchorHandler();
@@ -497,6 +498,7 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					view.clearInfo();
+    					model.stateFinal.totalLepsSupported = 0;
     					model.addedPlants.clear();
     					view.sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
