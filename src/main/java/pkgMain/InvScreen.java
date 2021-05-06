@@ -147,7 +147,7 @@ public class InvScreen {
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
         
-		invTile.setStyle("-fx-background-color: pink;");	
+		invTile.setStyle("-fx-background-color: pink;");
 		invTileControls.setStyle("-fx-background-color: pink;");
 		invBorder.setStyle("-fx-background-color: pink;");
 		scroll.setStyle("-fx-background-color: pink;");

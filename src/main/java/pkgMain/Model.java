@@ -39,6 +39,9 @@ public class Model {
 	Map<String, Plant> lepsHash = new LinkedHashMap<String, Plant>();
 	Collection<Plant> plantCollection;
 	Collection<Plant> lepsInvScreen; 
+	
+	HashMap<String, String> lepsMap = new HashMap<String, String>();
+	ArrayList<String> lepsInGardenArray = new ArrayList<String>();
 
 
 	/**
