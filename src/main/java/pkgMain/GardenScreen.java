@@ -170,19 +170,8 @@ public class GardenScreen {
 //    	plantImageList.put(three, plantthree);
 		for(Plant plant : plantsMaster) {
 			plant.setScientificName(plant.getScientificName().strip());
-			System.out.println(plant.getScientificName());
-			System.out.println("/img/" + plant.getScientificName().replace(" ", "_") +".png");
-			System.out.println("/img/Acer_negundo.png".compareTo("/img/" + plant.getScientificName().replace(" ", "_") +".png"));
-			System.out.println("/img/Acer_negundo.png");
-			String test2 = "/img/Acer_negundo.png";
-			System.out.println("/img/" + plant.getScientificName().replace(" ", "_") +".png");
-			String test = "/img/" + plant.getScientificName().replace(" ", "_") +".png";
-			System.out.println(Arrays.toString(test.toCharArray()));
-			System.out.println(Arrays.toString(test2.toCharArray()));
-			System.out.println(Arrays.toString(plant.getScientificName().strip().substring(1).toCharArray()));
 			
-			
-			Image image = new Image(getClass().getResourceAsStream("/img/" + plant.getScientificName().substring(1).replace(" ", "_") +".png"));
+			Image image = new Image(getClass().getResourceAsStream("/img/" + plant.getScientificName().replace(" ", "_") +".png"));
 			plantImageList.put(plant.getScientificName(), image);
 			
 		}

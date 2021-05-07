@@ -246,22 +246,22 @@ public class InvScreen {
 	}
 	
 	public String returnMoistureCondition(String moistureCond) {
-		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("medium") && moistureCond.toLowerCase().contains("dry")) {
+		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "Wet, medium, dry";
 		}
-		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("medium")) {
+		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist")) {
 			moistureCond = "Wet, medium";
 		}
 		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "Wet, dry";
 		}
-		else if(moistureCond.toLowerCase().contains("medium") && moistureCond.toLowerCase().contains("dry")) {
+		else if(moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "medium, dry";
 		}
 		else if(moistureCond.toLowerCase().contains("wet")) {
 			moistureCond = "Wet";
 		}
-		else if(moistureCond.toLowerCase().contains("medium")) {
+		else if(moistureCond.toLowerCase().contains("moist")) {
 			moistureCond = "medium";
 		}
 		else {

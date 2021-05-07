@@ -99,7 +99,7 @@ public class GardenConditions {
 	 * @param sun string representing condition from Conditions.sunCondition
 	 */
 	public void setSunConditions(String sun) {
-		if (sun.equals("full sun")) {
+		if (sun.equals("full")) {
 			sunCond = sunCondition.FULL;
 		}else if (sun.equals("shade")) {
 			sunCond = sunCondition.SHADE;
@@ -138,7 +138,7 @@ public class GardenConditions {
 		if (moisture.equals("wet")) {
 			moistureCond = moistureCondition.WET;
 		}
-		else if (moisture.equals("medium")) {
+		else if (moisture.equals("moist")) {
 			moistureCond = moistureCondition.MOIST;
 		}
 		else {

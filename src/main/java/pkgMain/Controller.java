@@ -303,6 +303,7 @@ public class Controller extends Application{
 	 * gardenPane, options buttons, inventory, and finish button.
 	 */
 	public void gardenScreenHandler() {
+	
 		view.addPlantToGarden(Plant.getConditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
 				model.gardenFinal.getSoil(), model.gardenFinal.getMoisture()));
 		
@@ -423,6 +424,13 @@ public class Controller extends Application{
     				public void handle(ActionEvent event) {
     					sunFilter = (String)view.invScreen.filterBySun.getValue();
     					sunFilter = sunFilter.toLowerCase();
+    					
+    					if(sunFilter.contains("full")){
+    						sunFilter = "full";
+    					}
+    					else if(sunFilter.contains("partial")){
+    						sunFilter = "partial";
+    					}
 //    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
 //    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
 //    						view.displayInvSoil(sunSortMap);;
@@ -445,6 +453,9 @@ public class Controller extends Application{
     				public void handle(ActionEvent event) {
     					moistureFilter = (String)view.invScreen.filterByMoisture.getValue();
     					moistureFilter = moistureFilter.toLowerCase();
+    					if(moistureFilter.contains("medium")){
+    						moistureFilter = "moist";
+    					}
 //    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
 //    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
 //    						view.displayInvSoil(sunSortMap);;
@@ -654,8 +665,8 @@ public class Controller extends Application{
 			public void handle(ActionEvent event) {
 				if(conditionScreenHelper()) {
 					String [] soilList = {"sand", "loam", "clay"};
-					String [] sunList = {"shade","partial sun","full sun"};
-					String [] moistList = {"dry", "medium", "wet"};
+					String [] sunList = {"shade","partial","full"};
+					String [] moistList = {"dry", "moist", "wet"};
 					
 					int [] sliderValues = view.returnConditionSliderValue();
 					
