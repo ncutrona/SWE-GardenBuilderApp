@@ -8,6 +8,7 @@ import java.util.HashMap;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -27,9 +28,14 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -54,12 +60,15 @@ public class GardenScreen {
             BackgroundPosition.DEFAULT, 
             new BackgroundSize(Screen.getPrimary().getVisualBounds().getWidth(), Screen.getPrimary().getVisualBounds().getHeight(), true, true, true, true));
 	
+	private Image lepSupport = new Image(getClass().getResourceAsStream("/img/lepSupport.png"));
+	
+	
 	TilePane infoTile;
 	GridPane gardenTile;
 	Pane gardenPane;
 	BorderPane gardenBorder;
 	ScrollPane plantScroll;
-	Text leps, budget, sortedPlants, conditionsDisplay;
+	Text leps, budget, sortedPlants, conditionsDisplay, gardenName;
 	Button inventory, optionsButton, finish, lepsSupported;
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
@@ -69,11 +78,11 @@ public class GardenScreen {
 	 * 
 	 * @param condition GardenConditions to display
 	 */
-	public GardenScreen(GardenConditions condition) {
+	public GardenScreen(GardenConditions condition, GardenState state) {
 		createPanes();
 		createText();
 		createButton();
-		createScreen(condition.getSun(), condition.getSoil(), condition.getMoisture(), condition.getBudget());
+		createScreen(condition.getSun(), condition.getSoil(), condition.getMoisture(), condition.getBudget(), state.getGardenName());
 	}
 	
 	/**
@@ -83,7 +92,7 @@ public class GardenScreen {
 		createPanes();
 		createText();
 		createButton();
-		createScreen("", "" , "" , 0);
+		createScreen("", "" , "" , 0, "");
 	}
 	
 	/**
@@ -94,6 +103,7 @@ public class GardenScreen {
 	public void updateCondition(GardenConditions condition) {
 		setConditionText(condition.getSun(), condition.getSoil(), condition.getMoisture());
 		updateLepAndBudget(0, condition.getBudget());
+		
 	}
 	
 	/**
@@ -112,9 +122,29 @@ public class GardenScreen {
 	 */
 	public void createText() {
 		leps = new Text();
+		leps.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		leps.setFill(Color.GREEN);
+		leps.setStrokeWidth(0.2);
+		leps.setStroke(Color.BLUE);
+		
 		budget = new Text();
+		budget.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		budget.setFill(Color.BLUE);
+		
 		sortedPlants = new Text("Sorted Plants");
+		sortedPlants.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 12));
+		sortedPlants.setFill(Color.BLUE);
+		
+		
 		conditionsDisplay = new Text();
+		conditionsDisplay.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		conditionsDisplay.setFill(Color.PURPLE);
+		
+		
+		gardenName = new Text();
+		gardenName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		gardenName.setFill(Color.PURPLE);
+		
 	}
 	
 	/**
@@ -155,6 +185,38 @@ public class GardenScreen {
 	 * @param moist String moisture condition
 	 */
 	public void setConditionText(String sun, String soil, String moist) {
+		
+		if(sun == "partial") {
+			sun = "Sun Condition: Partial Sun";
+		}
+		else if(sun == "full") {
+			sun = "Sun Condition: Full Sun";
+		}
+		else {
+			sun = "Sun Condition: Shade";
+		}
+		
+		if(soil == "clay") {
+			soil = "Soil Condition: Clay";
+		}
+		else if(soil == "loam") {
+			soil = "Soil Condition: Loam";
+		}
+		else {
+			soil = "Soil Condition: Sand";
+		}
+		
+		if(moist == "dry") {
+			moist = "Moisture Condition: Dry";
+		}
+		else if(moist == "wet") {
+			moist = "Moisture Condition: Wet";
+		}
+		else {
+			moist = "Moisture Condition: Medium";
+		}
+		
+		
 		conditionsDisplay.setText(sun + " | " + moist  + " | " + soil);
 	}
 	
@@ -164,10 +226,7 @@ public class GardenScreen {
 	 * 
 	 * @param plantsMaster ArrayList-Plant- used to create plantImageList
 	 */
-	public void createPlantImageList(ArrayList<Plant> plantsMaster) {
-//		plantImageList.put(one, milkweed);
-//    	plantImageList.put(two, planttwo);
-//    	plantImageList.put(three, plantthree);
+	public void createPlantImageList(ArrayList<Plant> plantsMaster) {;
 		for(Plant plant : plantsMaster) {
 			plant.setScientificName(plant.getScientificName().strip());
 			
@@ -199,7 +258,7 @@ public class GardenScreen {
 		}
 		
 		else {
-			budget.setFill(Color.BLACK);
+			budget.setFill(Color.BLUE);
 		}
 		budget.setText("Budget: $" + newBudget);	
 	}
@@ -260,7 +319,21 @@ public class GardenScreen {
 	 * @param moisture String current moisture condition
 	 * @param budgetNeeded int budget needed
 	 */
-	public void createScreen(String sun, String soil, String moisture, int budgetNeeded) {
+	public void createScreen(String sun, String soil, String moisture, int budgetNeeded, String name) {
+		
+		HBox infoTileBox = new HBox(20);
+		HBox spacerOne = new HBox();
+		Text spacerTextOne = new Text("");
+		spacerOne.getChildren().add(spacerTextOne);
+		HBox spacerTwo = new HBox();
+		Text spacerTextTwo = new Text("");
+		spacerOne.getChildren().add(spacerTextTwo);
+		
+		VBox infoFinalBox = new VBox(10);
+		infoFinalBox.getChildren().addAll(spacerOne, infoTileBox, spacerTwo);
+		
+		
+		
 		gardenBorder.setStyle("-fx-background-color: white;");
 		gardenPane.setPadding(new Insets(10, 10, 10, 10));;
 		gardenPane.setBackground(new Background(backgroundimage));
@@ -275,25 +348,23 @@ public class GardenScreen {
 		gardenBorder.setLeft(plantScroll);
 		
 		
-		infoTile.setPadding(new Insets(10, 10, 10, 10));
+		//infoTile.setPadding(new Insets(10, 10, 10, 10));
 		infoTile.setStyle("-fx-background-color: pink;");	
 
+		gardenName.setText(name);
 		leps.setText("Leps Supported: " + 0);
-		infoTile.getChildren().add(leps);
-		
 		budget.setText("Budget: $" + budgetNeeded);
-		infoTile.getChildren().add(budget);
-		
+
 		//Adding Conditions Text
 		setConditionText(sun, soil, moisture);
-		infoTile.getChildren().add(conditionsDisplay);
-		
+	
 		//Adding the options button to the top tile pane
 		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
-		infoTile.getChildren().add(optionsButton);
-		infoTile.getChildren().add(inventory);
-		infoTile.getChildren().add(finish);
-		infoTile.getChildren().add(lepsSupported);
+		infoTileBox.getChildren().addAll(gardenName, leps, budget, conditionsDisplay, optionsButton, inventory, lepsSupported, finish);
+		infoTileBox.setAlignment(Pos.CENTER);
+		infoFinalBox.setAlignment(Pos.CENTER);
+		infoTile.getChildren().add(infoFinalBox);
+		infoTile.setAlignment(Pos.CENTER);
 		
 		gardenBorder.setTop(infoTile);
 	}

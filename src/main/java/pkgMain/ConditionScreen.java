@@ -54,7 +54,7 @@ public class ConditionScreen {
 	private Image xImage = new Image(getClass().getResourceAsStream("/img/x.png"));
 	private ImageView xIv;
 	
-	private Image background = new Image(getClass().getResourceAsStream("/img/conditions.jpg"));
+	private Image background = new Image(getClass().getResourceAsStream("/img/conditions2.png"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
             BackgroundRepeat.NO_REPEAT, 
             BackgroundRepeat.NO_REPEAT, 
@@ -65,10 +65,12 @@ public class ConditionScreen {
 	TextField budget, gardenName, width, length;
 	Button previous, next;
 	Slider sunSlider, moistSlider, soilSlider;
-	private HBox input, sunBox, moistBox, soilBox;
+	private HBox input, sunBox, moistBox, soilBox, buttonBox;
 	
 	private BorderPane border;
 	private FlowPane flow;
+	
+	
 	
 	
 	/**
@@ -134,6 +136,7 @@ public class ConditionScreen {
 		flow.getChildren().add(moistBox);
 		flow.getChildren().add(setSoilIv);
 		flow.getChildren().add(soilBox);
+		flow.getChildren().add(buttonBox);
 		
 		border.setTop(input);
 		input.setAlignment(Pos.TOP_CENTER);
@@ -141,6 +144,7 @@ public class ConditionScreen {
 		BorderPane.setAlignment(flow, Pos.CENTER);
 		flow.setAlignment(Pos.CENTER);
 		flow.setVgap(60);
+		buttonBox.setAlignment(Pos.CENTER);
 	}
 	
 	
@@ -228,7 +232,7 @@ public class ConditionScreen {
 		});
 
 		soilBox = setSliderHbox(soilSlider);
-		soilBox.getChildren().addAll(next, previous);
+		//soilBox.getChildren().addAll(next, previous);
 	}
 	
 	
@@ -305,6 +309,9 @@ public class ConditionScreen {
 		width.setPromptText("Enter width here(feet)");
 		width.setMaxHeight(PROMPTEXTLABEL_SIZE);
 		input.getChildren().addAll(dimensionIv, length, xIv, width);
+		buttonBox = new HBox(35);
+		buttonBox.getChildren().addAll(next,previous);
+		
 		
 		//
 	}
