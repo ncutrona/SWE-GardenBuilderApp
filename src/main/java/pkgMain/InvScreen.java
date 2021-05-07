@@ -100,7 +100,7 @@ public class InvScreen {
 		scroll = new ScrollPane();
 		scroll.setPannable(true);
 	}
-	
+	 
 	/**
 	 * Creates all the text labels and sets up font formatting for InvScreen.
 	 */
