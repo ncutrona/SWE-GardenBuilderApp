@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
@@ -34,9 +35,24 @@ import javafx.util.StringConverter;
  */
 public class ConditionScreen {
 
-	final double TEXTFIELD_SIZE = 30;
-	final double LABEL_SIZE = 35;
-	final double PROMPTEXTLABEL_SIZE = 50; 
+	final double TEXTFIELD_SIZE = 60;
+	final double LABEL_SIZE = 60;
+	final double PROMPTEXTLABEL_SIZE = 60; 
+	
+	private Image setSun = new Image(getClass().getResourceAsStream("/img/sunConditionImage.png"));
+	private ImageView setSunIv;
+	private Image setMoisture = new Image(getClass().getResourceAsStream("/img/moistureConditionImage.png"));
+	private ImageView setMoistureIv;
+	private Image setSoil = new Image(getClass().getResourceAsStream("/img/soilConditionImage.png"));
+	private ImageView setSoilIv;
+	private Image budgetImage = new Image(getClass().getResourceAsStream("/img/budgetCondition.png"));
+	private ImageView budgetIv;
+	private Image gardenNameImage = new Image(getClass().getResourceAsStream("/img/gardenNameCondition.png"));
+	private ImageView gardenNameIv;
+	private Image dimensionImage = new Image(getClass().getResourceAsStream("/img/dimension.png"));
+	private ImageView dimensionIv;
+	private Image xImage = new Image(getClass().getResourceAsStream("/img/x.png"));
+	private ImageView xIv;
 	
 	private Image background = new Image(getClass().getResourceAsStream("/img/conditions.jpg"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
@@ -48,7 +64,6 @@ public class ConditionScreen {
 	Label budgetLabel, gardenLabel, dimensionLabel;
 	TextField budget, gardenName, width, length;
 	Button previous, next;
-	private Text sun, moisture, soil;
 	Slider sunSlider, moistSlider, soilSlider;
 	private HBox input, sunBox, moistBox, soilBox;
 	
@@ -61,7 +76,7 @@ public class ConditionScreen {
 	 * Sets up sliders, text, input and screen.
 	 */
 	public ConditionScreen() {
-		setText();
+		setImageViews();
 		setButtons();
 		setSunSlider();
 		setMoistSlider();
@@ -85,13 +100,22 @@ public class ConditionScreen {
 	/**
 	 * Sets the text for the condition sliders.
 	 */
-	public void setText() {
-		sun = new Text("Set Garden Sun Conditions:");
-		sun.setFont(new Font(LABEL_SIZE));
-		moisture = new Text("Set Garden Moisture Conditions:");
-		moisture.setFont(new Font(LABEL_SIZE));
-		soil = new Text("Set Garden Soil Conditions:");
-		soil.setFont(new Font(LABEL_SIZE));
+	public void setImageViews() {
+		
+		setSunIv = new ImageView();
+		setSunIv.setImage(setSun);
+		setMoistureIv = new ImageView();
+		setMoistureIv.setImage(setMoisture);
+		setSoilIv = new ImageView();
+		setSoilIv.setImage(setSoil);
+		budgetIv = new ImageView();
+		budgetIv.setImage(budgetImage);
+		gardenNameIv = new ImageView();
+		gardenNameIv.setImage(gardenNameImage);
+		dimensionIv = new ImageView();
+		dimensionIv.setImage(dimensionImage);
+		xIv = new ImageView();
+		xIv.setImage(xImage);
 	}
 	
 	
@@ -104,11 +128,11 @@ public class ConditionScreen {
 		flow = new FlowPane(Orientation.VERTICAL);
 		flow.setBackground(new Background(backgroundimage));
 		
-		flow.getChildren().add(sun);
+		flow.getChildren().add(setSunIv);
 		flow.getChildren().add(sunBox);
-		flow.getChildren().add(moisture);
+		flow.getChildren().add(setMoistureIv);
 		flow.getChildren().add(moistBox);
-		flow.getChildren().add(soil);
+		flow.getChildren().add(setSoilIv);
 		flow.getChildren().add(soilBox);
 		
 		border.setTop(input);
@@ -116,7 +140,7 @@ public class ConditionScreen {
 		border.setCenter(flow);
 		BorderPane.setAlignment(flow, Pos.CENTER);
 		flow.setAlignment(Pos.CENTER);
-		flow.setVgap(20);
+		flow.setVgap(60);
 	}
 	
 	
@@ -151,16 +175,16 @@ public class ConditionScreen {
 				if (n < 1.5) {
 					return "Shade";
 				}else if (n > 2.5) {
-					return "Full";
+					return "Full Sun";
 				}
-				return "Partial";
+				return "Partial Sun";
 			}
 			@Override
 			public Double fromString(String s) {
 				switch (s) {
 				case "Shade":
 					return 1d;
-				case "Full":
+				case "Full Sun":
 					return 3d;	
 				default:
 					return 2d;
@@ -225,7 +249,7 @@ public class ConditionScreen {
 				}
 
 				else {
-					return "Moist";
+					return "Medium";
 				}
 			}
 
@@ -269,14 +293,9 @@ public class ConditionScreen {
 		input =  new HBox(20);
 		input.setPadding(new Insets(5, 5, 5, 5));
 		input.setStyle("-fx-background-color: pink;");
-		input.getChildren().addAll(budgetLabel, budget, gardenLabel, gardenName);
+		input.getChildren().addAll(budgetIv, budget, gardenNameIv, gardenName);
 		
 		
-		dimensionLabel = new Label("Enter Dimension:" );
-		dimensionLabel.setFont(new Font(LABEL_SIZE));
-		//Text feet = new Text("X");
-		Label feet = new Label("X");
-		feet.setFont(new Font(LABEL_SIZE));
 		length = new TextField();
 		length.setPrefHeight(TEXTFIELD_SIZE);
 		width = new TextField();
@@ -285,7 +304,7 @@ public class ConditionScreen {
 		length.setMaxHeight(PROMPTEXTLABEL_SIZE);
 		width.setPromptText("Enter width here(feet)");
 		width.setMaxHeight(PROMPTEXTLABEL_SIZE);
-		input.getChildren().addAll(dimensionLabel, length, feet, width);
+		input.getChildren().addAll(dimensionIv, length, xIv, width);
 		
 		//
 	}

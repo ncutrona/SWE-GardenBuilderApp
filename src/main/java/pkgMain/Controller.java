@@ -654,8 +654,8 @@ public class Controller extends Application{
 			public void handle(ActionEvent event) {
 				if(conditionScreenHelper()) {
 					String [] soilList = {"sand", "loam", "clay"};
-					String [] sunList = {"shade","partial","full"};
-					String [] moistList = {"dry", "moist", "wet"};
+					String [] sunList = {"shade","partial sun","full sun"};
+					String [] moistList = {"dry", "medium", "wet"};
 					
 					int [] sliderValues = view.returnConditionSliderValue();
 					

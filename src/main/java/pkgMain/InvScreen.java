@@ -126,11 +126,11 @@ public class InvScreen {
 		filterBySoil = new ComboBox(FXCollections.observableArrayList(filterSoil));
 		filterBySoil.setPromptText("Refine soil conditions:");
 		
-		String filterSun[] = {"Refine sun conditions:", "Full", "Partial", "Shade"};
+		String filterSun[] = {"Refine sun conditions:", "Full Sun", "Partial Sun", "Shade"};
 		filterBySun = new ComboBox(FXCollections.observableArrayList(filterSun));
 		filterBySun.setPromptText("Refine sun conditions:");
 		
-		String filterMoisture[] = {"Refine moisture conditions:", "Wet", "Moist", "Dry"};
+		String filterMoisture[] = {"Refine moisture conditions:", "Wet", "Medium", "Dry"};
 		filterByMoisture = new ComboBox(FXCollections.observableArrayList(filterMoisture));
 		filterByMoisture.setPromptText("Refine moisture conditions:");
 		
@@ -246,23 +246,23 @@ public class InvScreen {
 	}
 	
 	public String returnMoistureCondition(String moistureCond) {
-		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
-			moistureCond = "Wet, moist, dry";
+		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("medium") && moistureCond.toLowerCase().contains("dry")) {
+			moistureCond = "Wet, medium, dry";
 		}
-		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist")) {
-			moistureCond = "Wet, moist";
+		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("medium")) {
+			moistureCond = "Wet, medium";
 		}
 		else if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "Wet, dry";
 		}
-		else if(moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
-			moistureCond = "Moist, dry";
+		else if(moistureCond.toLowerCase().contains("medium") && moistureCond.toLowerCase().contains("dry")) {
+			moistureCond = "medium, dry";
 		}
 		else if(moistureCond.toLowerCase().contains("wet")) {
 			moistureCond = "Wet";
 		}
-		else if(moistureCond.toLowerCase().contains("moist")) {
-			moistureCond = "Moist";
+		else if(moistureCond.toLowerCase().contains("medium")) {
+			moistureCond = "medium";
 		}
 		else {
 			moistureCond = "Dry";
