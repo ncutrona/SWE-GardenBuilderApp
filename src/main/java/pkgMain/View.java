@@ -266,9 +266,9 @@ public class View{
 			String nodeId = db.getString();
 			ImageView plant = new ImageView();
 			plant.setImage(gardenScreen.plantImageList.get(nodeId));
-			double[] dimensions = convertToSize(length, width, plantList.get(nodeId).getHeight(), plantList.get(nodeId).getWidth());
-			plant.setFitHeight(dimensions[0]);
-			plant.setFitWidth(dimensions[1]);
+			double dimension = convertToSize(width, plantList.get(nodeId).getWidth());
+			plant.setFitHeight(dimension);
+			plant.setFitWidth(dimension);
 			plant.setId(nodeId);
 			
 			if(plant != null) {
@@ -297,16 +297,13 @@ public class View{
 	 * @param plantWidth int width of plant
 	 * @return double[] new dimensions of plant
 	 */
-	public double[] convertToSize(int gardenLength, int gardenWidth, int plantLength, int plantWidth) {
-		double [] dimension = new double[2];
+	public double convertToSize(int gardenWidth, int plantWidth) {
+		double dimension;
 		double min = 45; //hardcode screenSize/500
 		
-		dimension[0] = plantLength*(HEIGHT / gardenLength);
-		dimension[1] = plantWidth*(WIDTH / gardenWidth);
+		dimension = plantWidth*(WIDTH / gardenWidth);
 		
-		dimension[0] = Math.max(dimension[0], min);
-		dimension[1] = Math.max(dimension[1], min);
-		
+		dimension = Math.max(dimension, min);
 		return dimension;
 	}
 
@@ -324,9 +321,9 @@ public class View{
 			for(Coordinates c: plants.get(plantName)) {
 				Image plantImage = gardenScreen.plantImageList.get(plantName);
 				ImageView plantView = new ImageView(plantImage);
-				double[] dimension = convertToSize(length, width, p.getHeight(), p.getWidth());
-				plantView.setFitWidth(dimension[1]);
-				plantView.setFitHeight(dimension[0]);
+				double dimension = convertToSize(width,p.getWidth());
+				plantView.setFitWidth(dimension);
+				plantView.setFitHeight(dimension);
 				plantView.setId(plantName);
 				plantView.setX(c.getX());
 				plantView.setY(c.getY());
@@ -369,7 +366,6 @@ public class View{
 		String removedPlantName = removePlant.getId();
 		Plant removedPlant = plantList.get(removedPlantName);
 		return removedPlant;
-	
 	}
 	
 	/**
