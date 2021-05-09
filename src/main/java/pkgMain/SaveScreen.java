@@ -6,16 +6,19 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -88,14 +91,21 @@ public class SaveScreen {
 		
 		ObjectInputStream ois = new ObjectInputStream(fis);
 		HashMap <String, SaveGarden> gardens = (HashMap<String, SaveGarden>) ois.readObject();
+		boolean one = true;
 
 		for(SaveGarden garden : gardens.values()) {
 			savedGarden.put(garden.getName(), garden);
 			Text gardenText = new Text(setText(garden));
 			Button button = new Button("Load " + garden.getName());
 			HBox box =  new HBox(button, gardenText);
-			gardenText.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 20));
+			box.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
+			if(one) {
+				box.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+			}
+			gardenText.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 20));
 			fillBox.getChildren().add(box);
+			
+			one = !one;
 		}
 		fis.close();
 		ois.close();
@@ -106,12 +116,17 @@ public class SaveScreen {
 	 * Sets up ScrollPane, BorderPane.
 	 */
 	public void createScreen() {
+		
+		
+		
 		scroll.setContent(fillBox);
 		//NEED TO FIGURE THIS OUT.
-		scroll.setStyle("-fx-background: Transparent;");
+		scroll.setStyle("-fx-background: #b5dfff");
+		//scroll.setBackground(new Background(backgroundimage));
 		border.setCenter(scroll);
 		border.setTop(prevButton);
-		border.setBackground(new Background(backgroundimage));
+		border.setStyle("-fx-background: #5cb1f2");
+		//border.setBackground(new Background(backgroundimage));
 		fillBox.setAlignment(Pos.CENTER);
 	}
 	
@@ -122,8 +137,9 @@ public class SaveScreen {
 	 * @return text to display
 	 */
 	public String setText(SaveGarden garden) {
-		String text = "Garden Name: " + garden.getName() + " Budget: " + garden.getBudget() + " Lep Supported: " + garden.getNumLepSupported();
-		text = text + "\nSun Condition: " + garden.getSunCondition() + " Soil Condition: " + garden.getSoilCondition() + " Moisture Condition: " + garden.getMoistCondition();
+		String text = "\tGarden Name: " + garden.getName() + "\t\tBudget: " + garden.getBudget() + "\t\tLep Supported: " + garden.getNumLepSupported();
+		text = text + "\n\tSun Condition: " + garden.getSunCondition() + "\t\tSoil Condition: " + garden.getSoilCondition() + "\t\tMoisture Condition: " + garden.getMoistCondition();
+		text = text + "\n\tLength: " + garden.getLength() + "\t\tWidth: " + garden.getWidth();
 		return text;
 	}
 }

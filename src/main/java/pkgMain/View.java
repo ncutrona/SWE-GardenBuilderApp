@@ -291,11 +291,9 @@ public class View{
 	/**
 	 * Scales size of plant based on garden size and plant size.
 	 * 
-	 * @param gardenLength int length of garden
 	 * @param gardenWidth int width of garden
-	 * @param plantLength int length of plant
 	 * @param plantWidth int width of plant
-	 * @return double[] new dimensions of plant
+	 * @return double new dimension of plant
 	 */
 	public double convertToSize(int gardenWidth, int plantWidth) {
 		double dimension;
