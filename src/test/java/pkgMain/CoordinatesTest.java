@@ -7,6 +7,7 @@ import org.junit.Test;
 public class CoordinatesTest {
 
 	Coordinates tester = new Coordinates(1, 2);
+	Coordinates tester2 = new Coordinates();
 	
 	@Test
 	public void testGetX() {
