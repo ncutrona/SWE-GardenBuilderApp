@@ -26,6 +26,13 @@ public class PlantTest {
 	ArrayList<Plant> testListLCP = new ArrayList<Plant>();
 	GardenConditions testCond = new GardenConditions(500, "full", "dry", "loam");
 	PlantCompare testPC = new PlantCompare();
+	ArrayList<Plant> testConditionSorting = new ArrayList<Plant>();
+	Plant p1 = new Plant(500, 20, "P1", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant p2 = new Plant(500, 30, "P2", "loam", "medium", "dry", 50, 50, 5, 0, 0);
+	Plant p3 = new Plant(500, 30, "P3", "sand", "shade", "moist", 50, 50, 5, 0, 0);
+	Plant p4 = new Plant(500, 30, "P4", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	Plant p5 = new Plant(500, 30, "P5", "clay", "full", "wet", 50, 50, 5, 0, 0);
+	
 	
 	@Test
 	public void testtoString() {
@@ -186,6 +193,62 @@ public class PlantTest {
 		boolean val2 = testPC.compare(tester4, tester6) > 0;
 		assertEquals(true, val1);
 		assertEquals(true, val2);
+	}
+	
+	@Test
+	public void testGetSoilSortedPlants() {
+		testConditionSorting.add(p1);
+		testConditionSorting.add(p2);
+		testConditionSorting.add(p3);
+		testConditionSorting.add(p4);
+		testConditionSorting.add(p5);
+		assertEquals(p1, Plant.getSoilSortedPlants(testConditionSorting, "clay").get(p1.getScientificName()));
+		assertEquals(p2, Plant.getSoilSortedPlants(testConditionSorting, "loam").get(p2.getScientificName()));
+		assertEquals(p3, Plant.getSoilSortedPlants(testConditionSorting, "sand").get(p3.getScientificName()));
+		assertEquals(p4, Plant.getSoilSortedPlants(testConditionSorting, "clay").get(p4.getScientificName()));
+		assertEquals(p5, Plant.getSoilSortedPlants(testConditionSorting, "clay").get(p5.getScientificName()));
+	}
+	
+	@Test
+	public void testGetSunSortedPlants() {
+		testConditionSorting.add(p1);
+		testConditionSorting.add(p2);
+		testConditionSorting.add(p3);
+		testConditionSorting.add(p4);
+		testConditionSorting.add(p5);
+		assertEquals(p1, Plant.getSunSortedPlants(testConditionSorting, "full").get(p1.getScientificName()));
+		assertEquals(p2, Plant.getSunSortedPlants(testConditionSorting, "medium").get(p2.getScientificName()));
+		assertEquals(p3, Plant.getSunSortedPlants(testConditionSorting, "shade").get(p3.getScientificName()));
+		assertEquals(p4, Plant.getSunSortedPlants(testConditionSorting, "full").get(p4.getScientificName()));
+		assertEquals(p5, Plant.getSunSortedPlants(testConditionSorting, "full").get(p5.getScientificName()));
+	}
+	
+	@Test
+	public void testGetMoistureSortedPlants() {
+		testConditionSorting.add(p1);
+		testConditionSorting.add(p2);
+		testConditionSorting.add(p3);
+		testConditionSorting.add(p4);
+		testConditionSorting.add(p5);
+		assertEquals(p1, Plant.getMoistureSortedPlants(testConditionSorting, "wet").get(p1.getScientificName()));
+		assertEquals(p2, Plant.getMoistureSortedPlants(testConditionSorting, "dry").get(p2.getScientificName()));
+		assertEquals(p3, Plant.getMoistureSortedPlants(testConditionSorting, "moist").get(p3.getScientificName()));
+		assertEquals(p4, Plant.getMoistureSortedPlants(testConditionSorting, "wet").get(p4.getScientificName()));
+		assertEquals(p5, Plant.getMoistureSortedPlants(testConditionSorting, "wet").get(p5.getScientificName()));
+	}
+	
+	@Test
+	public void testSortInvByConditions() {
+		testConditionSorting.add(p1);
+		testConditionSorting.add(p2);
+		testConditionSorting.add(p3);
+		testConditionSorting.add(p4);
+		testConditionSorting.add(p5);
+		assertEquals(p1, Plant.sortInvByConditions(testConditionSorting, "clay", "full", "wet").get(p1.getScientificName()));
+		assertEquals(p4, Plant.sortInvByConditions(testConditionSorting, "clay", "full", "wet").get(p4.getScientificName()));
+		assertEquals(p5, Plant.sortInvByConditions(testConditionSorting, "clay", "full", "wet").get(p5.getScientificName()));
+		assertEquals(p2, Plant.sortInvByConditions(testConditionSorting, "loam", "medium", "dry").get(p2.getScientificName()));
+		assertEquals(p3, Plant.sortInvByConditions(testConditionSorting, "sand", "shade", "moist").get(p3.getScientificName()));
 	}
 
 }
