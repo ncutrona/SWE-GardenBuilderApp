@@ -54,7 +54,6 @@ public class LepMotivationScreen {
 	VBox infoOne, infoTwo, infoThree;
 	HBox data;
 	VBox buttonData;
-	HBox lepBox;
 	Hyperlink mtCubaLink;
 	
 	
@@ -110,7 +109,7 @@ public class LepMotivationScreen {
 		why.setStroke(Color.PINK);
 		
 		
-		Text infoWhy = new Text("- In most land environments the lepidopterans are\n  ecologically important because they transform large\n  amounts of plant matter into animal matter and\n  in turn serve as food for many other\n  groups of animals.");
+		Text infoWhy = new Text("- In most land environments the lepidopterans are\n  ecologically important because they transform large\n  amounts of plant matter into animal matter.\n\n\n - Leps in turn serve as food for many other\n  groups of animals.");
 		infoWhy.setFill(Color.BEIGE);
 		infoWhy.setFont(Font.font ("Verdana", FontWeight.BOLD, 17));
 		infoWhy.setStrokeWidth(0.75);
@@ -125,7 +124,7 @@ public class LepMotivationScreen {
 		how.setFill(Color.WHITE);
 		how.setStroke(Color.PINK);
 		
-		Text infoHow = new Text(" - Adopt a more tolerant approach to debris and spent plant\n  material in the garden in order to support lepidoptera.\n  The likelihood of seeing certain species of lepidoptera\n  can be limited due to stringent habitat\n  requirements or ranged.");
+		Text infoHow = new Text(" - Adopt a more tolerant approach to debris and spent plant\n  material in the garden in order to support lepidoptera.\n\n\n  - The likelihood of seeing certain species of lepidoptera\n  can be limited due to stringent habitat\n  requirements or ranged.");
 		infoHow.setFill(Color.BEIGE);
 		infoHow.setFont(Font.font ("Verdana", FontWeight.BOLD, 17));
 		infoHow.setStrokeWidth(0.75);
@@ -148,26 +147,9 @@ public class LepMotivationScreen {
 		Font courierNewFontBold36 = Font.font("Courier New", FontWeight.BOLD, 36);
 		mtCubaLink.setFont(courierNewFontBold36);
 		
-		mtCubaLink.setOnAction(e -> {
-		    if(Desktop.isDesktopSupported())
-		    {
-		        try {
-		            Desktop.getDesktop().browse(new URI("https://mtcubacenter.org"));
-		        } catch (IOException e1) {
-		            e1.printStackTrace();
-		        } catch (URISyntaxException e1) {
-		            e1.printStackTrace();
-		        }
-		    }
-		});
-		
-		
-		buttonData.getChildren().addAll(data, mtCubaLink, back);
+		buttonData.getChildren().addAll(data, mtCubaLink, back, lepIv);
 		buttonData.setAlignment(Pos.TOP_CENTER);
-		
-		lepBox = new HBox();
-		lepBox.getChildren().add(lepIv);
-		lepBox.setAlignment(Pos.CENTER);
+	
 		
 		
 		
@@ -180,7 +162,6 @@ public class LepMotivationScreen {
 		border = new BorderPane();
 		border.setTop(top);
 		border.setCenter(buttonData);
-		border.setBottom(lepBox);
 		border.setStyle("-fx-background-color: #93e1e6;");
 	
 	}
