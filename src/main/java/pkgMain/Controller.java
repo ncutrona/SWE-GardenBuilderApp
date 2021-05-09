@@ -594,7 +594,7 @@ public class Controller extends Application{
 	 */
 	public ContextMenu getDeleteMenu(ImageView plant, Plant plantObject) {
 		ContextMenu contextMenu = new ContextMenu();
-		MenuItem deletePlant = new MenuItem("Delete plant");
+		MenuItem deletePlant = new MenuItem("Compost plant");
         deletePlant.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
