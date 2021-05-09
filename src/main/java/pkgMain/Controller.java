@@ -652,7 +652,7 @@ public class Controller extends Application{
     			
 			}
     	});
-		view.lepSupportedScreen.goBack.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
+		
 		view.lepScreen.mtCubaLink.setOnAction(e -> {
 		    if(Desktop.isDesktopSupported())
 		    {
