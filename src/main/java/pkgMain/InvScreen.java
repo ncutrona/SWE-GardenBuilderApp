@@ -1,5 +1,6 @@
 package pkgMain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,7 +46,7 @@ public class InvScreen {
 	BorderPane invBorder;
 	TilePane invTile;
 	TilePane invTileControls;
-	
+
 	VBox root;
 	Button prevButtonInv, filterButton;
 	Image milkweed = new Image(getClass().getResourceAsStream("/img/commonMilkweed.png"));
@@ -53,7 +54,7 @@ public class InvScreen {
 	ScrollPane scroll;
 	Text imageLabel, plantNameLabel, lepsLabel, soilConditionsLabel, sunConditionsLabel, dimensionsLabel;
 	ComboBox filterByLepsAlphabet, filterBySoil, filterBySun, filterByMoisture;
-	
+
 	/**
 	 * Creates InvScreen object.
 	 * Creates buttons, panes, textLabels.
@@ -63,7 +64,7 @@ public class InvScreen {
 		createPanes();
 		createTextLabels();
 	}
-	
+
 	/**
 	 * Returns the screen's ScrollPane
 	 * @return ScrollPane for InvScreen
@@ -71,7 +72,7 @@ public class InvScreen {
 	public ScrollPane getScreen() {
 		return scroll;
 	}
-	
+
 	/**
 	 * Creates go back button for Inventory
 	 */
@@ -89,7 +90,7 @@ public class InvScreen {
 				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
 				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 	}
-	
+
 	/**
 	 * Creates the gridpane and scrollpane for InvScreen.
 	 */
@@ -100,7 +101,7 @@ public class InvScreen {
 		scroll = new ScrollPane();
 		scroll.setPannable(true);
 	}
-	 
+
 	/**
 	 * Creates all the text labels and sets up font formatting for InvScreen.
 	 */
@@ -117,25 +118,25 @@ public class InvScreen {
 		sunConditionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
 		dimensionsLabel = new Text("Dimensions (ft):");
 		dimensionsLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 12));
-		
+
 		String filterLepsAlphabet[] = {"Filter by:", "A to Z", "Leps supported"};
 		filterByLepsAlphabet = new ComboBox(FXCollections.observableArrayList(filterLepsAlphabet));
 		filterByLepsAlphabet.setPromptText("Filter by:");
-		
+
 		String filterSoil[] = {"Refine soil conditions:", "Clay", "Loam", "Sand"};
 		filterBySoil = new ComboBox(FXCollections.observableArrayList(filterSoil));
 		filterBySoil.setPromptText("Refine soil conditions:");
-		
+
 		String filterSun[] = {"Refine sun conditions:", "Full Sun", "Partial Sun", "Shade"};
 		filterBySun = new ComboBox(FXCollections.observableArrayList(filterSun));
 		filterBySun.setPromptText("Refine sun conditions:");
-		
+
 		String filterMoisture[] = {"Refine moisture conditions:", "Wet", "Medium", "Dry"};
 		filterByMoisture = new ComboBox(FXCollections.observableArrayList(filterMoisture));
 		filterByMoisture.setPromptText("Refine moisture conditions:");
-		
+
 	}
-	
+
 
 	/**
 	 * Sets up the InvScreen.
@@ -146,29 +147,29 @@ public class InvScreen {
 	 * @param imageData HashMap-String, Image- images for plants
 	 */
 	public void createScreen(Map<String, Plant> plantData, HashMap<String, Image> imageData) {
-        
+
 		invTile.setStyle("-fx-background-color: pink;");
 		invTileControls.setStyle("-fx-background-color: pink;");
 		invBorder.setStyle("-fx-background-color: pink;");
 		scroll.setStyle("-fx-background-color: pink;");
 
-        invTileControls.getChildren().addAll(prevButtonInv, filterByLepsAlphabet, filterBySoil, filterBySun, filterByMoisture, filterButton);
-        
+		invTileControls.getChildren().addAll(prevButtonInv, filterByLepsAlphabet, filterBySoil, filterBySun, filterByMoisture, filterButton);
+
 		for (Map.Entry mapElement : plantData.entrySet()) {
 			VBox plantVB = new VBox();
 			String key = (String)mapElement.getKey();
-			
+
 			Image plantImage = imageData.get(key);
 			ImageView plantImageIv = new ImageView(plantImage);
 			plantImageIv.setPreserveRatio(true);
 			plantImageIv.setFitHeight(100);
-			
+
 			Plant plant = plantData.get(key);
 			String lepsSupp = String.valueOf(plant.getLepsSupported());
-			
+
 			String soilCond = plant.getSoil();
 			soilCond = returnSoilCondition(soilCond);
-			
+
 			String sunCond = plant.getSun();
 			String moistureCond = plant.getMoisture();
 			sunCond = returnSunCondition(sunCond);
@@ -182,19 +183,19 @@ public class InvScreen {
 			String width = String.valueOf(plant.getWidth()) + " ft";
 			String heightWidth = height + " x " + width;
 			Text dimensions = new Text(heightWidth);
-	        plantVB.setSpacing(5);
-	        plantVB.setPadding(new Insets(10));
+			plantVB.setSpacing(5);
+			plantVB.setPadding(new Insets(10));
 			plantVB.getChildren().addAll(plantImageIv, plantName, leps, soilConditions, sunConditions, moistureConditions, dimensions);
 			invTile.getChildren().add(plantVB);
 		}
 		invBorder.setCenter(invTile);
 		invBorder.setTop(invTileControls);
-        scroll.setFitToHeight(true);
-        scroll.setFitToWidth(true);
+		scroll.setFitToHeight(true);
+		scroll.setFitToWidth(true);
 		scroll.setContent(invBorder);
-		
+
 	}
-	
+
 	public String returnSoilCondition(String soilCond) {
 		if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand") && soilCond.toLowerCase().contains("loam")) {
 			soilCond = "Clay, loam, sand";
@@ -219,7 +220,7 @@ public class InvScreen {
 		}
 		return soilCond;
 	}
-	
+
 	public String returnSunCondition(String sunCond) {
 		if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
 			sunCond = "Full sun, partial sun, shade";
@@ -244,7 +245,7 @@ public class InvScreen {
 		}
 		return sunCond;
 	}
-	
+
 	public String returnMoistureCondition(String moistureCond) {
 		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "Wet, medium, dry";
@@ -269,8 +270,8 @@ public class InvScreen {
 		}
 		return moistureCond;
 	}
-	
-	
+
+
 	/**
 	 * calls createScreen to setup the screen, returns the ScrollPane
 	 * 

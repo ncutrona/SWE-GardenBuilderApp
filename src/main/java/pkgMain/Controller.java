@@ -320,6 +320,7 @@ public class Controller extends Application{
 				
 				event.setDropCompleted(true);
 				event.consume();
+				view.lepSupportedScreen.createLepImageList(model.lepsInGardenArray);
 			}
 		});
     	view.gardenScreen.gardenPane.setOnDragOver(new EventHandler <DragEvent>() {
@@ -640,7 +641,14 @@ public class Controller extends Application{
 	}
 	
 	public void seeLepsSupportedScreenHandler() {
-		view.lepSupportedScreen.goBack.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
+    	view.lepSupportedScreen.goBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+    			view.lepSupportedScreen.lepInfoTile.getChildren().clear();
+    			window.setScene(view.gardenScreenToScene());
+    			
+			}
+    	});
 	}
 	
 	/**

@@ -44,7 +44,6 @@ public class Model {
 	HashMap<String, String> lepsMap = new HashMap<String, String>();
 	ArrayList<String> lepsInGardenArray = new ArrayList<String>();
 
-
 	/**
 	 * Default constructor for Model
 	 */
