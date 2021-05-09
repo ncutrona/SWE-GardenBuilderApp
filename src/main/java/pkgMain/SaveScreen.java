@@ -45,6 +45,8 @@ public class SaveScreen {
 	BorderPane border = new BorderPane();
 	ScrollPane scroll = new ScrollPane();
 	Button prevButton = new Button("Go Back");
+	
+
 	VBox fillBox;
 	
 	HashMap<String, SaveGarden> savedGarden;
@@ -97,12 +99,18 @@ public class SaveScreen {
 			savedGarden.put(garden.getName(), garden);
 			Text gardenText = new Text(setText(garden));
 			Button button = new Button("Load " + garden.getName());
+			button.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+					+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+					+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+					+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+					+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 			HBox box =  new HBox(button, gardenText);
 			box.setMinWidth(Screen.getPrimary().getVisualBounds().getWidth());
 			if(one) {
 				box.setBackground(new Background(new BackgroundFill(Color.LIGHTSKYBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
 			}
 			gardenText.setFont(Font.font("verdana", FontWeight.NORMAL, FontPosture.REGULAR, 20));
+			box.setAlignment(Pos.CENTER);
 			fillBox.getChildren().add(box);
 			
 			one = !one;
@@ -116,8 +124,11 @@ public class SaveScreen {
 	 * Sets up ScrollPane, BorderPane.
 	 */
 	public void createScreen() {
-		
-		
+		prevButton.setStyle("-fx-padding: 15 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #add8e6 0%, #add8e6 100%),"
+				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 		
 		scroll.setContent(fillBox);
 		//NEED TO FIGURE THIS OUT.
@@ -137,9 +148,7 @@ public class SaveScreen {
 	 * @return text to display
 	 */
 	public String setText(SaveGarden garden) {
-		String text = "\tGarden Name: " + garden.getName() + "\t\tBudget: " + garden.getBudget() + "\t\tLep Supported: " + garden.getNumLepSupported();
-		text = text + "\n\tSun Condition: " + garden.getSunCondition() + "\t\tSoil Condition: " + garden.getSoilCondition() + "\t\tMoisture Condition: " + garden.getMoistCondition();
-		text = text + "\n\tLength: " + garden.getLength() + "\t\tWidth: " + garden.getWidth();
+		String text = "\tGarden Name: " + garden.getName() + "\t\tBudget: " + garden.getBudget() + "\t\tSun Condition: " + garden.getSunCondition() + "\t\tSoil Condition: " + garden.getSoilCondition() + "\t\tMoisture Condition: " + garden.getMoistCondition();
 		return text;
 	}
 }
