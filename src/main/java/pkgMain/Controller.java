@@ -1,5 +1,6 @@
 package pkgMain;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -641,6 +644,19 @@ public class Controller extends Application{
 	
 	public void seeLepsSupportedScreenHandler() {
 		view.lepSupportedScreen.goBack.setOnAction(e-> window.setScene(view.gardenScreenToScene()));
+		view.lepScreen.mtCubaLink.setOnAction(e -> {
+		    if(Desktop.isDesktopSupported())
+		    {
+		        try {
+		            Desktop.getDesktop().browse(new URI("https://mtcubacenter.org"));
+		        } catch (IOException e1) {
+		            e1.printStackTrace();
+		        } catch (URISyntaxException e1) {
+		            e1.printStackTrace();
+		        }
+		    }
+		});
+	
 	}
 	
 	/**
