@@ -274,12 +274,14 @@ public class View{
 			if(plant != null) {
 				double x = event.getX()- (plant.getFitWidth()/2);
 				double y = event.getY() - (plant.getFitHeight()/2);
-				plant.setY(y);
-				plant.setX(x);
-				gardenScreen.gardenPane.getChildren().add(plant);
-				xAndY[0] = plant.getX();
-				xAndY[1] = plant.getY();
-				return xAndY;
+				if(isEmptySpace(plantsInGarden, plantList,nodeId, width, event.getX(), event.getY())) {
+					plant.setY(y);
+					plant.setX(x);
+					gardenScreen.gardenPane.getChildren().add(plant);
+					xAndY[0] = plant.getX();
+					xAndY[1] = plant.getY();
+					return xAndY;
+				}
 			}	
 		}
 		xAndY[0]= -1.0;
@@ -287,12 +289,41 @@ public class View{
 		return xAndY;
 	}
 	
-	public boolean isEmptySpace(HashMap<String, ArrayList<Coordinates>> plants, HashMap<String, Plant> plantList, String plant, int x, int y) {
+	public boolean isEmptySpace(HashMap<String, ArrayList<Coordinates>> plants, HashMap<String, Plant> plantList, String plant, int gardenWidth,double x, double y) {
 		Plant draggedPlant = plantList.get(plant);
-		for(String plantNames: plants.keySet()) {
-			//Plant checkingPlant = 
-			for(Coordinates c : plants.get(plantNames)) {
-				
+		double width = convertToSize(gardenWidth, draggedPlant.getWidth())/2.0;
+		for(String plantName: plants.keySet()) {
+			Plant checkingPlant = plantList.get(plantName);
+			double tempWidth = convertToSize(gardenWidth, checkingPlant.getWidth())/2.0;
+			for(Coordinates c : plants.get(plantName)) {
+				double newX = c.getX() + tempWidth;
+				double newY = c.getY() + tempWidth;
+				//if the plant is being dropped on the left side of the plant being checking
+				//if it doesn't goes to continue them it means that it's touching/overlapping
+				if (x <  newX) {
+					//System.out.println("Right is touching left: " + (x + width > newX - tempWidth));
+					if(x + width > newX - tempWidth) {
+						//if the bottom if the plant isn't touching the top of the checkedPlant and vice versa
+						if((y + width < newY - tempWidth) || (y - width > newY + tempWidth)) {
+							continue;
+						}
+					}else {
+						continue;
+					}
+				}else if (x == newX){
+					if((y + width < newY - tempWidth) || (y - width > newY + tempWidth)) {
+						continue;
+					}
+				}else if(x > newX){
+					if(x - width < newX + tempWidth) {
+						if((y + width < newY - tempWidth) || (y - width > newY + tempWidth)) {
+							continue;
+						}
+					}else {
+						continue;
+					}
+				}
+				return false;
 			}
 		}
 		return true;

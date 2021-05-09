@@ -772,7 +772,6 @@ public class Controller extends Application{
 			for (int i = 0; i < 100; i++) {
 				if(model.plantsMaster.get(i).getScientificName().equals(key)) {
 					model.plantWithLepSuppMap.put(model.plantsMaster.get(i).getScientificName(), lep);
-					System.out.println(model.plantsMaster.get(i).getScientificName() + ", " + lep);
 				}
 			}
 		}
@@ -790,7 +789,6 @@ public class Controller extends Application{
 			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
 			if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
 				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
-				System.out.println(model.lepsInGardenArray);
 			}
 		}
 		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
