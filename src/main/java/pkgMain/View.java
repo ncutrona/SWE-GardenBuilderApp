@@ -259,7 +259,7 @@ public class View{
 	 * @param width int width of garden
 	 * @return double[] moved plant location
 	 */
-	public double[] plantDragDropping(DragEvent event, HashMap<String, Plant> plantList, int length, int width) {
+	public double[] plantDragDropping(DragEvent event, HashMap<String, ArrayList<Coordinates>> plantsInGarden, HashMap<String, Plant> plantList, int width) {
 		double [] xAndY = new double[2];
 		Dragboard db = event.getDragboard();
 		if(db.hasString()) {
@@ -272,7 +272,6 @@ public class View{
 			plant.setId(nodeId);
 			
 			if(plant != null) {
-				Plant plantNeeded = plantList.get(nodeId);
 				double x = event.getX()- (plant.getFitWidth()/2);
 				double y = event.getY() - (plant.getFitHeight()/2);
 				plant.setY(y);
@@ -286,6 +285,17 @@ public class View{
 		xAndY[0]= -1.0;
 		xAndY[1] = -1.0;
 		return xAndY;
+	}
+	
+	public boolean isEmptySpace(HashMap<String, ArrayList<Coordinates>> plants, HashMap<String, Plant> plantList, String plant, int x, int y) {
+		Plant draggedPlant = plantList.get(plant);
+		for(String plantNames: plants.keySet()) {
+			//Plant checkingPlant = 
+			for(Coordinates c : plants.get(plantNames)) {
+				
+			}
+		}
+		return true;
 	}
 	
 	/**

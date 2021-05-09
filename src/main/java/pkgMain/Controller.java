@@ -196,7 +196,7 @@ public class Controller extends Application{
 					//starts at 5 because this gets rid of "Load "
 					SaveGarden garden = view.saveScreen.savedGarden.get(b.getText().substring(5));
 					saveScreenLoadModel(garden);
-					view.gardenScreen.updateCondition(model.gardenFinal);
+					view.gardenScreen.updateScreen(model.gardenFinal, model.stateFinal);
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
 					view.loadHexagonToGarden(garden.getHexPoints());
 					view.loadPlantsToGarden(model.plantDataList, model.addedPlants, model.gardenFinal.getLength(), model.gardenFinal.getWidth());
@@ -309,7 +309,8 @@ public class Controller extends Application{
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				double[] coords = view.plantDragDropping(event, getPlantList(), model.gardenFinal.getLength(), model.gardenFinal.getWidth());
+				Plant draggedPlant = getPlantList().get(event.getDragboard().getString());
+				double[] coords = view.plantDragDropping(event, model.addedPlants, getPlantList() , model.gardenFinal.getWidth());
 				if(coords[0] != -1.0 && coords[1] != -1.0) {
 					Plant p = model.plantDataList.get(event.getDragboard().getString());
 					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
@@ -673,7 +674,7 @@ public class Controller extends Application{
 					model.gardenFinal.setMoistureConditions(moistList[sliderValues[0]]);
 					model.gardenFinal.setSunConditions(sunList[sliderValues[1]]);
 					model.gardenFinal.setSoilConditions(soilList[sliderValues[2]]);
-					view.gardenScreen.updateCondition(model.gardenFinal);
+					view.gardenScreen.updateScreen(model.gardenFinal, model.stateFinal);
 					window.setScene(view.pentagonScreenToScene());
 					
 				}

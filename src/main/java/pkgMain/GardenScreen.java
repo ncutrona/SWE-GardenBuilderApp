@@ -68,7 +68,7 @@ public class GardenScreen {
 	Pane gardenPane;
 	BorderPane gardenBorder;
 	ScrollPane plantScroll;
-	Text leps, budget, sortedPlants, conditionsDisplay, gardenName;
+	Text leps, budget, sortedPlants, conditionsDisplay, gardenName, dimension;
 	Button inventory, optionsButton, finish, lepsSupported;
 	HashMap<String, Image> plantImageList = new HashMap<String, Image>();
 	
@@ -100,10 +100,11 @@ public class GardenScreen {
 	 * 
 	 * @param condition GardenConditions to update
 	 */
-	public void updateCondition(GardenConditions condition) {
+	public void updateScreen(GardenConditions condition, GardenState state) {
 		setConditionText(condition.getSun(), condition.getSoil(), condition.getMoisture());
 		updateLepAndBudget(0, condition.getBudget());
-		
+		dimension.setText("Dimension: " + condition.getLength()  + "ft X " + condition.getWidth() + "ft");
+		gardenName.setText(state.getGardenName());
 	}
 	
 	/**
@@ -128,7 +129,7 @@ public class GardenScreen {
 		leps.setStroke(Color.BLUE);
 		
 		budget = new Text();
-		budget.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		budget.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 14));
 		budget.setFill(Color.BLUE);
 		
 		sortedPlants = new Text("Sorted Plants");
@@ -137,13 +138,17 @@ public class GardenScreen {
 		
 		
 		conditionsDisplay = new Text();
-		conditionsDisplay.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		conditionsDisplay.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 14));
 		conditionsDisplay.setFill(Color.PURPLE);
 		
 		
 		gardenName = new Text();
-		gardenName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		gardenName.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 14));
 		gardenName.setFill(Color.PURPLE);
+		
+		dimension = new Text();
+		dimension.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 14));
+		dimension.setFill(Color.BLUEVIOLET);
 		
 	}
 	
@@ -187,33 +192,33 @@ public class GardenScreen {
 	public void setConditionText(String sun, String soil, String moist) {
 		
 		if(sun == "partial") {
-			sun = "Sun Condition: Partial Sun";
+			sun = "Sun: Partial Sun";
 		}
 		else if(sun == "full") {
-			sun = "Sun Condition: Full Sun";
+			sun = "Sun: Full Sun";
 		}
 		else {
-			sun = "Sun Condition: Shade";
+			sun = "Sun: Shade";
 		}
 		
 		if(soil == "clay") {
-			soil = "Soil Condition: Clay";
+			soil = "Soil: Clay";
 		}
 		else if(soil == "loam") {
-			soil = "Soil Condition: Loam";
+			soil = "Soil: Loam";
 		}
 		else {
-			soil = "Soil Condition: Sand";
+			soil = "Soil: Sand";
 		}
 		
 		if(moist == "dry") {
-			moist = "Moisture Condition: Dry";
+			moist = "Moisture: Dry";
 		}
 		else if(moist == "wet") {
-			moist = "Moisture Condition: Wet";
+			moist = "Moisture: Wet";
 		}
 		else {
-			moist = "Moisture Condition: Medium";
+			moist = "Moisture: Medium";
 		}
 		
 		
@@ -322,16 +327,10 @@ public class GardenScreen {
 	public void createScreen(String sun, String soil, String moisture, int budgetNeeded, String name) {
 		
 		HBox infoTileBox = new HBox(20);
-		HBox spacerOne = new HBox();
-		Text spacerTextOne = new Text("");
-		spacerOne.getChildren().add(spacerTextOne);
-		HBox spacerTwo = new HBox();
-		Text spacerTextTwo = new Text("");
-		spacerOne.getChildren().add(spacerTextTwo);
 		
 		VBox infoFinalBox = new VBox(10);
-		infoFinalBox.getChildren().addAll(spacerOne, infoTileBox, spacerTwo);
-		
+		infoFinalBox.getChildren().addAll(infoTileBox);
+		infoFinalBox.setPadding(new Insets(5.0, 5.0, 5.0, 5.0));
 		
 		
 		gardenBorder.setStyle("-fx-background-color: white;");
@@ -351,7 +350,9 @@ public class GardenScreen {
 		//infoTile.setPadding(new Insets(10, 10, 10, 10));
 		infoTile.setStyle("-fx-background-color: pink;");	
 
-		gardenName.setText(name);
+		gardenName.setText("Garden 1");
+		
+		dimension.setText("Dimension: " + 0  + "ft X " + 0 + "ft");
 		leps.setText("Leps Supported: " + 0);
 		budget.setText("Budget: $" + budgetNeeded);
 
@@ -360,7 +361,7 @@ public class GardenScreen {
 	
 		//Adding the options button to the top tile pane
 		optionsButton.setTooltip(new Tooltip("Tooltip for Button"));
-		infoTileBox.getChildren().addAll(gardenName, leps, budget, conditionsDisplay, optionsButton, inventory, lepsSupported, finish);
+		infoTileBox.getChildren().addAll(gardenName, dimension, leps, budget, conditionsDisplay, optionsButton, inventory, lepsSupported, finish);
 		infoTileBox.setAlignment(Pos.CENTER);
 		infoFinalBox.setAlignment(Pos.CENTER);
 		infoTile.getChildren().add(infoFinalBox);

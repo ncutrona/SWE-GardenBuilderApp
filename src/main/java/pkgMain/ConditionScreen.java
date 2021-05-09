@@ -143,7 +143,7 @@ public class ConditionScreen {
 		border.setCenter(flow);
 		BorderPane.setAlignment(flow, Pos.CENTER);
 		flow.setAlignment(Pos.CENTER);
-		flow.setVgap(60);
+		flow.setVgap(40);
 		buttonBox.setAlignment(Pos.CENTER);
 	}
 	
@@ -195,7 +195,6 @@ public class ConditionScreen {
 				}
 			}
 		});
-		
 
 		sunBox = setSliderHbox(sunSlider);
 	}
