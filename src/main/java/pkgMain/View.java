@@ -260,10 +260,10 @@ public class View{
 	 * Handles dragging and dropping plants in the garden
 	 * 
 	 * @param event DragEvent mouse dragging event
+	 * @param plantsInGarden HashMap-String, ArrayList-Coordinates-- list of plants in the garden and their position
 	 * @param plantList HashMap-String, Plant- list of available plants
-	 * @param length int length of garden
-	 * @param width int width of garden
-	 * @return double[] moved plant location
+	 * @param width int width of the garden
+	 * @return double[] new plant location
 	 */
 	public double[] plantDragDropping(DragEvent event, HashMap<String, ArrayList<Coordinates>> plantsInGarden, HashMap<String, Plant> plantList, int width) {
 		double [] xAndY = new double[2];
@@ -525,7 +525,7 @@ public class View{
 	/**
 	 * refreshes inventory screen to display plants sorted by soil condition
 	 * 
-	 * @param aToZ Map-String, Plant- sorted list of available plants by soil condition
+	 * @param soilSortMap Map-String, Plant- sorted list of available plants by soil condition
 	 */
 	public void displayInvSoil(Map<String, Plant> soilSortMap) {
 		invScreen.invTile.getChildren().clear();
@@ -536,7 +536,7 @@ public class View{
 	/**
 	 * refreshes inventory screen to display plants sorted by sun condition
 	 * 
-	 * @param aToZ Map-String, Plant- sorted list of available plants by sun condition
+	 * @param sunSortMap Map-String, Plant- sorted list of available plants by sun condition
 	 */
 	public void displayInvSun(Map<String, Plant> sunSortMap) {
 		invScreen.invTile.getChildren().clear();

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * GardenState class.
- * Holds the state of a garden.
+ * Holds the state of a garden, keeps track of budget, name, # of leps supported, if its full, and when it was last saved.
  * Used to save/load gardens.
  * 
  * @author Aidan Chao

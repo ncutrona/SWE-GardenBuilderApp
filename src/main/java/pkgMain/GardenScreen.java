@@ -77,6 +77,7 @@ public class GardenScreen {
 	 * creates new GardenScreen object with conditions from params
 	 * 
 	 * @param condition GardenConditions to display
+	 * @param state GardenState of the current garden
 	 */
 	public GardenScreen(GardenConditions condition, GardenState state) {
 		createPanes();
@@ -96,9 +97,10 @@ public class GardenScreen {
 	}
 	
 	/**
-	 * updates the condition text and lep/budget count
+	 * updates the condition text and lep/budget count, as well as the dimensions
 	 * 
 	 * @param condition GardenConditions to update
+	 * @param state GardenState used to get GardenName
 	 */
 	public void updateScreen(GardenConditions condition, GardenState state) {
 		setConditionText(condition.getSun(), condition.getSoil(), condition.getMoisture());
@@ -108,7 +110,7 @@ public class GardenScreen {
 	}
 	
 	/**
-	 * Creates the necassary panes for GardenScreen
+	 * Creates the necessary panes for GardenScreen
 	 */
 	public void createPanes() {
 		gardenTile = new GridPane();
