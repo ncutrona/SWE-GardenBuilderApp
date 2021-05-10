@@ -339,8 +339,8 @@ public class GardenScreen {
 		
 		gardenBorder.setCenter(gardenPane); 
 		gardenTile.setPadding(new Insets(10, 10, 10, 10));
-		gardenTile.setStyle("-fx-background-color: pink");
-		
+		gardenTile.setStyle("-fx-background-color: #e1fcc5");
+		//#d8f2d9 #aee8b1 #ededcc
 		gardenTile.getChildren().add(sortedPlants);
 		
 		plantScroll.setContent(gardenTile);
@@ -348,7 +348,7 @@ public class GardenScreen {
 		
 		
 		//infoTile.setPadding(new Insets(10, 10, 10, 10));
-		infoTile.setStyle("-fx-background-color: pink;");	
+		infoTile.setStyle("-fx-background-color: #ffdede");	
 
 		gardenName.setText("Garden 1");
 		
