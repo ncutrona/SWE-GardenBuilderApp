@@ -28,8 +28,8 @@ import javafx.scene.image.Image;
 public class Model {
 
 
-	GardenConditions gardenFinal = new GardenConditions(500, "", "", "");
-	GardenState stateFinal = new GardenState("Test Garden", "Arpil", 0, false, gardenFinal.getBudget());
+	GardenConditions gardenCondition = new GardenConditions(500, "", "", "");
+	GardenState gardenState = new GardenState("Test Garden", "Arpil", 0, false, gardenCondition.getBudget());
 	
 	//Keeping Track of what plants are placed on garden.
 	HashMap<String, ArrayList<Coordinates>> addedPlants = new HashMap<String, ArrayList<Coordinates>>();

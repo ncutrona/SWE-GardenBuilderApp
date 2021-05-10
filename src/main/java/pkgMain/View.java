@@ -57,7 +57,7 @@ public class View{
 	GardenScreen gardenScreen;
 	InvScreen invScreen;
 	SaveScreen saveScreen;
-	PentagonScreen pentagonScreen;
+	HexagonScreen hexagonScreen;
 	PopUpWindow popup;
 	LepMotivationScreen lepScreen;
 	SummaryScreen sumScreen;
@@ -139,7 +139,7 @@ public class View{
 	 * 
 	 * @return Scene screenScene from View, pentagon screen
 	 */
-	public Scene pentagonScreenToScene() {
+	public Scene hexagonScreenToScene() {
 		screenScene = pentagon;
 		return screenScene;
 	}
@@ -206,8 +206,8 @@ public class View{
 		inv = new Scene(invScreen.getScreen(),WIDTH, HEIGHT);
 		popup = new PopUpWindow();
 		pop = new Scene(popup.getScreen());
-		pentagonScreen = new PentagonScreen();
-		pentagon = new Scene(pentagonScreen.getScreen(), WIDTH, HEIGHT);
+		hexagonScreen = new HexagonScreen();
+		pentagon = new Scene(hexagonScreen.getScreen(), WIDTH, HEIGHT);
 		lepScreen = new LepMotivationScreen();
 		leps = new Scene(lepScreen.getScreen(), WIDTH, HEIGHT);
 		sumScreen = new SummaryScreen();
@@ -233,8 +233,8 @@ public class View{
 		
 		lepSupportedScreen.lepInfoTile.getChildren().removeAll(lepSupportedScreen.lepInfoTile.getChildren());
 		
-		pentagonScreen.pentaGardenPane.getChildren().removeAll(pentagonScreen.pentaGardenPane.getChildren());
-		pentagonScreen.setHexagon();
+		hexagonScreen.pentaGardenPane.getChildren().removeAll(hexagonScreen.pentaGardenPane.getChildren());
+		hexagonScreen.setHexagon();
 		
 	}
 	
@@ -380,7 +380,7 @@ public class View{
 	 * @param hexPoints ArrayList-Double- points to draw the hexagon
 	 */
 	public void loadHexagonToGarden(ArrayList<Double> hexPoints) {
-		gardenScreen.gardenPane.getChildren().addAll(fitHexToGarden(pentagonScreen.setAndGetHexagon(hexPoints)));
+		gardenScreen.gardenPane.getChildren().addAll(fitHexToGarden(hexagonScreen.setAndGetHexagon(hexPoints)));
 	}
 	
 	/**

@@ -45,7 +45,7 @@ import javafx.scene.shape.StrokeType;
  * @author Joey Loporto
  * @author Tommy Cheung
  */
-public class PentagonScreen {
+public class HexagonScreen {
 	
 	private Image background = new Image(getClass().getResourceAsStream("/img/bkdirt.png"));
 	private BackgroundImage backgroundimage = new BackgroundImage(background, 
@@ -65,7 +65,7 @@ public class PentagonScreen {
 	 * Default constructor for PentagonScreen object.
 	 * calls methods to create and format necessary attributes.
 	 */
-	public PentagonScreen() {
+	public HexagonScreen() {
 		createPanes();
 		createButton();
 		setHexagon();

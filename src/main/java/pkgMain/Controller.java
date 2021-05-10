@@ -110,7 +110,7 @@ public class Controller extends Application{
 		gardenScreenHandler();
 		loadScreenHandler();
 		conditionScreenHandler();
-		pentagonScreenHandler();
+		hexagonScreenHandler();
 		lepsSupportedScreenHandler();
 		seeLepsSupportedScreenHandler();
 		
@@ -132,12 +132,12 @@ public class Controller extends Application{
     	view.popup.restart.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				model.stateFinal.totalLepsSupported = 0;
+				model.gardenState.totalLepsSupported = 0;
 				model.lepsInGardenArray.clear();
 				model.addedPlants.clear();
 				view.clearInfo();
 				view.closePopUp();
-				pentagonAnchorHandler();
+				hexagonAnchorHandler();
 				window.setScene(view.loadScreenToScene());
 			}
     	});
@@ -146,13 +146,13 @@ public class Controller extends Application{
 
 			@Override
 			public void handle(ActionEvent event) {
-				SaveGarden save = new SaveGarden(model.gardenFinal.getLength(), model.gardenFinal.getWidth());
-				save.setName(model.stateFinal.getGardenName());
-				save.setBudget(model.stateFinal.getGardenBudget());
-				save.setNumLepSupported(model.stateFinal.getTotalLepsSupported());
-				save.setConditions(model.gardenFinal.getSoil(),model.gardenFinal.getSun(), model.gardenFinal.getMoisture());
+				SaveGarden save = new SaveGarden(model.gardenCondition.getLength(), model.gardenCondition.getWidth());
+				save.setName(model.gardenState.getGardenName());
+				save.setBudget(model.gardenState.getGardenBudget());
+				save.setNumLepSupported(model.gardenState.getTotalLepsSupported());
+				save.setConditions(model.gardenCondition.getSoil(),model.gardenCondition.getSun(), model.gardenCondition.getMoisture());
 				save.setPlants(model.addedPlants);
-				save.setHexPoints(view.pentagonScreen.hexagon.getPoints());
+				save.setHexPoints(view.hexagonScreen.hexagon.getPoints());
 				view.saveScreen.savedGarden.put(save.getName(), save);
 				try {
 					File f = new File("Save.txt");
@@ -201,10 +201,10 @@ public class Controller extends Application{
 					//starts at 5 because this gets rid of "Load "
 					SaveGarden garden = view.saveScreen.savedGarden.get(b.getText().substring(5));
 					saveScreenLoadModel(garden);
-					view.gardenScreen.updateScreen(model.gardenFinal, model.stateFinal);
+					view.gardenScreen.updateScreen(model.gardenCondition, model.gardenState);
 					view.gardenScreen.updateLepAndBudget(garden.getNumLepSupported(), garden.getBudget());
 					view.loadHexagonToGarden(garden.getHexPoints());
-					view.loadPlantsToGarden(model.plantDataList, model.addedPlants, model.gardenFinal.getLength(), model.gardenFinal.getWidth());
+					view.loadPlantsToGarden(model.plantDataList, model.addedPlants, model.gardenCondition.getLength(), model.gardenCondition.getWidth());
 					window.setScene(view.gardenScreenToScene());
 				}
 				
@@ -220,43 +220,43 @@ public class Controller extends Application{
 	 * @param garden SaveGarden garden, from file
 	 */
 	public void saveScreenLoadModel(SaveGarden garden) {
-		model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
-		model.stateFinal.GardenName = garden.getName();
-		model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
+		model.gardenCondition = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
+		model.gardenState.GardenName = garden.getName();
+		model.gardenState.totalLepsSupported = garden.getNumLepSupported();
 		//model.addedPlants = garden.getPlants().;
 		for(String plant : garden.getPlants().keySet()) {
 			for(Coordinates c : garden.getPlants().get(plant)) {
 				gardenScreenAddPlant(plant, c.getX(), c.getY());
 			}
 		}
-		model.gardenFinal.setDimensions(garden.getLength(), garden.getWidth());
+		model.gardenCondition.setDimensions(garden.getLength(), garden.getWidth());
 	}
 	
 	
 	/**
-	 * pentagonScreenHandler method.
-	 * Controls view of pentagonScreen.
+	 * hexagonScreenHandler method.
+	 * Controls view of hexagonScreen.
 	 * Calls anchor handler.
 	 */
-	public void pentagonScreenHandler() {
+	public void hexagonScreenHandler() {
 		
-		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
+		view.hexagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				view.gardenScreen.gardenPane.getChildren().add(view.fitHexToGarden(view.pentagonScreen.hexagon));
+				view.gardenScreen.gardenPane.getChildren().add(view.fitHexToGarden(view.hexagonScreen.hexagon));
 				window.setScene(view.gardenScreenToScene());
 			}
 		});
-		pentagonAnchorHandler();
+		hexagonAnchorHandler();
 	}
 	
 	
 	/**
 	 * pentagonAnchorHandler method
-	 * Controls the view and events of pentagonScreen via anchors
+	 * Controls the view and events of hexagonScreen via anchors
 	 */
-	public void pentagonAnchorHandler() {
-		for(Anchor a: view.pentagonScreen.anchors) {
+	public void hexagonAnchorHandler() {
+		for(Anchor a: view.hexagonScreen.anchors) {
 			final Coordinates dragDelta = new Coordinates();
 			a.setOnMousePressed(new EventHandler<MouseEvent>() {
 				@Override public void handle(MouseEvent mouseEvent) {
@@ -309,18 +309,18 @@ public class Controller extends Application{
 	 */
 	public void gardenScreenHandler() {
 	
-		view.addPlantToGarden(Plant.getConditionCheckedPlants(model.plantsMaster, model.gardenFinal.getSun(), 
-				model.gardenFinal.getSoil(), model.gardenFinal.getMoisture()));
+		view.addPlantToGarden(Plant.getConditionCheckedPlants(model.plantsMaster, model.gardenCondition.getSun(), 
+				model.gardenCondition.getSoil(), model.gardenCondition.getMoisture()));
 		
     	view.gardenScreen.gardenPane.setOnDragDropped(new EventHandler <DragEvent>(){
 			public void handle(DragEvent event) {
-				Plant draggedPlant = getPlantList().get(event.getDragboard().getString());
-				double[] coords = view.plantDragDropping(event, model.addedPlants, getPlantList() , model.gardenFinal.getWidth());
+				double[] coords = view.plantDragDropping(event, model.addedPlants, getPlantList() , model.gardenCondition.getWidth());
+				// plantDragDropping returns the coordinates that the image are being placed, if -1.0s then no images are being places
 				if(coords[0] != -1.0 && coords[1] != -1.0) {
 					Plant p = model.plantDataList.get(event.getDragboard().getString());
 					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
 					setModelLepAndBudget(p.getLepsSupported(), p.getPrice());
-					view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+					view.gardenScreen.updateLepAndBudget(model.gardenState.totalLepsSupported, model.gardenState.gardenBudget);
 					view.lepSupportedScreen.createLepImageList(model.lepsInGardenArray); //HERE
 				}
 				
@@ -350,13 +350,13 @@ public class Controller extends Application{
     			if (e.getButton() == MouseButton.SECONDARY) {
     				e.consume();
     				Plant removed = view.deletePlant(e.getTarget(), model.plantDataList);
-    					ImageView removePlant = (ImageView) e.getTarget();
-    					removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
-    						@Override
-    						public void handle(ContextMenuEvent event) {
-    							getDeleteMenu(removePlant, removed).show(removePlant, event.getScreenX(), event.getScreenY());
-    						}
-    					});
+    				ImageView removePlant = (ImageView) e.getTarget();
+    				removePlant.setOnContextMenuRequested(new EventHandler<ContextMenuEvent>() {
+    					@Override
+    					public void handle(ContextMenuEvent event) {
+    						getDeleteMenu(removePlant, removed).show(removePlant, event.getScreenX(), event.getScreenY());
+    					}
+    				});
     			}
     		}
     	});
@@ -455,7 +455,7 @@ public class Controller extends Application{
     		@Override
     		public void handle(MouseEvent e) {
     			
-    			view.setSummaryScreen(model.plantDataList, model.addedPlants,model.stateFinal.getGardenName(),model.stateFinal.getGardenBudget(), model.stateFinal.getTotalLepsSupported());
+    			view.setSummaryScreen(model.plantDataList, model.addedPlants,model.gardenState.getGardenName(),model.gardenState.getGardenBudget(), model.gardenState.getTotalLepsSupported());
     			window.setScene(view.sumScreenToScene());
     			view.popup.save.fire();
 				
@@ -464,11 +464,11 @@ public class Controller extends Application{
     				@Override
     				public void handle(ActionEvent event) {
     					view.clearInfo();
-    					model.stateFinal.totalLepsSupported = 0;
+    					model.gardenState.totalLepsSupported = 0;
     					model.addedPlants.clear();
     					model.lepsInGardenArray.clear();
     					view.sumScreen.clearSumScreen();
-    					pentagonAnchorHandler();
+    					hexagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
     				}
     	    	});
@@ -499,7 +499,6 @@ public class Controller extends Application{
     	    	    else {
     	    	    	scale = pHeight / nHeight;
     	    	    }
-
     	    	    // preserve ratio (both values are the same)
     	    	    node.getTransforms().add(new Scale(scale, scale));
 					PrinterJob job = PrinterJob.createPrinterJob();
@@ -531,9 +530,9 @@ public class Controller extends Application{
 	 * @param removed Plant being removed
 	 */
 	public void deletePlantUpdateState(Plant removed) {
-		model.stateFinal.totalLepsSupported -= removed.getLepsSupported();
-		model.stateFinal.gardenBudget += removed.getPrice();
-		view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+		model.gardenState.totalLepsSupported -= removed.getLepsSupported();
+		model.gardenState.gardenBudget += removed.getPrice();
+		view.gardenScreen.updateLepAndBudget(model.gardenState.totalLepsSupported, model.gardenState.gardenBudget);
 	}
 	
 	
@@ -553,13 +552,10 @@ public class Controller extends Application{
             public void handle(ActionEvent event) {
                 view.gardenScreen.gardenPane.getChildren().remove(plant);
                 deletePlantUpdateState(plantObject);
-                //First find coordinates to delete, then stores the new arraylist of coordinates to the plant id
-                
+                //only deletes the lep if there is only one plant left that supports the plant 
                 if(model.addedPlants.get(plant.getId()).size()== 1){
                 	model.lepsInGardenArray.remove(model.lepsMap.get(plant.getId()));
                 }
-                
-                
                 System.out.println(model.addedPlants.get(plant.getId()).size());
                 //model.addedPlants.get(plant.getId()).remove(new Coordinates(plant.getX(), plant.getY()));
                 ArrayList<Coordinates> newCords = deletePlantFromList(model.addedPlants.get(plant.getId()), plant.getX(), plant.getY());
@@ -569,7 +565,6 @@ public class Controller extends Application{
 		contextMenu.getItems().add(deletePlant);
 		return contextMenu;
 	}
-	
 	
 	/**
 	 * deletePlantFromList method.
@@ -619,8 +614,6 @@ public class Controller extends Application{
     			window.setScene(view.gardenScreenToScene());
 			}
     	});
-		
-	
 	}
 	
 	/**
@@ -630,7 +623,6 @@ public class Controller extends Application{
 		view.loadScreen.startButton.setOnAction(e-> window.setScene(view.conditionScreenToScene()));
 		view.loadScreen.loadButton.setOnAction(e-> window.setScene(view.saveScreenToScene()));
 		view.loadScreen.learn.setOnAction(e-> window.setScene(view.lepScreenToScene()));
-		
 	}
 	
 	/**
@@ -639,9 +631,7 @@ public class Controller extends Application{
 	 * update conditions in view and show pentagon screen.
 	 */
 	public void conditionScreenHandler() {
-		
 		view.conditionScreen.next.setOnAction(new EventHandler<ActionEvent>() {
-
 			@Override
 			public void handle(ActionEvent event) {
 				if(conditionScreenHelper()) {
@@ -651,16 +641,13 @@ public class Controller extends Application{
 					
 					int [] sliderValues = view.returnConditionSliderValue();
 					
-					model.gardenFinal.setMoistureConditions(moistList[sliderValues[0]]);
-					model.gardenFinal.setSunConditions(sunList[sliderValues[1]]);
-					model.gardenFinal.setSoilConditions(soilList[sliderValues[2]]);
-					view.gardenScreen.updateScreen(model.gardenFinal, model.stateFinal);
-					window.setScene(view.pentagonScreenToScene());
-					
+					model.gardenCondition.setMoistureConditions(moistList[sliderValues[0]]);
+					model.gardenCondition.setSunConditions(sunList[sliderValues[1]]);
+					model.gardenCondition.setSoilConditions(soilList[sliderValues[2]]);
+					view.gardenScreen.updateScreen(model.gardenCondition, model.gardenState);
+					window.setScene(view.hexagonScreenToScene());
 				}
-				
 			}
-    		
     	});
 		view.conditionScreen.previous.setOnAction(e-> window.setScene(view.loadScreenToScene()));
 	}
@@ -672,8 +659,8 @@ public class Controller extends Application{
 	 * @param price int price of plant, removed from gardenBudget
 	 */
 	public void setModelLepAndBudget(int lep, int price) {
-		model.stateFinal.totalLepsSupported += lep;
-		model.stateFinal.gardenBudget -= price;
+		model.gardenState.totalLepsSupported += lep;
+		model.gardenState.gardenBudget -= price;
 	}
 	
 	/**
@@ -698,10 +685,10 @@ public class Controller extends Application{
 				int length = Integer.parseInt(view.conditionScreen.length.getText());
 				int width = Integer.parseInt(view.conditionScreen.width.getText());
 				if(!view.saveScreen.savedGarden.containsKey(view.conditionScreen.gardenName.getText())) {
-					model.stateFinal.setGardenName(view.conditionScreen.gardenName.getText());
-					model.gardenFinal.setBudget(intBudget);
-					model.stateFinal.gardenBudget = model.gardenFinal.getBudget();
-					model.gardenFinal.setDimensions(length, width);
+					model.gardenState.setGardenName(view.conditionScreen.gardenName.getText());
+					model.gardenCondition.setBudget(intBudget);
+					model.gardenState.gardenBudget = model.gardenCondition.getBudget();
+					model.gardenCondition.setDimensions(length, width);
 					return true;
 				}
 				view.setValidNameText();
