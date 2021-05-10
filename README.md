@@ -1,11 +1,11 @@
 # UML
 ### Model
-![UML Model](https://github.com/CISC275-S2021/project-team-10-2/UML/ModelF.png)
+![UML Model](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ModelF.png)
 ### View
-![UML View 1](https://github.com/CISC275-S2021/project-team-10-2/UML/ViewF1.png)
-![UML View 2](https://github.com/CISC275-S2021/project-team-10-2/UML/ViewF2.png)
+![UML View 1](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ViewF1.png)
+![UML View 2](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ViewF2.png)
 ### Controller
-![UML Controller](https://github.com/CISC275-S2021/project-team-10-2/UML/ControlF.png)
+![UML Controller](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ControlF.png)
 
 # CISC275-project-template
 
