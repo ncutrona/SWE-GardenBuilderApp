@@ -57,6 +57,24 @@ public class PopUpWindow {
 		resume = new Button("Resume");
 		save = new Button("Save");
 		restart = new Button("Restart");
+		styleButtons();
+	}
+	public void styleButtons() {
+		resume.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+				+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
+		save.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+				+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
+		restart.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
+				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #ffb6c1 0%, #ffb6c1 100%),"
+				+ "#ffb6c1,#ffb6c1,radial-gradient(center 50% 50%, radius 100%, #ffb6c1, #ffb6c1);"
+				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 	}
 	
 	/**

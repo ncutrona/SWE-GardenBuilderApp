@@ -123,7 +123,7 @@ public class GardenScreen {
 	 */
 	public void createText() {
 		leps = new Text();
-		leps.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 15));
+		leps.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 14));
 		leps.setFill(Color.GREEN);
 		leps.setStrokeWidth(0.2);
 		leps.setStroke(Color.BLUE);
@@ -157,25 +157,25 @@ public class GardenScreen {
 	 */
 	public void createButton() {
 		inventory = new Button("See Full Inventory");
-		inventory.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+		inventory.setStyle("-fx-padding: 8 10 10 10; -fx-background-insets: "
 				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
 				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #add8e6 0%, #add8e6 100%),"
 				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
 				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 		optionsButton = new Button("Options");
-		optionsButton.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+		optionsButton.setStyle("-fx-padding: 8 10 10 10; -fx-background-insets: "
 				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
 				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #add8e6 0%, #add8e6 100%),"
 				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
 				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 		finish = new Button("Finish");
-		finish.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+		finish.setStyle("-fx-padding: 8 10 10 10; -fx-background-insets: "
 				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
 				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #add8e6 0%, #add8e6 100%),"
 				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
 				+ "-fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );-fx-font-weight: bold; -fx-font-size: 1.1em;");
 		lepsSupported = new Button ("Leps Supported");
-		lepsSupported.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
+		lepsSupported.setStyle("-fx-padding: 8 10 10 10; -fx-background-insets: "
 				+ "0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: "
 				+ "8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #add8e6 0%, #add8e6 100%),"
 				+ "#add8e6,#add8e6,radial-gradient(center 50% 50%, radius 100%, #add8e6, #add8e6);"
@@ -342,7 +342,6 @@ public class GardenScreen {
 		gardenBorder.setCenter(gardenPane); 
 		gardenTile.setPadding(new Insets(10, 10, 10, 10));
 		gardenTile.setStyle("-fx-background-color: #e1fcc5");
-		//#d8f2d9 #aee8b1 #ededcc
 		gardenTile.getChildren().add(sortedPlants);
 		
 		plantScroll.setContent(gardenTile);

@@ -114,7 +114,7 @@ public class Controller extends Application{
 		lepsSupportedScreenHandler();
 		seeLepsSupportedScreenHandler();
 		
-		window.setTitle("GARDEN BUILDER v 0.01 ~ BETA");
+		window.setTitle("GARDEN BUILDER v 0.03");
 		window.setScene(view.getScreen());
 		window.setMaximized(true);
 		window.show();

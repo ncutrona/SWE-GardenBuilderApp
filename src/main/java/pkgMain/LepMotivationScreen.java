@@ -37,8 +37,6 @@ import javafx.stage.Screen;
  */
 public class LepMotivationScreen {
 	
-	
-	
 	//LAYOUT 
 	//Lep Image at the Top, 3 Panes of Information - What Are Leps, What do Leps Do?, how To supprt Leps?
 	
@@ -90,13 +88,13 @@ public class LepMotivationScreen {
 		
 		//What Are Leps!
 		Text what = new Text("What Are Leps?");
-		what.setFont(Font.font ("Verdana", FontWeight.BOLD, 25));
+		what.setFont(Font.font ("Verdana", FontWeight.BOLD, 23));
 		what.setFill(Color.WHITE);
 		what.setStroke(Color.PINK);
 		
 		Text infoWhat = new Text(" - Lepidoptera is an order of insects that includes\n  butterflies and moths.\n\n\n- About 180,000 species of the Lepidoptera are described, \n  in 126 families and 46 superfamilies, 10 percent of the \n  total described species of living organisms.\n\n\n- It is one of the most widespread and widely \n  recognizable insect orders in the world.");
 		infoWhat.setFill(Color.BEIGE);
-		infoWhat.setFont(Font.font ("Verdana", FontWeight.BOLD, 17));
+		infoWhat.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));
 		infoWhat.setStrokeWidth(0.75);
 		//infoWhat.setStroke(Color.BLACK);
 		
@@ -104,14 +102,14 @@ public class LepMotivationScreen {
 		infoOne.getChildren().addAll(what, infoWhat);
 		
 		Text why = new Text("What do Leps Do?");
-		why.setFont(Font.font ("Verdana",FontWeight.BOLD, 25));
+		why.setFont(Font.font ("Verdana",FontWeight.BOLD, 23));
 		why.setFill(Color.WHITE);
 		why.setStroke(Color.PINK);
 		
 		
 		Text infoWhy = new Text("- In most land environments the lepidopterans are\n  ecologically important because they transform large\n  amounts of plant matter into animal matter.\n\n\n - Leps in turn serve as food for many other\n  groups of animals.");
 		infoWhy.setFill(Color.BEIGE);
-		infoWhy.setFont(Font.font ("Verdana", FontWeight.BOLD, 17));
+		infoWhy.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));
 		infoWhy.setStrokeWidth(0.75);
 		//infoWhy.setStroke(Color.BLACK);
 		
@@ -120,13 +118,13 @@ public class LepMotivationScreen {
 		
 		
 		Text how = new Text("How To Support Leps & Native Plants?");
-		how.setFont(Font.font ("Verdana",FontWeight.BOLD, 25));
+		how.setFont(Font.font ("Verdana",FontWeight.BOLD, 23));
 		how.setFill(Color.WHITE);
 		how.setStroke(Color.PINK);
 		
 		Text infoHow = new Text(" - Adopt a more tolerant approach to debris and spent plant\n  material in the garden in order to support lepidoptera.\n\n\n  - The likelihood of seeing certain species of lepidoptera\n  can be limited due to stringent habitat\n  requirements or ranged.");
 		infoHow.setFill(Color.BEIGE);
-		infoHow.setFont(Font.font ("Verdana", FontWeight.BOLD, 17));
+		infoHow.setFont(Font.font ("Verdana", FontWeight.BOLD, 15));
 		infoHow.setStrokeWidth(0.75);
 		//infoHow.setStroke(Color.BLACK);
 		
@@ -147,7 +145,7 @@ public class LepMotivationScreen {
 		Font courierNewFontBold36 = Font.font("Courier New", FontWeight.BOLD, 36);
 		mtCubaLink.setFont(courierNewFontBold36);
 		
-		buttonData.getChildren().addAll(data, mtCubaLink, back, lepIv);
+		buttonData.getChildren().addAll(data, mtCubaLink, back);
 		buttonData.setAlignment(Pos.TOP_CENTER);
 	
 		
