@@ -231,6 +231,8 @@ public class View{
 		conditionScreen.length.clear();
 		conditionScreen.width.clear();
 		
+		lepSupportedScreen.lepInfoTile.getChildren().removeAll(lepSupportedScreen.lepInfoTile.getChildren());
+		
 		pentagonScreen.pentaGardenPane.getChildren().removeAll(pentagonScreen.pentaGardenPane.getChildren());
 		pentagonScreen.setHexagon();
 		

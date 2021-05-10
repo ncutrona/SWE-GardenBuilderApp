@@ -133,6 +133,8 @@ public class Controller extends Application{
 			@Override
 			public void handle(ActionEvent event) {
 				model.stateFinal.totalLepsSupported = 0;
+				model.lepsInGardenArray.clear();
+				model.addedPlants.clear();
 				view.clearInfo();
 				view.closePopUp();
 				pentagonAnchorHandler();
@@ -319,11 +321,12 @@ public class Controller extends Application{
 					gardenScreenAddPlant(p.getScientificName(), coords[0], coords[1]);
 					setModelLepAndBudget(p.getLepsSupported(), p.getPrice());
 					view.gardenScreen.updateLepAndBudget(model.stateFinal.totalLepsSupported, model.stateFinal.gardenBudget);
+					view.lepSupportedScreen.createLepImageList(model.lepsInGardenArray); //HERE
 				}
 				
 				event.setDropCompleted(true);
 				event.consume();
-				view.lepSupportedScreen.createLepImageList(model.lepsInGardenArray);
+				
 			}
 		});
     	view.gardenScreen.gardenPane.setOnDragOver(new EventHandler <DragEvent>() {
@@ -518,10 +521,10 @@ public class Controller extends Application{
     					view.clearInfo();
     					model.stateFinal.totalLepsSupported = 0;
     					model.addedPlants.clear();
+    					model.lepsInGardenArray.clear();
     					view.sumScreen.clearSumScreen();
     					pentagonAnchorHandler();
     					window.setScene(view.loadScreenToScene());
-    					
     				}
     	    	});
     	    	view.sumScreen.printInfo.setOnAction(f-> {
@@ -568,9 +571,9 @@ public class Controller extends Application{
     	view.gardenScreen.lepsSupported.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-    			view.lepSupportedScreen.updateLepEncyclopedia(model.lepsInGardenArray);
-    			window.setScene(view.lepSupportedScreenToScene());
-    			
+				view.lepSupportedScreen.updateLepEncyclopedia(model.lepsInGardenArray);
+				window.setScene(view.lepSupportedScreenToScene());
+				
 			}
     	});
  
@@ -606,6 +609,14 @@ public class Controller extends Application{
                 view.gardenScreen.gardenPane.getChildren().remove(plant);
                 deletePlantUpdateState(plantObject);
                 //First find coordinates to delete, then stores the new arraylist of coordinates to the plant id
+                
+                if(model.addedPlants.get(plant.getId()).size()== 1){
+                	model.lepsInGardenArray.remove(model.lepsMap.get(plant.getId()));
+                }
+                
+                
+                System.out.println(model.addedPlants.get(plant.getId()).size());
+                //model.addedPlants.get(plant.getId()).remove(new Coordinates(plant.getX(), plant.getY()));
                 ArrayList<Coordinates> newCords = deletePlantFromList(model.addedPlants.get(plant.getId()), plant.getX(), plant.getY());
                 model.addedPlants.put(plant.getId(), newCords); 
             }
@@ -641,18 +652,6 @@ public class Controller extends Application{
 	 */
 	public void lepsSupportedScreenHandler() {
 		view.lepScreen.back.setOnAction(e-> window.setScene(view.loadScreenToScene()));
-	}
-	
-	public void seeLepsSupportedScreenHandler() {
-    	view.lepSupportedScreen.goBack.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-    			view.lepSupportedScreen.lepInfoTile.getChildren().clear();
-    			window.setScene(view.gardenScreenToScene());
-    			
-			}
-    	});
-		
 		view.lepScreen.mtCubaLink.setOnAction(e -> {
 		    if(Desktop.isDesktopSupported())
 		    {
@@ -665,6 +664,17 @@ public class Controller extends Application{
 		        }
 		    }
 		});
+	}
+	
+	public void seeLepsSupportedScreenHandler() {
+    	view.lepSupportedScreen.goBack.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+    			view.lepSupportedScreen.lepInfoTile.getChildren().clear();
+    			window.setScene(view.gardenScreenToScene());
+			}
+    	});
+		
 	
 	}
 	
@@ -810,12 +820,30 @@ public class Controller extends Application{
 	 * @param y double y pos of plant
 	 */
 	public void gardenScreenAddPlant(String nodeID, double x, double y) {
-		if(!model.addedPlants.containsKey(nodeID)) {
-			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
-			if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
-				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
+		
+		if(model.addedPlants.containsKey(nodeID)) {
+			if(model.addedPlants.get(nodeID).size() > 0) {
+				model.addedPlants.get(nodeID).add(new Coordinates(x,y));
+				return;
 			}
 		}
+		
+		if(!model.addedPlants.containsKey(nodeID)) {
+			model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
+		}
+		
+		if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
+				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
+				model.addedPlants.get(nodeID).add(new Coordinates(x,y));
+				return;
+		}
+		
+		if(!model.addedPlants.containsKey(nodeID)) {
+				model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
+			}
+			
+		
 		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
+		
 	}
 }
