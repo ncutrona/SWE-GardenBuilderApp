@@ -196,6 +196,12 @@ public class InvScreen {
 
 	}
 
+	/**
+	 * Returns a formatted string based on the passed in soil condition
+	 * 
+	 * @param soilCond String soil condition
+	 * @return String formatted soil condition
+	 */
 	public String returnSoilCondition(String soilCond) {
 		if(soilCond.toLowerCase().contains("clay") && soilCond.toLowerCase().contains("sand") && soilCond.toLowerCase().contains("loam")) {
 			soilCond = "Clay, loam, sand";
@@ -221,6 +227,12 @@ public class InvScreen {
 		return soilCond;
 	}
 
+	/**
+	 * Returns a formatted string based on the passed in sun condition
+	 * 
+	 * @param sunCond String sun condition
+	 * @return String formatted sun condition
+	 */
 	public String returnSunCondition(String sunCond) {
 		if(sunCond.toLowerCase().contains("full") && sunCond.toLowerCase().contains("partial") && sunCond.toLowerCase().contains("shade")) {
 			sunCond = "Full sun, partial sun, shade";
@@ -246,6 +258,12 @@ public class InvScreen {
 		return sunCond;
 	}
 
+	/**
+	 * Returns a formatted string based on the passed in moisture condition
+	 * 
+	 * @param moistureCond String moisture condition
+	 * @return String formatted moisture condition
+	 */
 	public String returnMoistureCondition(String moistureCond) {
 		if(moistureCond.toLowerCase().contains("wet") && moistureCond.toLowerCase().contains("moist") && moistureCond.toLowerCase().contains("dry")) {
 			moistureCond = "Wet, medium, dry";

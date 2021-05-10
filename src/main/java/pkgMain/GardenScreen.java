@@ -325,6 +325,7 @@ public class GardenScreen {
 	 * @param soil String current soil condition
 	 * @param moisture String current moisture condition
 	 * @param budgetNeeded int budget needed
+	 * @param name String name of garden
 	 */
 	public void createScreen(String sun, String soil, String moisture, int budgetNeeded, String name) {
 		

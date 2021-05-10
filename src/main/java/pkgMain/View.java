@@ -155,7 +155,7 @@ public class View{
 	}
 	
 	/**
-	 * sets screenScene to sum and returns screenScene
+	 * sets screenScene to sum Screen and returns screenScene
 	 * 
 	 * @return Scene screenScene from View, sum screen
 	 */
@@ -164,7 +164,11 @@ public class View{
 		return screenScene;
 	}
 	
-	
+	/**
+	 * sets screenScene to LepSupported Screen and returns screenScene
+	 * 
+	 * @return Scene screenScene from View, lepSupported screen
+	 */
 	public Scene lepSupportedScreenToScene() {
 		screenScene = lepSupport;
 		return screenScene;
@@ -291,6 +295,17 @@ public class View{
 		return xAndY;
 	}
 	
+	/**
+	 * Checks to see if there is empty space in garden to place the plant when the user drags it into the garden.
+	 * 
+	 * @param plants HashMap-String, ArrayList-Coordinates-- plants in the garden and their location
+	 * @param plantList HashMap-String, Plant- of available plants
+	 * @param plant String plant being dragged
+	 * @param gardenWidth int width of the garden
+	 * @param x int x position of dragged plant
+	 * @param y int y position of dragged plant
+	 * @return boolean true if there is space for the plant, false if not
+	 */
 	public boolean isEmptySpace(HashMap<String, ArrayList<Coordinates>> plants, HashMap<String, Plant> plantList, String plant, int gardenWidth,double x, double y) {
 		Plant draggedPlant = plantList.get(plant);
 		double width = convertToSize(gardenWidth, draggedPlant.getWidth())/2.0;
@@ -484,24 +499,45 @@ public class View{
 		return hex;
 	}
 	
+	/**
+	 * refreshes inventory screen to display plants alphabetically by scientific name
+	 * 
+	 * @param aToZ Map-String, Plant- sorted list of available plants
+	 */
 	public void displayInvAtoZ(Map<String, Plant> aToZ) {
 		invScreen.invTile.getChildren().clear();
 		invScreen.invTileControls.getChildren().clear();
 		invScreen.createInventoryScreen(aToZ, gardenScreen.returnPlantImageList());
 	}
 	
+	
+	/**
+	 * refreshes inventory screen to display plants sorted by number of lepsSupported
+	 * 
+	 * @param lepsSupportedSortMap Map-String, Plant- sorted list of available plants by lepsSupported
+	 */
 	public void displayInvLepsSupported(Map<String, Plant> lepsSupportedSortMap) {
 		invScreen.invTile.getChildren().clear();
 		invScreen.invTileControls.getChildren().clear();
 		invScreen.createInventoryScreen(lepsSupportedSortMap, gardenScreen.returnPlantImageList());
 	}
 	
+	/**
+	 * refreshes inventory screen to display plants sorted by soil condition
+	 * 
+	 * @param aToZ Map-String, Plant- sorted list of available plants by soil condition
+	 */
 	public void displayInvSoil(Map<String, Plant> soilSortMap) {
 		invScreen.invTile.getChildren().clear();
 		invScreen.invTileControls.getChildren().clear();
 		invScreen.createInventoryScreen(soilSortMap, gardenScreen.returnPlantImageList());
 	}
 	
+	/**
+	 * refreshes inventory screen to display plants sorted by sun condition
+	 * 
+	 * @param aToZ Map-String, Plant- sorted list of available plants by sun condition
+	 */
 	public void displayInvSun(Map<String, Plant> sunSortMap) {
 		invScreen.invTile.getChildren().clear();
 		invScreen.invTileControls.getChildren().clear();

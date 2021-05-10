@@ -588,7 +588,7 @@ public class Controller extends Application{
 	
 	
 	/**
-	 * handles back button for leps supported screen
+	 * handles back button for "leps supported" screen, checks for desktop to support mt. Cuba link
 	 */
 	public void lepsSupportedScreenHandler() {
 		view.lepScreen.back.setOnAction(e-> window.setScene(view.loadScreenToScene()));
@@ -606,6 +606,9 @@ public class Controller extends Application{
 		});
 	}
 	
+	/**
+	 * handles back button for "see leps supported" screen
+	 */
 	public void seeLepsSupportedScreenHandler() {
     	view.lepSupportedScreen.goBack.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -719,6 +722,10 @@ public class Controller extends Application{
 		}
 	}
 	
+	
+	/**
+	 * code for reading lep info from a csv in src/main/resources/leps_supported_USA.csv
+	 */
 	public void readLepsCsv() throws IOException {
 		File lepData = Paths.get("src/main/resources/leps_supported_USA.csv").toFile().getAbsoluteFile();
 		BufferedReader br = new BufferedReader(new FileReader(lepData));
