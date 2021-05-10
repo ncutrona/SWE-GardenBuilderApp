@@ -22,6 +22,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * LepSupportedScreen class.
+ * Screen that displays the leps supported by garden
+ *
+ * @author Aidan Chao
+ * @author Nicholas Cutrona
+ * @author Caleb Davis
+ * @author Joey Loporto
+ * @author Tommy Cheung
+ */
 public class LepSupportedScreen {
 
 	
@@ -34,6 +44,10 @@ public class LepSupportedScreen {
 	Text test = new Text("TEST");
 	
 	
+	/**
+	 * default constructor for LepSupportedScreen object,
+	 * Calls helper methods to create buttons, panes, and screen.
+	 */
 	public LepSupportedScreen() {
 		createButton();
 		createPanes();
@@ -41,10 +55,17 @@ public class LepSupportedScreen {
 		
 	}
 	
+	/**
+	 * returns ScrollPane scroll of LepSupportedScreen
+	 * @return ScrollPane scroll
+	 */
 	public ScrollPane getScreen() {
 		return scroll;
 	}
 	
+	/**
+	 * Creates and formats back button for LepSupportedScreen
+	 */
 	public void createButton() {
 		goBack = new Button("Go Back");
 		goBack.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: "
@@ -55,6 +76,9 @@ public class LepSupportedScreen {
 	}
 	
 	
+	/**
+	 * Creates and formats TilePanes, BorderPane, and ScrollPane for LepSupportedScreen.
+	 */
 	public void createPanes() {
 		lepInfoTile = new TilePane();
 		lepControlTile = new TilePane();
@@ -64,6 +88,9 @@ public class LepSupportedScreen {
 	}
 	
 	
+	/**
+	 * Formats attributes, text, and positions for the LepSupportedScreen
+	 */
 	public void createScreen() {
 		lepInfoTile.setStyle("-fx-background-color: beige;");
 		lepControlTile.setStyle("-fx-background-color: beige;");
@@ -83,6 +110,11 @@ public class LepSupportedScreen {
 		scroll.setContent(lepBorder);
 	}
 	
+	/**
+	 * Updates values in the Lep Encyclopedia from passed in ArrayList
+	 * 
+	 * @param lepsInGardenArray ArrayList-String- of leps in the garden
+	 */
 	public void updateLepEncyclopedia(ArrayList<String> lepsInGardenArray) {
 		List<String> lepsList = lepsInGardenArray;
 		Set<String> uniqueLepsList = new HashSet<String>(lepsList);
@@ -105,6 +137,11 @@ public class LepSupportedScreen {
         }
 	}
 	
+	/**
+	 * Creates a list of lep images that are in the garden
+	 * 
+	 * @param lepsInGardenArray ArrayList-String- of leps in the garden
+	 */
 	public void createLepImageList(ArrayList<String> lepsInGardenArray) {
 		for(String lep : lepsInGardenArray) {
 			lep = lep.strip();
@@ -114,6 +151,10 @@ public class LepSupportedScreen {
 		}
 	}
 
+	/**
+	 * returns images of leps that are compatible with the garden
+	 * @return lepImagesMap HashMap-String, Image- of lep images
+	 */
 	public HashMap<String, Image> returnLepImageList() {
 		return lepImagesMap;
 	}

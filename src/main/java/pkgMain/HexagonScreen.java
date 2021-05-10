@@ -36,7 +36,7 @@ import javafx.scene.shape.StrokeLineCap;
 import javafx.scene.shape.StrokeType;
 
 /**
- * PentagonScreen class.
+ * HexagonScreen class.
  * Screen that displays the shape of the garden.
  *
  * @author Aidan Chao
@@ -62,7 +62,7 @@ public class HexagonScreen {
 	ObservableList<Anchor> anchors;
 	
 	/**
-	 * Default constructor for PentagonScreen object.
+	 * Default constructor for HexagonScreen object.
 	 * calls methods to create and format necessary attributes.
 	 */
 	public HexagonScreen() {
