@@ -223,7 +223,12 @@ public class Controller extends Application{
 		model.gardenFinal = new GardenConditions(garden.getBudget(), garden.getSunCondition(), garden.getMoistCondition(), garden.getSoilCondition());
 		model.stateFinal.GardenName = garden.getName();
 		model.stateFinal.totalLepsSupported = garden.getNumLepSupported();
-		model.addedPlants = garden.getPlants();
+		//model.addedPlants = garden.getPlants().;
+		for(String plant : garden.getPlants().keySet()) {
+			for(Coordinates c : garden.getPlants().get(plant)) {
+				gardenScreenAddPlant(plant, c.getX(), c.getY());
+			}
+		}
 		model.gardenFinal.setDimensions(garden.getLength(), garden.getWidth());
 	}
 	
@@ -238,14 +243,9 @@ public class Controller extends Application{
 		view.pentagonScreen.set.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				
-				//**********************************************************************************************************************************************************************************
 				view.gardenScreen.gardenPane.getChildren().add(view.fitHexToGarden(view.pentagonScreen.hexagon));
-				
 				window.setScene(view.gardenScreenToScene());
-				
 			}
-			
 		});
 		pentagonAnchorHandler();
 	}
@@ -392,17 +392,6 @@ public class Controller extends Application{
     					else {
     						lepsFilter = false;
     					}
-//    					if (view.invScreen.filterByLepsAlphabet.getValue().equals("A to Z")) {
-//    						Map<String, Plant> aToZ = new TreeMap<String, Plant>(model.plantDataList);
-//    						view.displayInvAtoZ(aToZ);
-//    		    			window.setScene(view.invScreenToScene());
-//    					}
-//    					else if (view.invScreen.filterByLepsAlphabet.getValue().equals("Leps supported")) {
-//    						model.sortHashLeps(Plant.getLepSupportedPlants(model.plantsMaster));
-//    						Map<String, Plant> lepsSupportedSortMap = model.lepsHash;
-//    						view.displayInvLepsSupported(lepsSupportedSortMap);
-//    		    			window.setScene(view.invScreenToScene());
-//    					}
     				}
     	    	});
     	    	view.invScreen.filterBySoil.setOnAction(new EventHandler<ActionEvent>() {
@@ -410,21 +399,7 @@ public class Controller extends Application{
     				public void handle(ActionEvent event) {
     					soilFilter = (String)view.invScreen.filterBySoil.getValue();
     					soilFilter = soilFilter.toLowerCase();
-//    					if (view.invScreen.filterBySoil.getValue().equals("Clay")) {
-//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "clay");
-//    						view.displayInvSoil(soilSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else if (view.invScreen.filterBySoil.getValue().equals("Loam")) {
-//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "loam");
-//    						view.displayInvSoil(soilSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else {
-//    						Map<String, Plant> soilSortMap = Plant.getSoilSortedPlants(model.plantsMaster, "sand");
-//    						view.displayInvSoil(soilSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
+
     				}
     	    	});
     	    	view.invScreen.filterBySun.setOnAction(new EventHandler<ActionEvent>() {
@@ -439,21 +414,6 @@ public class Controller extends Application{
     					else if(sunFilter.contains("partial")){
     						sunFilter = "partial";
     					}
-//    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
     				}
     	    	});
     	    	view.invScreen.filterByMoisture.setOnAction(new EventHandler<ActionEvent>() {
@@ -464,21 +424,6 @@ public class Controller extends Application{
     					if(moistureFilter.contains("medium")){
     						moistureFilter = "moist";
     					}
-//    					if (view.invScreen.filterBySun.getValue().equals("Full")) {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "full");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else if (view.invScreen.filterBySun.getValue().equals("Partial")) {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "partial");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
-//    					else {
-//    						Map<String, Plant> sunSortMap = Plant.getSunSortedPlants(model.plantsMaster, "shade");
-//    						view.displayInvSoil(sunSortMap);;
-//    						window.setScene(view.invScreenToScene());
-//    					}
     				}
     	    	});
     	    	
