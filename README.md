@@ -1,4 +1,12 @@
-![UML](https://user-images.githubusercontent.com/79106158/116423503-bdaa5f80-a80e-11eb-92a4-66d232b0ec9a.png)
+# UML
+### Model
+![UML Model](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ModelF.png)
+### View
+![UML View 1](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ViewF1.png)
+![UML View 2](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ViewF2.png)
+### Controller
+![UML Controller](https://github.com/CISC275-S2021/project-team-10-2/blob/main/UML/ControlF.png)
+
 # CISC275-project-template
 
 Note: to run with gradle you must use the directory structure `src/main/java/` and `src/main/resources/`. So you can have multiple projects in this repo. So it could look like `project1/src/main/java` and `project2/src/main/java`. Just make sure to place a `build.gradle` file inside each of the projects root under `project1/` and `project2`.

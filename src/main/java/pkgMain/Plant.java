@@ -330,7 +330,9 @@ public class Plant {
 	}
 	
 	/**
-	 * Sorts the masterList via PlantCompare and returns it
+	 * Sorts the masterList in-place via PlantCompare and returns it.
+	 * PlantCompare sorts via scientific name.
+	 * 
 	 * @param masterList ArrayList-Plant- of plants
 	 * @return sorted ArrayList-Plant-
 	 */
@@ -341,6 +343,13 @@ public class Plant {
 		return masterList;
 	}
 	
+	/**
+	 * returns new LinkedHashMap of plants filtered by soil condition
+	 * 
+	 * @param masterList ArrayList-Plant- of plants
+	 * @param condition soil condition
+	 * @return LinkedHashMap-String, Plant- of plants filtered via soil condition
+	 */
 	public static LinkedHashMap<String, Plant> getSoilSortedPlants(ArrayList<Plant> masterList, String condition) {
 		LinkedHashMap<String, Plant> soilSortedPlants = new LinkedHashMap<String, Plant>();
 		for (Plant plant : masterList) {
@@ -351,6 +360,13 @@ public class Plant {
 		return soilSortedPlants;
 	}
 	
+	/**
+	 * returns new LinkedHashMap of plants filtered by sun condition
+	 * 
+	 * @param masterList ArrayList-Plant- of plants
+	 * @param condition sun condition
+	 * @return LinkedHashMap-String, Plant- of plants filtered via sun condition
+	 */
 	public static LinkedHashMap<String, Plant> getSunSortedPlants(ArrayList<Plant> masterList, String condition) {
 		LinkedHashMap<String, Plant> sunSortedPlants = new LinkedHashMap<String, Plant>();
 		for (Plant plant : masterList) {
@@ -361,6 +377,13 @@ public class Plant {
 		return sunSortedPlants;
 	}
 	
+	/**
+	 * returns new LinkedHashMap of plants filtered by moisture condition
+	 * 
+	 * @param masterList ArrayList-Plant- of plants
+	 * @param condition moisture condition
+	 * @return LinkedHashMap-String, Plant- of plants filtered via moisture condition
+	 */
 	public static LinkedHashMap<String, Plant> getMoistureSortedPlants(ArrayList<Plant> masterList, String condition) {
 		LinkedHashMap<String, Plant> moistureSortedPlants = new LinkedHashMap<String, Plant>();
 		for (Plant plant : masterList) {
@@ -371,6 +394,15 @@ public class Plant {
 		return moistureSortedPlants;
 	}
 	
+	/**
+	 * Filters and sorts plants for inventory from masterList based on conditions
+	 * 
+	 * @param masterList ArrayList-Plant- of plants
+	 * @param soilCondition soil condition of garden
+	 * @param sunCondition sun condition of garden
+	 * @param moistureCondition moisture condition of garden
+	 * @return LinkedHashMap-String, Plant- of garden-compatible plants filtered by garden conditions and sorted
+	 */
 	public static LinkedHashMap<String, Plant> sortInvByConditions(ArrayList<Plant> masterList, String soilCondition, String sunCondition, String moistureCondition) {
 		LinkedHashMap<String, Plant> conditionSortedPlants = new LinkedHashMap<String, Plant>();
 		ArrayList<Plant> soilSortedArray = new ArrayList<Plant>();
@@ -393,7 +425,7 @@ public class Plant {
 
 /**
  * PlantCompare class that implements the Comparator interface.
- * Used to compare plants.
+ * Used to sort plants by scientific name.
  * 
  * @author Aidan Chao
  * @author Nicholas Cutrona
