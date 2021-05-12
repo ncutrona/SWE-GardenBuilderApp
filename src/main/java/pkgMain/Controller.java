@@ -230,6 +230,7 @@ public class Controller extends Application{
 			}
 		}
 		model.gardenCondition.setDimensions(garden.getLength(), garden.getWidth());
+		view.lepSupportedScreen.createLepImageList(model.lepsInGardenArray);
 	}
 	
 	
@@ -515,6 +516,7 @@ public class Controller extends Application{
     	view.gardenScreen.lepsSupported.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				//System.out.println(model.lepsInGardenArray);
 				view.lepSupportedScreen.updateLepEncyclopedia(model.lepsInGardenArray);
 				window.setScene(view.lepSupportedScreenToScene());
 				
@@ -759,7 +761,6 @@ public class Controller extends Application{
 	 * @param y double y pos of plant
 	 */
 	public void gardenScreenAddPlant(String nodeID, double x, double y) {
-		
 		if(model.addedPlants.containsKey(nodeID)) {
 			if(model.addedPlants.get(nodeID).size() > 0) {
 				model.addedPlants.get(nodeID).add(new Coordinates(x,y));
@@ -773,15 +774,8 @@ public class Controller extends Application{
 		
 		if (model.lepsMap.containsKey(nodeID) && !model.lepsInGardenArray.contains(nodeID)) {
 				model.lepsInGardenArray.add(model.lepsMap.get(nodeID));
-				model.addedPlants.get(nodeID).add(new Coordinates(x,y));
-				return;
 		}
-		
-		if(!model.addedPlants.containsKey(nodeID)) {
-				model.addedPlants.put(nodeID, new ArrayList<Coordinates>());
-			}
-			
-		
+					
 		model.addedPlants.get(nodeID).add(new Coordinates(x,y));
 		
 	}
