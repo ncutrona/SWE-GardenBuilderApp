@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -307,6 +308,11 @@ public class GardenScreen {
 				Dragboard db = iv1.startDragAndDrop(TransferMode.COPY);
 				ClipboardContent content = new ClipboardContent();
 				content.putString(iv1.getId());
+				
+				SnapshotParameters parameters = new SnapshotParameters();
+				parameters.setFill(Color.TRANSPARENT);
+				
+				content.putImage(iv1.snapshot(parameters, null));
 				db.setContent(content);
 				event.consume();
 			}
